@@ -158,7 +158,7 @@ PYBIND11_MODULE(dqrobotics, m) {
     m.def("get_z",&DQ_robotics::get_z,"Returns the z of a transformation.");
     m.def("analyticalJacobian",&DQ_robotics::analyticalJacobian,"Returns the analytical Jacobian");
     m.def("rotationJacobian",  &DQ_robotics::rotationJacobian,"Returns the rotation Jacobian");
-    m.def("distanceJacobian",  &DQ_robotics::distanceJacobian,"Returns the distance Jacobian");
+    //m.def("distanceJacobian",  &DQ_robotics::distanceJacobian,"Returns the distance Jacobian");
     m.def("pseudoInverse",     &DQ_robotics::pseudoInverse,"Returns the pseudoinverse of a matrix");
 
     /*****************************************************
