@@ -58,12 +58,15 @@ class CMakeBuild(build_ext):
 
 setup(
     name='dqrobotics',
-    version='0.0.1',
+    version='0.0.166',
     author='Murilo Marinho',
     author_email='murlou@gmail.com',
     description='DQRobotics pybind11 and CMake',
     long_description='',
     ext_modules=[CMakeExtension('dqrobotics')],
     cmdclass=dict(build_ext=CMakeBuild),
+    install_requires=[
+       'numpy',
+    ],
     zip_safe=False,
 )
