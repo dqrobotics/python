@@ -6,13 +6,13 @@ namespace py = pybind11;
 #include <dqrobotics/DQ.h>
 #include <dqrobotics/DQ_kinematics.h>
 
-#include <dqrobotics/A2arm.h>
-#include <dqrobotics/AX18.h>
-#include <dqrobotics/Comau.h>
-#include <dqrobotics/Kukka.h>
-#include <dqrobotics/Schunk.h>
-#include <dqrobotics/WAM.h>
-#include <dqrobotics/WAM4.h>
+#include <dqrobotics/robot_dh/A2arm.h>
+#include <dqrobotics/robot_dh/AX18.h>
+#include <dqrobotics/robot_dh/Comau.h>
+#include <dqrobotics/robot_dh/Kukka.h>
+#include <dqrobotics/robot_dh/Schunk.h>
+#include <dqrobotics/robot_dh/WAM.h>
+#include <dqrobotics/robot_dh/WAM4.h>
 
 using namespace DQ_robotics;
 using namespace Eigen;
@@ -56,6 +56,7 @@ PYBIND11_MODULE(dqrobotics, m) {
     dq.def("vec8"               ,&DQ::vec8,"Retrieves the DQ as a vector.");
     dq.def("generalizedJacobian",&DQ::generalizedJacobian,"Retrieves the generalized Jacobian of a DQ.");
     dq.def("normalize"          ,&DQ::normalize,"Returns a normalized DQ.");
+    dq.def("__repr__"           ,&DQ::to_string);
 
     ///Operators
     //Self
@@ -136,26 +137,26 @@ PYBIND11_MODULE(dqrobotics, m) {
     dqkinematics.def("analyticalJacobian",&DQ_kinematics::analyticalJacobian,"Returns the analytical Jacobian");
 
     ///Namespace Functions
-    m.def("links",&DQ_robotics::links,"Retrieves the link count.");
-    m.def("theta",&DQ_robotics::theta,"Retrieves the vector of thetas.");
-    m.def("d",&DQ_robotics::d,"Retrieves the vector d.");
-    m.def("a",&DQ_robotics::a,"Retrieves the vector a.");
-    m.def("alpha",&DQ_robotics::alpha,"Retrieves the vector of alphas.");
-    m.def("dummy",&DQ_robotics::dummy,"Retrieves the vector of dummies.");
+    m.def("links",             &DQ_robotics::links,"Retrieves the link count.");
+    m.def("theta",             &DQ_robotics::theta,"Retrieves the vector of thetas.");
+    m.def("d",                 &DQ_robotics::d,"Retrieves the vector d.");
+    m.def("a",                 &DQ_robotics::a,"Retrieves the vector a.");
+    m.def("alpha",             &DQ_robotics::alpha,"Retrieves the vector of alphas.");
+    m.def("dummy",             &DQ_robotics::dummy,"Retrieves the vector of dummies.");
     //NOT IN CPP m.def("set_dummy",&DQ_robotics::set_dummy,"Sets the vector of dummies.");
-    m.def("n_dummy",&DQ_robotics::n_dummy,"Retrieves the number of dummy joints.");
-    m.def("convention",&DQ_robotics::convention,"Retrieves the DH convention.");
-    m.def("base",&DQ_robotics::base,"Retrieves the base.");
-    m.def("effector",&DQ_robotics::effector,"Retrieves the effector.");
-    m.def("set_base",&DQ_robotics::set_base,"Sets the base.");
-    m.def("set_effector",&DQ_robotics::set_effector,"Sets the effector.");
-    m.def("raw_fkm",(DQ (*)(const DQ_kinematics&, const VectorXd&))DQ_robotics::raw_fkm ,"Gets the raw fkm.");
-    m.def("raw_fkm",(DQ (*)(const DQ_kinematics&, const VectorXd&, const int&))DQ_robotics::raw_fkm ,"Gets the raw fkm.");
+    m.def("n_dummy",           &DQ_robotics::n_dummy,"Retrieves the number of dummy joints.");
+    m.def("convention",        &DQ_robotics::convention,"Retrieves the DH convention.");
+    m.def("base",              &DQ_robotics::base,"Retrieves the base.");
+    m.def("effector",          &DQ_robotics::effector,"Retrieves the effector.");
+    m.def("set_base",          &DQ_robotics::set_base,"Sets the base.");
+    m.def("set_effector",      &DQ_robotics::set_effector,"Sets the effector.");
+    m.def("raw_fkm",           (DQ (*)(const DQ_kinematics&, const VectorXd&))DQ_robotics::raw_fkm ,"Gets the raw fkm.");
+    m.def("raw_fkm",           (DQ (*)(const DQ_kinematics&, const VectorXd&, const int&))DQ_robotics::raw_fkm ,"Gets the raw fkm.");
     //NOT IN CPP m.def("fkm",(DQ (*)(const DQ_kinematics&, const VectorXd&))DQ_robotics::fkm ,"Gets the fkm.");
     //NOT IN CPP m.def("fkm",(DQ (*)(const DQ_kinematics&, const VectorXd&, const int&))DQ_robotics::fkm ,"Gets the fkm.");
 
-    m.def("dh2dq",&DQ_robotics::dh2dq,"Returns a link's DH transformation as a DQ.");
-    m.def("get_z",&DQ_robotics::get_z,"Returns the z of a transformation.");
+    m.def("dh2dq",             &DQ_robotics::dh2dq,"Returns a link's DH transformation as a DQ.");
+    m.def("get_z",             &DQ_robotics::get_z,"Returns the z of a transformation.");
     m.def("analyticalJacobian",&DQ_robotics::analyticalJacobian,"Returns the analytical Jacobian");
     m.def("rotationJacobian",  &DQ_robotics::rotationJacobian,"Returns the rotation Jacobian");
     //m.def("distanceJacobian",  &DQ_robotics::distanceJacobian,"Returns the distance Jacobian");
