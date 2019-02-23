@@ -4,9 +4,9 @@ cmake_minimum_required(VERSION 2.8)
 project(pybind11test)
 
 if(UNIX AND NOT APPLE)
-    include_directories(/usr/include/eigen3/ ../C++/include/)
+    include_directories(/usr/include/eigen3/ cpp/include/)
     add_subdirectory(pybind11)
-    pybind11_add_module(dqrobotics dqrobotics_module.cpp ../C++/src/DQ.cpp ../C++/src/DQ_kinematics.cpp)
+    pybind11_add_module(dqrobotics dqrobotics_module.cpp cpp/src/DQ.cpp cpp/src/DQ_kinematics.cpp)
 endif()
 
 if(APPLE)
