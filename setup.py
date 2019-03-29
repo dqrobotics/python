@@ -58,7 +58,7 @@ class CMakeBuild(build_ext):
 
 setup(
     name='dqrobotics',
-    version='0.0.166',
+    version='0.0.169',
     author='Murilo Marinho',
     author_email='murlou@gmail.com',
     description='DQRobotics pybind11 and CMake',
