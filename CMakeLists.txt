@@ -6,7 +6,7 @@ project(pybind11test)
 if(UNIX AND NOT APPLE)
     include_directories(/usr/include/eigen3/ cpp/include/)
     add_subdirectory(pybind11)
-    pybind11_add_module(dqrobotics dqrobotics_module.cpp cpp/src/DQ.cpp cpp/src/DQ_kinematics.cpp)
+    pybind11_add_module(dqrobotics dqrobotics_module.cpp cpp/src/DQ.cpp cpp/src/DQ_kinematics.cpp cpp/src/DQ_CooperativeDualTaskSpace.cpp)
 endif()
 
 if(APPLE)
