@@ -124,7 +124,6 @@ PYBIND11_MODULE(dqrobotics, m) {
     dqkinematics.def(py::init());
     ///Methods
     dqkinematics.def("getDHMatrix",               &DQ_kinematics::getDHMatrix,"Gets the DH matrix.");
-    dqkinematics.def("links",                     &DQ_kinematics::links,"Retrieves the link count.");
     dqkinematics.def("theta",                     &DQ_kinematics::theta,"Retrieves the vector of thetas.");
     dqkinematics.def("d",                         &DQ_kinematics::d,"Retrieves the vector d.");
     dqkinematics.def("a",                         &DQ_kinematics::a,"Retrieves the vector a.");
@@ -132,6 +131,7 @@ PYBIND11_MODULE(dqrobotics, m) {
     dqkinematics.def("dummy",                     &DQ_kinematics::dummy,"Retrieves the vector of dummies.");
     dqkinematics.def("set_dummy",                 &DQ_kinematics::set_dummy,"Sets the vector of dummies.");
     dqkinematics.def("n_dummy",                   &DQ_kinematics::n_dummy,"Retrieves the number of dummy joints.");
+    dqkinematics.def("n_links",                   &DQ_kinematics::n_links,"Retrievees the number of links.");
     dqkinematics.def("convention",                &DQ_kinematics::convention,"Retrieves the DH convention.");
     dqkinematics.def("base",                      &DQ_kinematics::base,"Retrieves the base.");
     dqkinematics.def("effector",                  &DQ_kinematics::effector,"Retrieves the effector.");
@@ -149,9 +149,10 @@ PYBIND11_MODULE(dqrobotics, m) {
     dqkinematics.def("pose_jacobian_derivative",  &DQ_kinematics::pose_jacobian_derivative,"Returns the derivative of the pose Jacobian");
     ////DEPRECATED
     dqkinematics.def("analyticalJacobian",&DQ_kinematics::analyticalJacobian,"Returns the analytical Jacobian");
+    dqkinematics.def("links",                     &DQ_kinematics::links,"Retrieves the link count.");
 
     ///Namespace Functions
-    m.def("m_link",            &DQ_robotics::n_link,"Retrieves the link count.");
+    m.def("m_links",           &DQ_robotics::n_links,"Retrieves the link count.");
     m.def("theta",             &DQ_robotics::theta,"Retrieves the vector of thetas.");
     m.def("d",                 &DQ_robotics::d,"Retrieves the vector d.");
     m.def("a",                 &DQ_robotics::a,"Retrieves the vector a.");
