@@ -17,14 +17,14 @@ Please stick to the approach above (install using pip) if you are a dqrobotics u
 ### Python2
 `sudo apt-get install python-pip python-dev python-setuptools python-wheel`
 
-If you are allowed to upload to PiPy, the following is also needed
+If you are allowed to upload to the dqrobotics's PyPi repo, the following is also needed
 
 `python -m pip install twine`
 
 ### Python3
 `sudo apt-get install python3-pip python3-dev python3-setuptools python3-wheel`
 
-If you are allowed to upload to PiPy, the following is also needed
+If you are allowed to upload to the dqrobotics's PyPi repo, the following is also needed
 
 `python3 -m pip install twine`
 
