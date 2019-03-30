@@ -1,4 +1,4 @@
-# python
+# dqrobotics-python
 The DQ Robotics library in Python
 
 # Installation in Ubuntu 16.04 or Ubuntu 18.04
