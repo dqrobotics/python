@@ -9,6 +9,8 @@ or
 
 `python3 -m pip install dqrobotics`
 
+Note: only binary distributions are available and they are compatible only with the Python versions available in Ubuntu 16.04 (2.7 and 3.5) and 18.04 (2.7 and 3.6). The installation will fail for any other Python version.
+
 # Wheel compilation in Ubuntu 16.04/Ubuntu 18.04 (Developers)
 
 Please stick to the approach above (install using pip) if you are a dqrobotics user.
