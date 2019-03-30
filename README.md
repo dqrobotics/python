@@ -39,13 +39,13 @@ On the root folder
 On the root folder
 `python3 setup.py bdist_wheel`
 
-## Upload to PiPy
-Before uploading to PiPy each `.whl` filename has to be changed.
+## Upload to PyPi
+Before uploading to PyPi each `.whl` filename has to be changed.
 
 Change the name `something-linux_x86_64.whl` to `something-manylinux1_x86_x64.whl`
 
-Then upload to PiPy
+Then upload to PyPi
 
 `python -m twine upload dist/*`
 
-with your PiPy credentials.
+with your PyPi credentials.
