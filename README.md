@@ -1,4 +1,4 @@
-# dqrobotics-python
+# dqrobotics-python [![Build Status](https://travis-ci.com/dqrobotics/python.svg?branch=master)](https://travis-ci.com/dqrobotics/python)
 The DQ Robotics library in Python
 
 # Installation in Ubuntu 16.04 or Ubuntu 18.04 (Users)
