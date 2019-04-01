@@ -10,9 +10,9 @@ matrix:
     - os: linux
       dist: xenial
       env:
-       - PYTHONB=$(python-config --prefix)/bin/python3.5
-       - PYTHONL=$(python-config --prefix)/lib/libpython3.5m.so
-       - PYTHONI=$(python-config --prefix)/include/python3.5m
+       - PYTHONB=/bin/python3.5
+       - PYTHONL=/lib/libpython3.5m.so
+       - PYTHONI=/include/python3.5m
       sudo: true
       compiler: g++
       addons:
@@ -23,5 +23,5 @@ matrix:
 script:
      - mkdir -p build
      - cd build
-     - cmake -DCMAKE_CXX_FLAGS=${CXX_FLAGS} -DPYTHON_EXECUTABLE=${PYTHONB} -DPYTHON_LIBRARY=${PYTHONL} -DPYTHON_INCLUDE_DIR=${PYTHONI} -DCMAKE_BUILD_TYPE=Release .. 
+     - cmake -DCMAKE_CXX_FLAGS=${CXX_FLAGS} -DPYTHON_EXECUTABLE=$(python-config --prefix)${PYTHONB} -DPYTHON_LIBRARY=$(python-config --prefix)${PYTHONL} -DPYTHON_INCLUDE_DIR=$(python-config --prefix)${PYTHONI} -DCMAKE_BUILD_TYPE=Release .. 
      - make
