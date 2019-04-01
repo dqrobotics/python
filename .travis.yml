@@ -9,6 +9,10 @@ matrix:
   include:
     - os: linux
       dist: xenial
+      env:
+       - PYTHONB=/bin/python3.5
+       - PYTHONL=/lib/libpython3.5m.so
+       - PYTHONI=/include/python3.5m
       sudo: true
       compiler: g++
       addons:
@@ -16,12 +20,8 @@ matrix:
          packages: 
            - g++
            - libeigen3-dev
-           - python
-           - python-dev
-
 script:
      - mkdir -p build
      - cd build
-     - cmake -DCMAKE_CXX_FLAGS=${CXX_FLAGS} -DPYTHON_EXECUTABLE=$(python-config --prefix)/bin/python3.5 -DPYTHON_LIBRARY=$(python-config --prefix)/lib/libpython3.5m.so -DPYTHON_INCLUDE_DIR=$(python-config --prefix)/include/python3.5m -DCMAKE_BUILD_TYPE=Release .. 
-       if: dist = xenial
+     - cmake -DCMAKE_CXX_FLAGS=${CXX_FLAGS} -DPYTHON_EXECUTABLE=$(python-config --prefix)$(PYTHONB) -DPYTHON_LIBRARY=$(python-config --prefix)$(PYTHONL) -DPYTHON_INCLUDE_DIR=$(python-config --prefix)${PYTHONI} -DCMAKE_BUILD_TYPE=Release .. 
      - make
