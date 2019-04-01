@@ -11,6 +11,7 @@ matrix:
       dist: xenial
       sudo: true
       python: 3.5
+      env: TOXENV=py35
       compiler: g++
       addons:
        apt:
