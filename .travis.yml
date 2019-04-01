@@ -10,7 +10,6 @@ matrix:
     - os: linux
       dist: xenial
       sudo: true
-      env: BUILD_PYTHON_VERSION=py35
       compiler: g++
       addons:
        apt:
@@ -21,14 +20,8 @@ matrix:
            - python-dev
 
 script:
-    ############################################################################
-    # Build main and tests
-    ############################################################################
      - mkdir -p build
      - cd build
-     - which python
-     case "${BUILD_PYTHON_VERSION}" in
-       py35)  
-         - cmake -DCMAKE_CXX_FLAGS=${CXX_FLAGS} -DPYTHON_EXECUTABLE=$(python-config --prefix)/bin/python3.5 -DPYTHON_LIBRARY=$(python-config --prefix)/lib/libpython3.5m.so -DPYTHON_INCLUDE_DIR=$(python-config --prefix)/include/python3.5m -DCMAKE_BUILD_TYPE=Release .. 
-     esac
+     - cmake -DCMAKE_CXX_FLAGS=${CXX_FLAGS} -DPYTHON_EXECUTABLE=$(python-config --prefix)/bin/python3.5 -DPYTHON_LIBRARY=$(python-config --prefix)/lib/libpython3.5m.so -DPYTHON_INCLUDE_DIR=$(python-config --prefix)/include/python3.5m -DCMAKE_BUILD_TYPE=Release .. 
+     if dist = xenial
      - make
