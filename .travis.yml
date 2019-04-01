@@ -16,7 +16,7 @@ matrix:
          packages: 
            - g++
            - libeigen3-dev
-           - python-dev
+           - python3-dev
 
 script:
     ############################################################################
