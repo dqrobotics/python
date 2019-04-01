@@ -26,11 +26,5 @@ script:
      - mkdir -p build
      - cd build
      - which python
-     - cmake \
-     -DCMAKE_CXX_FLAGS=${CXX_FLAGS} \
-     -DCMAKE_BUILD_TYPE=Release \
-     -DPYTHON_EXECUTABLE=$(python-config --prefix)/bin/python3.5 \
-     -DPYTHON_LIBRARY=$(python-config --prefix)/lib/libpython3.5m.so \
-     -DPYTHON_INCLUDE_DIR=$(python-config --prefix)/include/python3.5m \
-     .. 
+     - cmake -DCMAKE_CXX_FLAGS=${CXX_FLAGS} -DCMAKE_BUILD_TYPE=Release -DPYTHON_EXECUTABLE=$(python-config --prefix)/bin/python3.5 -DPYTHON_LIBRARY=$(python-config --prefix)/lib/libpython3.5m.so -DPYTHON_INCLUDE_DIR=$(python-config --prefix)/include/python3.5m .. 
      - make
