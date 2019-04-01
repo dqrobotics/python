@@ -1,0 +1,28 @@
+language: cpp
+
+env:
+  global:
+    - DEPS_DIR=${TRAVIS_BUILD_DIR}/deps
+    - CXX_FLAGS="-Wall -pedantic -Werror -Wno-variadic-macros -Wno-long-long -Wno-shadow"
+
+matrix:
+  include:
+    - os: linux
+      dist: xenial
+      sudo: true
+      compiler: g++
+      addons:
+       apt:
+         packages: 
+           - g++
+           - libeigen3-dev
+           - python-dev
+
+script:
+    ############################################################################
+    # Build main and tests
+    ############################################################################
+     - mkdir -p build
+     - cd build
+     - cmake -DCMAKE_CXX_FLAGS=${CXX_FLAGS} -DCMAKE_BUILD_TYPE=Release .. 
+- make
