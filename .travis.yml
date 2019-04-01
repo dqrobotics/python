@@ -20,6 +20,19 @@ matrix:
          packages: 
            - g++
            - libeigen3-dev
+    - os: linux
+      dist: trusty
+      env:
+       - PYTHONB=/bin/python3.4
+       - PYTHONL=/lib/libpython3.4m.so
+       - PYTHONI=/include/python3.4m
+      sudo: true
+      compiler: g++
+      addons:
+       apt:
+         packages: 
+           - g++
+           - libeigen3-dev
 script:
      - mkdir -p build
      - cd build
