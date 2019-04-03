@@ -41,6 +41,7 @@ PYBIND11_MODULE(dqrobotics, m) {
     dq.def("norm"                ,&DQ::norm,"Retrieves the norm of a DQ.");
     dq.def("inv"                 ,&DQ::inv, "Retrieves the inverse of a DQ.");
     dq.def("translation"         ,&DQ::translation,"Retrieves the translation represented by a unit DQ.");
+    dq.def("rotation"            ,&DQ::rotation,"Retrieves the rotation represented by a unit DQ.");
     dq.def("rotation_axis"       ,&DQ::rotation_axis,"Retrieves the rotation axis represented by a unit DQ.");
     dq.def("rotation_angle"      ,&DQ::rotation_angle,"Retrieves the rotation angle represented by a unit DQ.");
     dq.def("log"                 ,&DQ::log,"Retrieves the logarithm of a DQ.");
@@ -93,6 +94,7 @@ PYBIND11_MODULE(dqrobotics, m) {
     m.def("norm"                ,&DQ_robotics::norm,"Retrieves the norm of a DQ.");
     m.def("inv"                 ,&DQ_robotics::inv, "Retrieves the inverse of a DQ.");
     m.def("translation"         ,&DQ_robotics::translation,"Retrieves the translation represented by a unit DQ.");
+    m.def("rotation"            ,&DQ_robotics::rotation,"Retrieves the rotation represented by a unit DQ.");
     m.def("rotation_axis"       ,&DQ_robotics::rotation_axis,"Retrieves the rotation axis represented by a unit DQ.");
     m.def("rotation_angle"      ,&DQ_robotics::rotation_angle,"Retrieves the rotation angle represented by a unit DQ.");
     m.def("log"                 ,&DQ_robotics::log,"Retrieves the logarithm of a DQ.");
@@ -110,6 +112,7 @@ PYBIND11_MODULE(dqrobotics, m) {
     m.def("normalize"           ,&DQ_robotics::normalize,"Returns a normalized DQ.");
     m.def("generalized_jacobian",&DQ_robotics::generalized_jacobian,"Retrieves the generalized Jacobian of a DQ.");
     m.def("sharp"               ,&DQ_robotics::sharp,"Returns the sharp DQ");
+    m.def("crossmatrix4"        ,&DQ_robotics::crossmatrix4,"Returns the crossmatrix4 operator.");
     ////DEPRECATED
     m.def("generalizedJacobian",&DQ_robotics::generalizedJacobian,"Retrieves the generalized Jacobian of a DQ.");
 
@@ -175,12 +178,36 @@ PYBIND11_MODULE(dqrobotics, m) {
     m.def("pose_jacobian",     (MatrixXd (*) (const DQ_kinematics&, const VectorXd&, const int&))&DQ_robotics::pose_jacobian,"Returns the pose Jacobian up to a given link");
     m.def("rotation_jacobian", &DQ_robotics::rotation_jacobian,"Returns the rotation Jacobian");
     m.def("translation_jacobian",&DQ_robotics::translation_jacobian,"Returns the translation Jacobian");
+
     m.def("pseudo_inverse",    &DQ_robotics::pseudo_inverse,"Returns the pseudoinverse of a matrix");
+
+    m.def("line_jacobian",     &DQ_robotics::line_jacobian,"Returns the line Jacobian");
+
+    m.def("plane_jacobian",    &DQ_robotics::plane_jacobian,"Returns the plane Jacobian");
+
+    m.def("point_to_point_distance_jacobian", &DQ_robotics::point_to_point_distance_jacobian,"Returns the robot point to point distance Jacobian");
+    m.def("point_to_point_residual",          &DQ_robotics::point_to_point_residual,"Returns the robot point to point residual");
+
+    m.def("point_to_line_distance_jacobian", &DQ_robotics::point_to_line_distance_jacobian,"Returns the robot point to line distance Jacobian");
+    m.def("point_to_line_residual",          &DQ_robotics::point_to_line_residual,"Returns the robot point to line residual");
+
+    m.def("point_to_plane_distance_jacobian", &DQ_robotics::point_to_plane_distance_jacobian,"Returns the robot point to plane distance Jacobian");
+    m.def("point_to_plane_residual",          &DQ_robotics::point_to_plane_residual,"Returns the robot point to plane residual");
+
+    m.def("line_to_point_distance_jacobian", &DQ_robotics::line_to_point_distance_jacobian,"Returns the robot line to point distance Jacobian");
+    m.def("line_to_point_residual",          &DQ_robotics::line_to_point_residual,"Returns the robot line to point residual");
+
+    m.def("line_to_line_distance_jacobian", &DQ_robotics::line_to_line_distance_jacobian,"Returns the robot line to line distance Jacobian");
+    m.def("line_to_point_residual",         &DQ_robotics::line_to_point_residual,        "Returns the robot line to line residual");
+
+    m.def("plane_to_point_distance_jacobian", &DQ_robotics::plane_to_point_distance_jacobian,"Returns the robot plane to point distance Jacobian");
+    m.def("plane_to_point_residual",          &DQ_robotics::plane_to_point_residual,"Returns the robot plane to point residual");
+
     ////DEPRECATED
     m.def("links",             &DQ_robotics::links,"Retrieves the link count.");
     m.def("analyticalJacobian",&DQ_robotics::analyticalJacobian,"Returns the analytical Jacobian");
     m.def("rotationJacobian",  &DQ_robotics::rotationJacobian,"Returns the rotation Jacobian");
-    m.def("distanceJacobian",  &DQ_robotics::distanceJacobian,"Returns the distance Jacobian");
+    //m.def("distanceJacobian",  &DQ_robotics::distanceJacobian,"Returns the distance Jacobian");
     m.def("pseudoInverse",     &DQ_robotics::pseudoInverse,"Returns the pseudoinverse of a matrix");
 
     /*****************************************************
