@@ -1,9 +1,9 @@
-# dqrobotics-python [![Build Status](https://travis-ci.com/dqrobotics/python.svg?branch=master)](https://travis-ci.com/dqrobotics/python)
+# dqrobotics-python [![Build Status](https://travis-ci.com/dqrobotics/python.svg?branch=master)](https://travis-ci.com/dqrobotics/python) [![PyPI version](https://badge.fury.io/py/dqrobotics.svg)](https://badge.fury.io/py/dqrobotics)
 The DQ Robotics library in Python
 
 **Python 2 [will retire soon](https://pythonclock.org/). We only support Python 3.**
 
-# Installation in Ubuntu 16.04 or Ubuntu 18.04 (Users)
+# Installation in Ubuntu 16.04 or Ubuntu 18.04
 
 `python3 -m pip install dqrobotics`
 
