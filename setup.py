@@ -58,7 +58,7 @@ class CMakeBuild(build_ext):
 
 setup(
     name='dqrobotics',
-    version_format='{tag}.dev{commitcount}+{gitsha}',
+    version_format='{tag}.{commitcount}',
     setup_requires=['setuptools-git-version'],
     author='Murilo Marinho',
     author_email='murilo@nml.t.u-tokyo.ac.jp',
