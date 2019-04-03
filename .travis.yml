@@ -30,3 +30,4 @@ script:
      - cd build
      - cmake -DCMAKE_CXX_FLAGS=${CXX_FLAGS} -DPYTHON_EXECUTABLE=$(python-config --prefix)${PYTHONB} -DPYTHON_LIBRARY=$(python-config --prefix)${PYTHONL} -DPYTHON_INCLUDE_DIR=$(python-config --prefix)${PYTHONI} -DCMAKE_BUILD_TYPE=Release .. 
      - make
+     - python3 setup.py bdist_wheel
