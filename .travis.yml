@@ -1,34 +1,42 @@
 language: cpp
-
 env:
   global:
-    - DEPS_DIR=${TRAVIS_BUILD_DIR}/deps
-    - CXX_FLAGS="-Wall -pedantic -Werror -Wno-variadic-macros -Wno-long-long -Wno-shadow"
-
+  - DEPS_DIR=${TRAVIS_BUILD_DIR}/deps
+  - CXX_FLAGS="-Wall -pedantic -Werror -Wno-variadic-macros -Wno-long-long -Wno-shadow"
+  matrix:
+  - secure: rc3aN7HrlHXy1IPKprS9woNljiGlHCW8VIVg31er4cKVj1sOXchOwOU8v/cNDYsfU8DGtoosJ/HHZsPzu31IrT3ZIt/neZVcBb+piN/kIMx1Ft9f7puvQbtkAmavPkQXboET6invHfG6lJqFqpn5gjGnf0cw+tq3WRFXHo60gMRNtAlbnSnEMUwcrb2wdd6nWBYpjcfxh0whQe/NICIEP+h1CH0Ce1JO5KlcT7ww8KbslZG/nvTOUZhvoNx9mxXkbHXlOp3M5oSdfCco97ZxAWknP+aaTmzl568MPoH801HzPQupTfwFgFeIzilM+2b5NdRL44pX+0dJf7WUbwRZf1m/EWw2v66LV/Yso3kICHa2IEGpsUG7sffP0FKeLrcJz3/dpJqqg7NWA9yeJDKORQD4N8epIw6CeBMSH52wuQUoJdcJGgutjcGKjem5MwfUlyC7gDWAdnZZ3A33I5xxevXEVu/aqiOPw7UpHvIy/AWLdevcpMj6g7xQk7+qCuRw8D/VOp+zrIDcIpYC+bvNXSVsFP029hJOo7j4WGxNM4NelVF0Omd4MiYp4RA31C6/aTwysABL4252ItNXWcbtwbIuY8SnmZi7n2AtSwBUGVtCvyrrH11ELaikUhT8+mQNjeTI7m9Jqwsu4J66Ghef3ZdFqc5aCj/tIBWHvlJ6i50=
+  - secure: WkY/h6QUTyUjtOdwoTwYi5cPQBvtv+GFLyZ/ArK9Mev98bdEx8wz64yUviBKFbh78gdsfvr6k+10kIyeYdOfY4KL+c5brTvvI1fkwNf5GM8SzfnMyd7GUSJM4oH+Bi3WSUlaNZCQ1x++JtECOcEnPyQmBk2xVliXiupoOkcfCXojxLFVO0kfGBpGhzax2rnRXstjJcU054Zm2j4NRDwKBakLWdWu3GqZbUiEFXuxbDxnwsJ0vPInIj336euTQ+x//isd8IM45sO9tUcurOMaGT+z+yce+xfXfX7+ci15MIA4X/4E53hE4rGsTTOjtUGpIrt9ydV9NP3TtKYRiLt/7Yhe2iKd4yp3XZWhjt6QPYopBdxTvYBptnIV3K/izSbTsdJJzpervx2Rm4OjpewnVqkh5NhqndYWvTFLfGmSrP5fNuz6OFbJca9uVdCkOffnl9qLWQl1kPkQYEyeoyfNvkpi8zZRZVvnLSklJAZQqmjSadlVSiQGHMHjwkA4L9dzEZHstg3N90ai9a0O9kvdcC5u9QtNmgGtzUtk1Thti+hrPZwb6KU19oiW+e8Ur7uqKWRxLbRIePaBhqALlC/YV+1xws98BRf3X4Q2PPVWyj8e0oSQCh2ZwEOJT9jiTwnZS4b3l3u4gEwzIi1KpQIaROMw4VDvpYK0Ua8vAYXMp38=
 matrix:
   include:
-    - os: linux
-      dist: xenial
-      env:
-       - PYTHONB=/bin/python3.5
-       - PYTHONL=/lib/libpython3.5m.so
-       - PYTHONI=/include/python3.5m
-      sudo: true
-      compiler: g++
-      addons:
-       apt:
-         packages: 
-           - g++
-           - libeigen3-dev
-           - python3-pip 
-           - python3-dev 
-           - python3-setuptools 
-           - python3-wheel 
-           - python3-setuptools-git
+  - os: linux
+    dist: xenial
+    env:
+    - PYTHONB=/bin/python3.5
+    - PYTHONL=/lib/libpython3.5m.so
+    - PYTHONI=/include/python3.5m
+    sudo: true
+    compiler: g++
+    addons:
+      apt:
+        packages:
+        - g++
+        - libeigen3-dev
+        - python3-pip
+        - python3-dev
+        - python3-setuptools
+        - python3-wheel
+        - python3-setuptools-git
 script:
-     - mkdir -p build
-     - cd build
-     - cmake -DCMAKE_CXX_FLAGS=${CXX_FLAGS} -DPYTHON_EXECUTABLE=$(python-config --prefix)${PYTHONB} -DPYTHON_LIBRARY=$(python-config --prefix)${PYTHONL} -DPYTHON_INCLUDE_DIR=$(python-config --prefix)${PYTHONI} -DCMAKE_BUILD_TYPE=Release .. 
-     - make
-     - cd ..
-     - python3 setup.py bdist_wheel
+- mkdir -p build
+- cd build
+- cmake -DCMAKE_CXX_FLAGS=${CXX_FLAGS} -DPYTHON_EXECUTABLE=$(python-config --prefix)${PYTHONB}
+  -DPYTHON_LIBRARY=$(python-config --prefix)${PYTHONL} -DPYTHON_INCLUDE_DIR=$(python-config
+  --prefix)${PYTHONI} -DCMAKE_BUILD_TYPE=Release ..
+- make
+- cd ..
+- python3 setup.py bdist_wheel
+- cd dist
+- rename 'linux' manylinux1 *
+- cd ..
+- python3 -m pip install twine
+- python3 -m twine -u ${PYPIUSERNAME} -p ${PYPIPASSWORD} upload dist/*
