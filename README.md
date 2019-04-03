@@ -1,30 +1,21 @@
 # dqrobotics-python [![Build Status](https://travis-ci.com/dqrobotics/python.svg?branch=master)](https://travis-ci.com/dqrobotics/python)
 The DQ Robotics library in Python
 
+**Python 2 [will retire soon](https://pythonclock.org/). We only support Python 3.**
+
 # Installation in Ubuntu 16.04 or Ubuntu 18.04 (Users)
-
-`python -m pip install dqrobotics`
-
-or
 
 `python3 -m pip install dqrobotics`
 
-Note: only binary distributions are available and they are compatible only with the Python versions available in Ubuntu 16.04 (2.7 and 3.5) and 18.04 (2.7 and 3.6). The installation will fail for any other Python version.
+Note: only binary distributions are available and they are compatible only with the Python versions available in Ubuntu 16.04 3.5 and 18.04 and 3.6. The installation will fail for any other Python version.
 
 # Wheel compilation in Ubuntu 16.04/Ubuntu 18.04 (Developers)
 
 Please stick to the approach above (install using pip) if you are a dqrobotics user.
 
 ## Requirements
-### Python2
-`sudo apt-get install python-pip python-dev python-setuptools python-wheel`
 
-If you are allowed to upload to the dqrobotics's PyPi repo, the following is also needed
-
-`python -m pip install twine`
-
-### Python3
-`sudo apt-get install python3-pip python3-dev python3-setuptools python3-wheel`
+`sudo apt-get install python3-pip python3-dev python3-setuptools python3-wheel python3-setuptools-git`
 
 If you are allowed to upload to the dqrobotics's PyPi repo, the following is also needed
 
@@ -32,10 +23,6 @@ If you are allowed to upload to the dqrobotics's PyPi repo, the following is als
 
 ## Build Wheel
 The following commands will build a wheel compatible with your system in the folder `dist`.
-
-### Python 2
-On the root folder
-`python setup.py bdist_wheel`
 
 ### Python 3
 On the root folder
