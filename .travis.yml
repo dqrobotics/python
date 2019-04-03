@@ -20,6 +20,11 @@ matrix:
          packages: 
            - g++
            - libeigen3-dev
+           - python3-pip 
+           - python3-dev 
+           - python3-setuptools 
+           - python3-wheel 
+           - python3-setuptools-git
 script:
      - mkdir -p build
      - cd build
