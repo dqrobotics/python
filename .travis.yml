@@ -33,7 +33,7 @@ script:
 - cd ..
 - python3 setup.py bdist_wheel
 - cd dist
-- rename 'linux' manylinux1 *
+- rename 's/linux/manylinux1/' *
 - cd ..
 - python3 -m pip install twine
-- python3 -m twine upload -u ${PYPIUSERNAME} -p ${PYPIPASSWORD} dist/*
+- python3 -m twine upload dist/*
