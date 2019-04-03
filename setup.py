@@ -58,10 +58,11 @@ class CMakeBuild(build_ext):
 
 setup(
     name='dqrobotics',
-    version='0.0.169',
+    version_format='{tag}.dev{commitcount}+{gitsha}',
+    setup_requires=['setuptools-git-version'],
     author='Murilo Marinho',
-    author_email='murlou@gmail.com',
-    description='DQRobotics pybind11 and CMake',
+    author_email='murilo@nml.t.u-tokyo.ac.jp',
+    description='DQRobotics python',
     long_description='',
     ext_modules=[CMakeExtension('dqrobotics')],
     cmdclass=dict(build_ext=CMakeBuild),
