@@ -21,6 +21,7 @@ matrix:
         - python3-setuptools-git
 script:
 - python3 setup.py bdist_wheel
+- sudo rm -r build
 - cd ..
 - python3 -m pip install --user ./python
 - python3 -c "from dqrobotics import *"
@@ -31,6 +32,7 @@ script:
 - curl https://bootstrap.pypa.io/get-pip.py | sudo -H python3.6
 - python3.6 -m pip install --user setuptools wheel setuptools-git twine
 - python3.6 setup.py bdist_wheel
+- sudo rm -r build
 - cd ..
 - python3.6 -m pip install --user ./python
 - python3.6 -c "from dqrobotics import *"
