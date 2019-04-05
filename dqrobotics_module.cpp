@@ -61,8 +61,7 @@ PYBIND11_MODULE(dqrobotics, m) {
     dq.def("generalized_jacobian",&DQ::generalized_jacobian,"Retrieves the generalized Jacobian of a DQ.");
     dq.def("sharp"               ,&DQ::sharp,"Retrieves the sharp of a DQ");
     ////Deprecated
-    dq.def("generalizedJacobian",&DQ::generalizedJacobian,"Retrieves the generalized Jacobian of a DQ.");
-
+    dq.def("generalizedJacobian", &DQ::generalizedJacobian,"Retrieves the generalized Jacobian of a DQ.");
 
     ///Operators
     //Self
@@ -99,7 +98,7 @@ PYBIND11_MODULE(dqrobotics, m) {
     m.def("rotation_angle"      ,&DQ_robotics::rotation_angle,"Retrieves the rotation angle represented by a unit DQ.");
     m.def("log"                 ,&DQ_robotics::log,"Retrieves the logarithm of a DQ.");
     m.def("exp"                 ,&DQ_robotics::exp,"Retrieves the exp of a DQ.");
-    //m.def("pow"                ,&DQ_robotics::pow,"Retrieves the pow of a DQ.");
+    m.def("pow"                 ,&DQ_robotics::pow,"Retrieves the pow of a DQ.");
     m.def("tplus"               ,&DQ_robotics::tplus,"Retrieves the tplus operators for a DQ.");
     m.def("pinv"                ,&DQ_robotics::pinv , "Retrieves the pinv of a DQ.");
     m.def("dec_mult"            ,&DQ_robotics::dec_mult,"Retrieves the dec mult of a DQ.");
@@ -118,6 +117,9 @@ PYBIND11_MODULE(dqrobotics, m) {
 
     ///Namespace readonly
     m.attr("DQ_threshold") = DQ_threshold;
+    m.attr("i_")           = DQ_robotics::i_;
+    m.attr("j_")           = DQ_robotics::j_;
+    m.attr("k_")           = DQ_robotics::k_;
 
     /*****************************************************
      *  DQ Kinematics
