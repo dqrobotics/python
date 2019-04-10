@@ -7,6 +7,8 @@ namespace py = pybind11;
 #include <dqrobotics/DQ_kinematics.h>
 #include <dqrobotics/DQ_CooperativeDualTaskSpace.h>
 
+#include <dqrobotics/robot_modelling/DQ_Kinematics.h>
+
 #include <dqrobotics/robot_dh/A2arm.h>
 #include <dqrobotics/robot_dh/AX18.h>
 #include <dqrobotics/robot_dh/Comau.h>
@@ -248,5 +250,21 @@ PYBIND11_MODULE(dqrobotics, m) {
     robot_dh.def("WamKinematics",&WamKinematics,"Returns the Wam arm kinematics.");
     //#include <dqrobotics/WAM4.h>
     robot_dh.def("Wam4Kinematics",&Wam4Kinematics,"Returns the Wam4 arm kinematics.");
+
+    /*****************************************************
+     *  Robot Modelling <dqrobotics/robot_modelling/...>
+     * **************************************************/
+    py::module robot_modelling = m.def_submodule("robot_modelling", "The robot_modelling submodule of dqrobotics");
+
+    /*****************************************************
+     *  DQ Kinematics
+     * **************************************************/
+
+    py::class_<DQ_kinematics> dqKinematics(m, "DQ_Kinematics");
+    dqKinematics.def(py::init());
+
+    dqKinematics.def("distance_jacobian",   &DQ_Kinematics::distance_jacobian,     "Returns the distance Jacobian");
+    dqKinematics.def("translation_jacobian",&DQ_Kinematics::translation_jacobian,  "Returns the translation Jacobian");
+    dqKinematics.def("rotation_jacobian",   &DQ_Kinematics::rotation_jacobian,     "Returns the rotation Jacobian");
 }
 
