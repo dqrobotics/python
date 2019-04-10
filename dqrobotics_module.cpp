@@ -260,7 +260,7 @@ PYBIND11_MODULE(dqrobotics, m) {
      *  DQ Kinematics
      * **************************************************/
 
-    py::class_<DQ_kinematics> dqKinematics(m, "DQ_Kinematics");
+    py::class_<DQ_kinematics> dqKinematics(robot_modelling, "DQ_Kinematics");
     dqKinematics.def(py::init());
 
     dqKinematics.def("distance_jacobian",   &DQ_Kinematics::distance_jacobian,     "Returns the distance Jacobian");
