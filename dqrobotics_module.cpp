@@ -63,7 +63,7 @@ PYBIND11_MODULE(dqrobotics, m) {
     dq.def("Ad"                  ,&DQ::Ad,                    "Retrieves the adjoint transformation of a DQ.");
     dq.def("Adsharp"             ,&DQ::Adsharp,               "Retrieves the adjoint sharp transformation of a DQ.");
     ////Deprecated
-    dq.def("generalizedJacobian", &DQ::generalizedJacobian,"Retrieves the generalized Jacobian of a DQ.");
+    //dq.def("generalizedJacobian", &DQ::generalizedJacobian,"Retrieves the generalized Jacobian of a DQ.");
 
     ///Operators
     //Self
@@ -117,7 +117,7 @@ PYBIND11_MODULE(dqrobotics, m) {
     m.def("Ad"                  ,&DQ_robotics::Ad,                   "Retrieves the adjoint transformation of a DQ.");
     m.def("Adsharp"             ,&DQ_robotics::Adsharp,              "Retrieves the adjoint sharp transformation of a DQ.");
     ////DEPRECATED
-    m.def("generalizedJacobian",&DQ_robotics::generalizedJacobian,"Retrieves the generalized Jacobian of a DQ.");
+    //m.def("generalizedJacobian",&DQ_robotics::generalizedJacobian,"Retrieves the generalized Jacobian of a DQ.");
 
     ///Namespace readonly
     m.attr("DQ_threshold") = DQ_threshold;
@@ -157,8 +157,8 @@ PYBIND11_MODULE(dqrobotics, m) {
     dqkinematics.def("pose_jacobian",             (MatrixXd (DQ_kinematics::*)(const VectorXd&, const int&) const)&DQ_kinematics::pose_jacobian,"Returns the pose Jacobian up to a given link");
     dqkinematics.def("pose_jacobian_derivative",  &DQ_kinematics::pose_jacobian_derivative,"Returns the derivative of the pose Jacobian");
     ////DEPRECATED
-    dqkinematics.def("analyticalJacobian",&DQ_kinematics::analyticalJacobian,"Returns the analytical Jacobian");
-    dqkinematics.def("links",                     &DQ_kinematics::links,"Retrieves the link count.");
+    //dqkinematics.def("analyticalJacobian",        &DQ_kinematics::analyticalJacobian,"Returns the analytical Jacobian");
+    //dqkinematics.def("links",                     &DQ_kinematics::links,"Retrieves the link count.");
 
     ///Namespace Functions
     m.def("m_links",           &DQ_robotics::n_links,"Retrieves the link count.");
@@ -210,25 +210,25 @@ PYBIND11_MODULE(dqrobotics, m) {
     m.def("plane_to_point_residual",          &DQ_robotics::plane_to_point_residual,"Returns the robot plane to point residual");
 
     ////DEPRECATED
-    m.def("links",             &DQ_robotics::links,"Retrieves the link count.");
-    m.def("analyticalJacobian",&DQ_robotics::analyticalJacobian,"Returns the analytical Jacobian");
-    m.def("rotationJacobian",  &DQ_robotics::rotationJacobian,"Returns the rotation Jacobian");
+    //m.def("links",               &DQ_robotics::links,"Retrieves the link count.");
+    //m.def("analyticalJacobian",  &DQ_robotics::analyticalJacobian,"Returns the analytical Jacobian");
+    //m.def("rotationJacobian",    &DQ_robotics::rotationJacobian,"Returns the rotation Jacobian");
     //m.def("distanceJacobian",  &DQ_robotics::distanceJacobian,"Returns the distance Jacobian");
-    m.def("pseudoInverse",     &DQ_robotics::pseudoInverse,"Returns the pseudoinverse of a matrix");
+    //m.def("pseudoInverse",       &DQ_robotics::pseudoInverse,"Returns the pseudoinverse of a matrix");
 
     /*****************************************************
      *  DQ CooperativeDualTaskSpace
      * **************************************************/
     py::class_<DQ_CooperativeDualTaskSpace> dqcooperativedualtaskspace(m, "DQ_CooperativeDualTaskSpace");
     dqcooperativedualtaskspace.def(py::init<DQ_kinematics&, DQ_kinematics&>());
-    dqcooperativedualtaskspace.def("pose1",&DQ_CooperativeDualTaskSpace::pose1, "Returns the first robot's pose");
-    dqcooperativedualtaskspace.def("pose2",&DQ_CooperativeDualTaskSpace::pose2,"Returns the second robot's pose");
-    dqcooperativedualtaskspace.def("absolute_pose",&DQ_CooperativeDualTaskSpace::absolute_pose,"Returns the absolute pose");
-    dqcooperativedualtaskspace.def("relative_pose",&DQ_CooperativeDualTaskSpace::relative_pose,"Returns the relative pose");
-    dqcooperativedualtaskspace.def("pose_jacobian1",&DQ_CooperativeDualTaskSpace::pose_jacobian1,"Returns the pose Jacobian of the first robot");
-    dqcooperativedualtaskspace.def("pose_jacobian2",&DQ_CooperativeDualTaskSpace::pose_jacobian2,"Returns the pose Jacobian of the second robot");
-    dqcooperativedualtaskspace.def("absolute_pose_jacobian",&DQ_CooperativeDualTaskSpace::absolute_pose_jacobian,"Returns the absolute pose Jacobian");
-    dqcooperativedualtaskspace.def("relative_pose_jacobian",&DQ_CooperativeDualTaskSpace::relative_pose_jacobian,"Returns the relative pose Jacobian");
+    dqcooperativedualtaskspace.def("pose1",                  &DQ_CooperativeDualTaskSpace::pose1, "Returns the first robot's pose");
+    dqcooperativedualtaskspace.def("pose2",                  &DQ_CooperativeDualTaskSpace::pose2,"Returns the second robot's pose");
+    dqcooperativedualtaskspace.def("absolute_pose",          &DQ_CooperativeDualTaskSpace::absolute_pose,"Returns the absolute pose");
+    dqcooperativedualtaskspace.def("relative_pose",          &DQ_CooperativeDualTaskSpace::relative_pose,"Returns the relative pose");
+    dqcooperativedualtaskspace.def("pose_jacobian1",         &DQ_CooperativeDualTaskSpace::pose_jacobian1,"Returns the pose Jacobian of the first robot");
+    dqcooperativedualtaskspace.def("pose_jacobian2",         &DQ_CooperativeDualTaskSpace::pose_jacobian2,"Returns the pose Jacobian of the second robot");
+    dqcooperativedualtaskspace.def("absolute_pose_jacobian", &DQ_CooperativeDualTaskSpace::absolute_pose_jacobian,"Returns the absolute pose Jacobian");
+    dqcooperativedualtaskspace.def("relative_pose_jacobian", &DQ_CooperativeDualTaskSpace::relative_pose_jacobian,"Returns the relative pose Jacobian");
 
     /*****************************************************
      *  Robots Kinematic Models
