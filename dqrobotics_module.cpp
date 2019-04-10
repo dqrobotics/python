@@ -254,17 +254,15 @@ PYBIND11_MODULE(dqrobotics, m) {
     /*****************************************************
      *  Robot Modelling <dqrobotics/robot_modelling/...>
      * **************************************************/
-    py::module robot_modelling = m.def_submodule("robot_modelling", "The robot_modelling submodule of dqrobotics");
+    py::module robot_modeling = m.def_submodule("robot_modeling", "The robot_modelling submodule of dqrobotics");
 
     /*****************************************************
      *  DQ Kinematics
      * **************************************************/
 
-    py::class_<DQ_Kinematics> dqKinematics(robot_modelling, "DQ_Kinematics");
-    dqKinematics.def(py::init());
-
-    dqKinematics.def("distance_jacobian",   &DQ_Kinematics::distance_jacobian,     "Returns the distance Jacobian");
-    dqKinematics.def("translation_jacobian",&DQ_Kinematics::translation_jacobian,  "Returns the translation Jacobian");
-    dqKinematics.def("rotation_jacobian",   &DQ_Kinematics::rotation_jacobian,     "Returns the rotation Jacobian");
+    py::module DQ_Kinematics = robot_modeling("DQ_Kinematics","The DQ_Kinematics submodule of robot_modelling");
+    DQ_Kinematics.def("distance_jacobian",   &DQ_Kinematics::distance_jacobian,     "Returns the distance Jacobian");
+    DQ_Kinematics.def("translation_jacobian",&DQ_Kinematics::translation_jacobian,  "Returns the translation Jacobian");
+    DQ_Kinematics.def("rotation_jacobian",   &DQ_Kinematics::rotation_jacobian,     "Returns the rotation Jacobian");
 }
 
