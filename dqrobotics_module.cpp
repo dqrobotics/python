@@ -4,18 +4,18 @@
 namespace py = pybind11;
 
 #include <dqrobotics/DQ.h>
-#include <dqrobotics/DQ_kinematics.h>
-#include <dqrobotics/DQ_CooperativeDualTaskSpace.h>
 
-#include <dqrobotics/robot_modelling/DQ_Kinematics.h>
+#include <dqrobotics/robot_modeling/DQ_CooperativeDualTaskSpace.h>
+#include <dqrobotics/robot_modeling/DQ_Kinematics.h>
 
-#include <dqrobotics/robot_dh/A2arm.h>
-#include <dqrobotics/robot_dh/AX18.h>
-#include <dqrobotics/robot_dh/Comau.h>
-#include <dqrobotics/robot_dh/Kukka.h>
-#include <dqrobotics/robot_dh/Schunk.h>
-#include <dqrobotics/robot_dh/WAM.h>
-#include <dqrobotics/robot_dh/WAM4.h>
+#include <dqrobotics/legacy/DQ_kinematics.h>
+#include <dqrobotics/legacy/robot_dh/A2arm.h>
+#include <dqrobotics/legacy/robot_dh/AX18.h>
+#include <dqrobotics/legacy/robot_dh/Comau.h>
+#include <dqrobotics/legacy/robot_dh/Kukka.h>
+#include <dqrobotics/legacy/robot_dh/Schunk.h>
+#include <dqrobotics/legacy/robot_dh/WAM.h>
+#include <dqrobotics/legacy/robot_dh/WAM4.h>
 
 using namespace DQ_robotics;
 using namespace Eigen;
@@ -215,22 +215,8 @@ PYBIND11_MODULE(dqrobotics, m) {
     //m.def("links",               &DQ_robotics::links,"Retrieves the link count.");
     //m.def("analyticalJacobian",  &DQ_robotics::analyticalJacobian,"Returns the analytical Jacobian");
     //m.def("rotationJacobian",    &DQ_robotics::rotationJacobian,"Returns the rotation Jacobian");
-    //m.def("distanceJacobian",  &DQ_robotics::distanceJacobian,"Returns the distance Jacobian");
+    //m.def("distanceJacobian",    &DQ_robotics::distanceJacobian,"Returns the distance Jacobian");
     //m.def("pseudoInverse",       &DQ_robotics::pseudoInverse,"Returns the pseudoinverse of a matrix");
-
-    /*****************************************************
-     *  DQ CooperativeDualTaskSpace
-     * **************************************************/
-    py::class_<DQ_CooperativeDualTaskSpace> dqcooperativedualtaskspace(m, "DQ_CooperativeDualTaskSpace");
-    dqcooperativedualtaskspace.def(py::init<DQ_kinematics&, DQ_kinematics&>());
-    dqcooperativedualtaskspace.def("pose1",                  &DQ_CooperativeDualTaskSpace::pose1, "Returns the first robot's pose");
-    dqcooperativedualtaskspace.def("pose2",                  &DQ_CooperativeDualTaskSpace::pose2,"Returns the second robot's pose");
-    dqcooperativedualtaskspace.def("absolute_pose",          &DQ_CooperativeDualTaskSpace::absolute_pose,"Returns the absolute pose");
-    dqcooperativedualtaskspace.def("relative_pose",          &DQ_CooperativeDualTaskSpace::relative_pose,"Returns the relative pose");
-    dqcooperativedualtaskspace.def("pose_jacobian1",         &DQ_CooperativeDualTaskSpace::pose_jacobian1,"Returns the pose Jacobian of the first robot");
-    dqcooperativedualtaskspace.def("pose_jacobian2",         &DQ_CooperativeDualTaskSpace::pose_jacobian2,"Returns the pose Jacobian of the second robot");
-    dqcooperativedualtaskspace.def("absolute_pose_jacobian", &DQ_CooperativeDualTaskSpace::absolute_pose_jacobian,"Returns the absolute pose Jacobian");
-    dqcooperativedualtaskspace.def("relative_pose_jacobian", &DQ_CooperativeDualTaskSpace::relative_pose_jacobian,"Returns the relative pose Jacobian");
 
     /*****************************************************
      *  Robots Kinematic Models
@@ -260,10 +246,25 @@ PYBIND11_MODULE(dqrobotics, m) {
      *  DQ Kinematics
      * **************************************************/
 
-    //py::class_<DQ_Kinematics> DQ_Kinematics_py(robot_modeling, "DQ_Kinematics");
-    py::module dq_kinematics_py = robot_modeling.def_submodule("DQ_Kinematics","The DQ_Kinematics submodule of robot_modeling");
-    dq_kinematics_py.def("distance_jacobian",   &DQ_Kinematics::distance_jacobian,     "Returns the distance Jacobian");
-    dq_kinematics_py.def("translation_jacobian",&DQ_Kinematics::translation_jacobian,  "Returns the translation Jacobian");
-    dq_kinematics_py.def("rotation_jacobian",   &DQ_Kinematics::rotation_jacobian,     "Returns the rotation Jacobian");
+    py::class_<DQ_Kinematics> DQ_Kinematics_py(robot_modeling, "DQ_Kinematics");
+    //py::module dq_kinematics_py = robot_modeling.def_submodule("DQ_Kinematics","The DQ_Kinematics submodule of robot_modeling");
+    DQ_Kinematics_py.def_static("distance_jacobian",   &DQ_Kinematics::distance_jacobian,     "Returns the distance Jacobian");
+    DQ_Kinematics_py.def_static("translation_jacobian",&DQ_Kinematics::translation_jacobian,  "Returns the translation Jacobian");
+    DQ_Kinematics_py.def_static("rotation_jacobian",   &DQ_Kinematics::rotation_jacobian,     "Returns the rotation Jacobian");
+
+    /*****************************************************
+     *  DQ CooperativeDualTaskSpace
+     * **************************************************/
+    py::class_<DQ_CooperativeDualTaskSpace> dqcooperativedualtaskspace(robot_modeling, "DQ_CooperativeDualTaskSpace");
+    dqcooperativedualtaskspace.def(py::init<DQ_Kinematics*, DQ_Kinematics*>());
+    dqcooperativedualtaskspace.def("pose1",                  &DQ_CooperativeDualTaskSpace::pose1, "Returns the first robot's pose");
+    dqcooperativedualtaskspace.def("pose2",                  &DQ_CooperativeDualTaskSpace::pose2,"Returns the second robot's pose");
+    dqcooperativedualtaskspace.def("absolute_pose",          &DQ_CooperativeDualTaskSpace::absolute_pose,"Returns the absolute pose");
+    dqcooperativedualtaskspace.def("relative_pose",          &DQ_CooperativeDualTaskSpace::relative_pose,"Returns the relative pose");
+    dqcooperativedualtaskspace.def("pose_jacobian1",         &DQ_CooperativeDualTaskSpace::pose_jacobian1,"Returns the pose Jacobian of the first robot");
+    dqcooperativedualtaskspace.def("pose_jacobian2",         &DQ_CooperativeDualTaskSpace::pose_jacobian2,"Returns the pose Jacobian of the second robot");
+    dqcooperativedualtaskspace.def("absolute_pose_jacobian", &DQ_CooperativeDualTaskSpace::absolute_pose_jacobian,"Returns the absolute pose Jacobian");
+    dqcooperativedualtaskspace.def("relative_pose_jacobian", &DQ_CooperativeDualTaskSpace::relative_pose_jacobian,"Returns the relative pose Jacobian");
+
 }
 

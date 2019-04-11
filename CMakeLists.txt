@@ -9,9 +9,10 @@ if(UNIX AND NOT APPLE)
     pybind11_add_module(dqrobotics
         dqrobotics_module.cpp
         cpp/src/DQ.cpp
-        cpp/src/DQ_kinematics.cpp
-        cpp/src/DQ_CooperativeDualTaskSpace.cpp
-        cpp/src/robot_modelling/DQ_Kinematics.cpp)
+        cpp/src/robot_modeling/DQ_CooperativeDualTaskSpace.cpp
+        cpp/src/robot_modeling/DQ_Kinematics.cpp
+
+        cpp/src/legacy/DQ_kinematics.cpp)
 endif()
 
 if(APPLE)
