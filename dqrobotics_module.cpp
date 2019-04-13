@@ -8,6 +8,10 @@ namespace py = pybind11;
 #include <dqrobotics/robot_modeling/DQ_CooperativeDualTaskSpace.h>
 #include <dqrobotics/robot_modeling/DQ_Kinematics.h>
 #include <dqrobotics/robot_modeling/DQ_SerialManipulator.h>
+#include <dqrobotics/robot_modeling/DQ_MobileBase.h>
+#include <dqrobotics/robot_modeling/DQ_HolonomicBase.h>
+#include <dqrobotics/robot_modeling/DQ_DifferentialDriveRobot.h>
+#include <dqrobotics/robot_modeling/DQ_WholeBody.h>
 
 #include <dqrobotics/legacy/DQ_kinematics.h>
 #include <dqrobotics/legacy/robot_dh/A2arm.h>
@@ -158,7 +162,6 @@ PYBIND11_MODULE(dqrobotics, m) {
     /*****************************************************
      *  DQ Kinematics
      * **************************************************/
-
     py::class_<DQ_Kinematics> dqkinematics_py(robot_modeling, "DQ_Kinematics");
     dqkinematics_py.def_static("distance_jacobian",                &DQ_Kinematics::distance_jacobian,     "Returns the distance Jacobian");
     dqkinematics_py.def_static("translation_jacobian",             &DQ_Kinematics::translation_jacobian,  "Returns the translation Jacobian");
@@ -178,7 +181,6 @@ PYBIND11_MODULE(dqrobotics, m) {
     dqkinematics_py.def_static("plane_to_point_distance_jacobian", &DQ_Kinematics::plane_to_point_distance_jacobian,"Returns the robot plane to point distance Jacobian");
     dqkinematics_py.def_static("plane_to_point_residual",          &DQ_Kinematics::plane_to_point_residual,"Returns the robot plane to point residual");
 
-
     /*****************************************************
      *  DQ SerialManipulator
      * **************************************************/
@@ -196,19 +198,19 @@ PYBIND11_MODULE(dqrobotics, m) {
     dqserialmanipulator_py.def("n_dummy",                     &DQ_SerialManipulator::n_dummy,"Retrieves the number of dummy joints.");
     dqserialmanipulator_py.def("get_dim_configuration_space", &DQ_SerialManipulator::get_dim_configuration_space,"Retrievees the number of links.");
     dqserialmanipulator_py.def("convention",                  &DQ_SerialManipulator::convention,"Retrieves the DH convention.");
-    dqserialmanipulator_py.def("base",                        &DQ_SerialManipulator::base,"Retrieves the base.");
+    //dqserialmanipulator_py.def("base",                        &DQ_SerialManipulator::base,"Retrieves the base.");
     dqserialmanipulator_py.def("effector",                    &DQ_SerialManipulator::effector,"Retrieves the effector.");
-    dqserialmanipulator_py.def("set_base",                    &DQ_SerialManipulator::set_base,"Sets the base.");
+    //dqserialmanipulator_py.def("set_base",                    &DQ_SerialManipulator::set_base,"Sets the base.");
     dqserialmanipulator_py.def("set_effector",                &DQ_SerialManipulator::set_effector,"Sets the effector.");
-    dqserialmanipulator_py.def("raw_fkm",                     (DQ (DQ_SerialManipulator::*)(const VectorXd&))&DQ_SerialManipulator::raw_fkm,"Gets the raw fkm.");
-    dqserialmanipulator_py.def("raw_fkm",                     (DQ (DQ_SerialManipulator::*)(const VectorXd&,const int&))&DQ_SerialManipulator::raw_fkm,"Gets the raw fkm.");
-    dqserialmanipulator_py.def("fkm",                         (DQ (DQ_SerialManipulator::*)(const VectorXd&))&DQ_SerialManipulator::fkm,"Gets the fkm.");
-    dqserialmanipulator_py.def("fkm",                         (DQ (DQ_SerialManipulator::*)(const VectorXd&,const int&))&DQ_SerialManipulator::fkm,"Gets the fkm.");
+    dqserialmanipulator_py.def("raw_fkm",                     (DQ (DQ_SerialManipulator::*)(const VectorXd&) const)&DQ_SerialManipulator::raw_fkm,"Gets the raw fkm.");
+    dqserialmanipulator_py.def("raw_fkm",                     (DQ (DQ_SerialManipulator::*)(const VectorXd&,const int&) const)&DQ_SerialManipulator::raw_fkm,"Gets the raw fkm.");
+    dqserialmanipulator_py.def("fkm",                         (DQ (DQ_SerialManipulator::*)(const VectorXd&) const)&DQ_SerialManipulator::fkm,"Gets the fkm.");
+    dqserialmanipulator_py.def("fkm",                         (DQ (DQ_SerialManipulator::*)(const VectorXd&,const int&) const)&DQ_SerialManipulator::fkm,"Gets the fkm.");
     dqserialmanipulator_py.def("dh2dq",                       &DQ_SerialManipulator::dh2dq,"Returns a link's DH transformation as a DQ.");
     dqserialmanipulator_py.def("get_z",                       &DQ_SerialManipulator::get_z,"Returns the z of a transformation.");
     dqserialmanipulator_py.def("raw_pose_jacobian",           &DQ_SerialManipulator::raw_pose_jacobian, "Returns the pose Jacobian up to a given link without base and end-effector displacements.");
-    dqserialmanipulator_py.def("pose_jacobian",               (MatrixXd (DQ_SerialManipulator::*)(const VectorXd&))&DQ_SerialManipulator::pose_jacobian,"Returns the pose Jacobian");
-    dqserialmanipulator_py.def("pose_jacobian",               (MatrixXd (DQ_SerialManipulator::*)(const VectorXd&, const int&))&DQ_SerialManipulator::pose_jacobian,"Returns the pose Jacobian up to a given link");
+    dqserialmanipulator_py.def("pose_jacobian",               (MatrixXd (DQ_SerialManipulator::*)(const VectorXd&) const)&DQ_SerialManipulator::pose_jacobian,"Returns the pose Jacobian");
+    dqserialmanipulator_py.def("pose_jacobian",               (MatrixXd (DQ_SerialManipulator::*)(const VectorXd&, const int&) const)&DQ_SerialManipulator::pose_jacobian,"Returns the pose Jacobian up to a given link");
     dqserialmanipulator_py.def("pose_jacobian_derivative",    &DQ_SerialManipulator::pose_jacobian_derivative,"Returns the derivative of the pose Jacobian");
 
     /*****************************************************
@@ -225,5 +227,40 @@ PYBIND11_MODULE(dqrobotics, m) {
     dqcooperativedualtaskspace.def("absolute_pose_jacobian", &DQ_CooperativeDualTaskSpace::absolute_pose_jacobian,"Returns the absolute pose Jacobian");
     dqcooperativedualtaskspace.def("relative_pose_jacobian", &DQ_CooperativeDualTaskSpace::relative_pose_jacobian,"Returns the relative pose Jacobian");
 
+    /*****************************************************
+     *  DQ MobileBase
+     * **************************************************/
+    py::class_<DQ_MobileBase,DQ_Kinematics> dqmobilebase_py(robot_modeling,"DQ_MobileBase");
+    dqmobilebase_py.def("set_frame_displacement", &DQ_MobileBase::set_frame_displacement,"Set the frame displacement");
+    dqmobilebase_py.def("frame_displacement",     &DQ_MobileBase::frame_displacement,    "Get the frame displacement");
+
+    /*****************************************************
+     *  DQ HolonomicBase
+     * **************************************************/
+    py::class_<DQ_HolonomicBase,DQ_MobileBase> dqholonomicbase_py(robot_modeling,"DQ_HolonomicBase");
+    dqholonomicbase_py.def("fkm",                        &DQ_HolonomicBase::fkm,"Returns the base's fkm");
+    dqholonomicbase_py.def("pose_jacobian",              &DQ_HolonomicBase::pose_jacobian,"Returns the base's Jacobian");
+    dqholonomicbase_py.def("get_dim_configuration_space",&DQ_HolonomicBase::get_dim_configuration_space,"Returns the size of the configuration space");
+    dqholonomicbase_py.def("raw_fkm",                    &DQ_HolonomicBase::raw_fkm,"Returns the raw fkm");
+    dqholonomicbase_py.def("raw_pose_jacobian",          &DQ_HolonomicBase::raw_pose_jacobian,"Return the raw ose Jacobian");
+
+    /*****************************************************
+     *  DQ DifferentialDriveRobot
+     * **************************************************/
+    py::class_<DQ_DifferentialDriveRobot,DQ_HolonomicBase> dqdifferentialdriverobot_py(robot_modeling,"DQ_DifferentialDriveRobot");
+    dqdifferentialdriverobot_py.def(py::init<const double&, const double&>());
+    dqdifferentialdriverobot_py.def("constraint_jacobian", &DQ_DifferentialDriveRobot::constraint_jacobian, "Returns the constraint Jacobian");
+    dqdifferentialdriverobot_py.def("pose_jacobian",       &DQ_DifferentialDriveRobot::pose_jacobian,       "Returns the pose Jacobian");
+
+    /*****************************************************
+     *  DQ WholeBody
+     * **************************************************/
+    py::class_<DQ_WholeBody,DQ_Kinematics> dqwholebody_py(robot_modeling,"DQ_WholeBody");
+    dqwholebody_py.def(py::init<DQ_Kinematics*>());
+    dqwholebody_py.def("add",&DQ_WholeBody::add,"Adds a DQ_Kinematics pointer to the kinematic chain.");
+    dqwholebody_py.def("fkm",(DQ (DQ_WholeBody::*)(const VectorXd&) const)&DQ_WholeBody::fkm,"Gets the fkm.");
+    dqwholebody_py.def("fkm",(DQ (DQ_WholeBody::*)(const VectorXd&,const int&) const)&DQ_WholeBody::fkm,"Gets the fkm.");
+    dqwholebody_py.def("get_dim_configuration_space",&DQ_WholeBody::get_dim_configuration_space,"Gets the dimention of the configuration space");
+    dqwholebody_py.def("pose_jacobian",&DQ_WholeBody::pose_jacobian,"Returns the combined pose Jacobian");
 }
 

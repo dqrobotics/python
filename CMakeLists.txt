@@ -12,6 +12,10 @@ if(UNIX AND NOT APPLE)
         cpp/src/robot_modeling/DQ_CooperativeDualTaskSpace.cpp
         cpp/src/robot_modeling/DQ_Kinematics.cpp
         cpp/src/robot_modeling/DQ_SerialManipulator.cpp
+        cpp/src/robot_modeling/DQ_MobileBase.cpp
+        cpp/src/robot_modeling/DQ_HolonomicBase.cpp
+        cpp/src/robot_modeling/DQ_DifferentialDriveRobot.cpp
+        cpp/src/robot_modeling/DQ_WholeBody.cpp
 
         cpp/src/legacy/DQ_kinematics.cpp)
 endif()
