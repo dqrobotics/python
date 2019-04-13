@@ -36,7 +36,7 @@ script:
 - cd ..
 - python3.6 -m pip install --user ./python
 - python3.6 -c "from dqrobotics import *"
-after_script:
+after_success:
 - cd python
 - cd dist
 - rename 's/linux/manylinux1/' *
