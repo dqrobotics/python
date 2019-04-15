@@ -13,7 +13,7 @@ namespace py = pybind11;
 #include <dqrobotics/robot_modeling/DQ_DifferentialDriveRobot.h>
 #include <dqrobotics/robot_modeling/DQ_WholeBody.h>
 
-#include <dqrobotics/legacy/DQ_kinematics.h>
+//#include <dqrobotics/legacy/DQ_kinematics.h>
 #include <dqrobotics/legacy/robot_dh/A2arm.h>
 #include <dqrobotics/legacy/robot_dh/AX18.h>
 #include <dqrobotics/legacy/robot_dh/Comau.h>
@@ -238,6 +238,7 @@ PYBIND11_MODULE(dqrobotics, m) {
      *  DQ HolonomicBase
      * **************************************************/
     py::class_<DQ_HolonomicBase,DQ_MobileBase> dqholonomicbase_py(robot_modeling,"DQ_HolonomicBase");
+    dqholonomicbase_py.def(py::init());
     dqholonomicbase_py.def("fkm",                        &DQ_HolonomicBase::fkm,"Returns the base's fkm");
     dqholonomicbase_py.def("pose_jacobian",              &DQ_HolonomicBase::pose_jacobian,"Returns the base's Jacobian");
     dqholonomicbase_py.def("get_dim_configuration_space",&DQ_HolonomicBase::get_dim_configuration_space,"Returns the size of the configuration space");
