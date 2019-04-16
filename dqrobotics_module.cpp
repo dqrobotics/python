@@ -13,14 +13,10 @@ namespace py = pybind11;
 #include <dqrobotics/robot_modeling/DQ_DifferentialDriveRobot.h>
 #include <dqrobotics/robot_modeling/DQ_WholeBody.h>
 
-//#include <dqrobotics/legacy/DQ_kinematics.h>
-#include <dqrobotics/legacy/robot_dh/A2arm.h>
-#include <dqrobotics/legacy/robot_dh/AX18.h>
-#include <dqrobotics/legacy/robot_dh/Comau.h>
-#include <dqrobotics/legacy/robot_dh/Kukka.h>
-#include <dqrobotics/legacy/robot_dh/Schunk.h>
-#include <dqrobotics/legacy/robot_dh/WAM.h>
-#include <dqrobotics/legacy/robot_dh/WAM4.h>
+#include <dqrobotics/robots/Ax18ManipulatorRobot.h>
+#include <dqrobotics/robots/BarrettWamArmRobot.h>
+#include <dqrobotics/robots/ComauSmartSixRobot.h>
+#include <dqrobotics/robots/KukaLw4Robot.h>
 
 using namespace DQ_robotics;
 using namespace Eigen;
@@ -138,21 +134,23 @@ PYBIND11_MODULE(dqrobotics, m) {
     /*****************************************************
      *  Robots Kinematic Models
      * **************************************************/
-    py::module robot_dh = m.def_submodule("robot_dh", "A submodule of dqrobotics");
-    //#include <dqrobotics/A2arm.h>
-    robot_dh.def("A2armKinematics",&A2armKinematics,"Returns the A2 arm kinematics.");
-    //#include <dqrobotics/AX18.h>
-    robot_dh.def("Ax18armKinematics",&Ax18Kinematics,"Returns the Ax18 arm kinematics.");
-    //#include <dqrobotics/Comau.h>
-    robot_dh.def("ComauKinematics",&ComauKinematics,"Returns the Comau arm kinematics.");
-    //#include <dqrobotics/Kukka.h>
-    robot_dh.def("KukkaKinematics",&KukkaKinematics,"Returns the Kukka arm kinematics.");
-    //#include <dqrobotics/Schunk.h>
-    robot_dh.def("SchunkKinematics",&SchunkKinematics,"Returns the Ax18 arm kinematics.");
-    //#include <dqrobotics/WAM.h>
-    robot_dh.def("WamKinematics",&WamKinematics,"Returns the Wam arm kinematics.");
-    //#include <dqrobotics/WAM4.h>
-    robot_dh.def("Wam4Kinematics",&Wam4Kinematics,"Returns the Wam4 arm kinematics.");
+    py::module robots_py = m.def_submodule("robots", "A submodule of dqrobotics");
+
+    //#include <dqrobotics/robots/Ax18ManipulatorRobot.h>
+    py::class_<Ax18ManipulatorRobot> ax18manipulatorrobot_py(robots_py, "Ax18ManipulatorRobot");
+    ax18manipulatorrobot_py.def_static("kinematics",&Ax18ManipulatorRobot::kinematics,"Returns the kinematics of the Ax18ManipulatorRobot");
+
+    //#include <dqrobotics/robots/BarrettWamArmRobot.h>
+    py::class_<BarrettWamArmRobot> barrettwamarmrobot_py(robots_py, "BarrettWamArmRobot");
+    barrettwamarmrobot_py.def_static("kinematics",&BarrettWamArmRobot::kinematics,"Returns the kinematics of the BarrettWamArmRobot");
+
+    //#include <dqrobotics/robots/ComauSmartSixRobot.h>
+    py::class_<ComauSmartSixRobot> comausmartsixrobot_py(robots_py, "ComauSmartSixRobot");
+    comausmartsixrobot_py.def_static("kinematics",&ComauSmartSixRobot::kinematics,"Returns the kinematics of the ComauSmartSixRobot");
+
+    //#include <dqrobotics/robots/KukaLw4Robot.h>
+    py::class_<KukaLw4Robot> kukalw4robot_py(robots_py, "KukaLw4Robot");
+    kukalw4robot_py.def_static("kinematics",&KukaLw4Robot::kinematics,"Returns the kinematics of the KukaLw4Robot");
 
     /*****************************************************
      *  Robot Modelling <dqrobotics/robot_modelling/...>

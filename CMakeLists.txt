@@ -8,7 +8,9 @@ if(UNIX AND NOT APPLE)
     add_subdirectory(pybind11)
     pybind11_add_module(dqrobotics
         dqrobotics_module.cpp
+
         cpp/src/DQ.cpp
+
         cpp/src/robot_modeling/DQ_CooperativeDualTaskSpace.cpp
         cpp/src/robot_modeling/DQ_Kinematics.cpp
         cpp/src/robot_modeling/DQ_SerialManipulator.cpp
@@ -17,7 +19,11 @@ if(UNIX AND NOT APPLE)
         cpp/src/robot_modeling/DQ_DifferentialDriveRobot.cpp
         cpp/src/robot_modeling/DQ_WholeBody.cpp
 
-        cpp/src/legacy/DQ_kinematics.cpp)
+        cpp/src/robots/Ax18ManipulatorRobot.cpp
+        cpp/src/robots/BarrettWamArmRobot.cpp
+        cpp/src/robots/ComauSmartSixRobot.cpp
+        cpp/src/robots/KukaLw4Robot.cpp
+        )
 endif()
 
 if(APPLE)
