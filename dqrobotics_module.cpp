@@ -6,6 +6,7 @@ namespace py = pybind11;
 #include <dqrobotics/DQ.h>
 
 #include <dqrobotics/utils/DQ_LinearAlgebra.h>
+#include <dqrobotics/utils/DQ_Geometry.h>
 
 #include <dqrobotics/robot_modeling/DQ_CooperativeDualTaskSpace.h>
 #include <dqrobotics/robot_modeling/DQ_Kinematics.h>
@@ -144,6 +145,16 @@ PYBIND11_MODULE(dqrobotics, m) {
     //#include<dqrobotics/utils/DQ_LinearAlgebra.h>
     py::module linearalgebra_py = m.def_submodule("DQ_LinearAlgebra","A submodule of utils");
     linearalgebra_py.def("pinv", (MatrixXd (*) (const MatrixXd&))&DQ_robotics::pinv, "Retrieves the pseudo-inverse of the input matrix");
+
+    /*****************************************************
+     *  DQ_Geometry
+     * **************************************************/
+    //#include<dqrobotics/utils/DQ_Geometry.h>
+    py::module geometry_py = m.def_submodule("DQ_Geometry","A submodule of utils");
+    geometry_py.def("point_to_point_squared_distance",  &DQ_robotics::point_to_point_squared_distance, "Returns the squared distance between two points");
+    geometry_py.def("point_to_line_squared_distance",   &DQ_robotics::point_to_line_squared_distance,  "Returns the squared distance between a point and a line");
+    geometry_py.def("point_to_plane_distance",          &DQ_robotics::point_to_plane_distance,         "Returns the distance between a point and a plane");
+    geometry_py.def("line_to_line_squared_distance",    &DQ_robotics::line_to_line_squared_distance,   "Returns the squared distance between two lines");
 
     /*****************************************************
      *  Robots Kinematic Models
