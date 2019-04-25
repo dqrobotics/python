@@ -11,6 +11,9 @@ if(UNIX AND NOT APPLE)
 
         cpp/src/DQ.cpp
 
+        cpp/src/utils/DQ_LinearAlgebra.cpp
+        cpp/src/utils/DQ_Geometry.cpp
+
         cpp/src/robot_modeling/DQ_CooperativeDualTaskSpace.cpp
         cpp/src/robot_modeling/DQ_Kinematics.cpp
         cpp/src/robot_modeling/DQ_SerialManipulator.cpp
@@ -33,6 +36,9 @@ if(APPLE)
         dqrobotics_module.cpp
 
         cpp/src/DQ.cpp
+
+        cpp/src/utils/DQ_LinearAlgebra.cpp
+        cpp/src/utils/DQ_Geometry.cpp
 
         cpp/src/robot_modeling/DQ_CooperativeDualTaskSpace.cpp
         cpp/src/robot_modeling/DQ_Kinematics.cpp
