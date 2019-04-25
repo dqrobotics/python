@@ -5,6 +5,8 @@ namespace py = pybind11;
 
 #include <dqrobotics/DQ.h>
 
+#include <dqrobotics/utils/DQ_LinearAlgebra.h>
+
 #include <dqrobotics/robot_modeling/DQ_CooperativeDualTaskSpace.h>
 #include <dqrobotics/robot_modeling/DQ_Kinematics.h>
 #include <dqrobotics/robot_modeling/DQ_SerialManipulator.h>
@@ -105,7 +107,7 @@ PYBIND11_MODULE(dqrobotics, m) {
     m.def("exp"                 ,&DQ_robotics::exp,                  "Retrieves the exp of a DQ.");
     m.def("pow"                 ,&DQ_robotics::pow,                  "Retrieves the pow of a DQ.");
     m.def("tplus"               ,&DQ_robotics::tplus,                "Retrieves the tplus operators for a DQ.");
-    m.def("pinv"                ,&DQ_robotics::pinv ,                "Retrieves the pinv of a DQ.");
+    m.def("pinv"                ,(DQ (*) (const DQ&)) &DQ_robotics::pinv ,"Retrieves the pinv of a DQ.");
     m.def("dec_mult"            ,&DQ_robotics::dec_mult,             "Retrieves the dec mult of a DQ.");
     m.def("hamiplus4"           ,&DQ_robotics::hamiplus4,            "Retrieves the H+ operator for the primary part of a DQ.");
     m.def("haminus4"            ,&DQ_robotics::haminus4,             "Retrieves the H- operator for the primary part of a DQ.");
@@ -130,6 +132,18 @@ PYBIND11_MODULE(dqrobotics, m) {
 
     ////DEPRECATED
 
+    /*****************************************************
+     *  Utils
+     * **************************************************/
+    //dqrobotics/utils/
+    py::module utils_py = m.def_submodule("utils","A submodule of dqrobotics");
+
+    /*****************************************************
+     *  DQ_LinearAlgebra
+     * **************************************************/
+    //#include<dqrobotics/utils/DQ_LinearAlgebra.h>
+    py::module linearalgebra_py = m.def_submodule("DQ_LinearAlgebra","A submodule of utils");
+    linearalgebra_py.def("pinv", (MatrixXd (*) (const MatrixXd&))&DQ_robotics::pinv, "Retrieves the pseudo-inverse of the input matrix");
 
     /*****************************************************
      *  Robots Kinematic Models
