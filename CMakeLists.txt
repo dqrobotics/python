@@ -6,6 +6,7 @@ project(dqroboticspython)
 #VREP INTERFACE
 add_definitions(-DNON_MATLAB_PARSING)
 add_definitions(-DMAX_EXT_API_CONNECTIONS=255)
+add_definitions(-DDO_NOT_USE_SHARED_MEMORY)
 
 if(UNIX AND NOT APPLE)
     include_directories(
