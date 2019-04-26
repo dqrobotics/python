@@ -4,3 +4,6 @@
 [submodule "cpp"]
 	path = cpp
 	url = https://github.com/dqrobotics/cpp
+[submodule "interfaces/cpp-interface-vrep"]
+	path = interfaces/cpp-interface-vrep
+	url = https://github.com/dqrobotics/cpp-interface-vrep.git
