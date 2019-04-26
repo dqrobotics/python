@@ -146,7 +146,7 @@ PYBIND11_MODULE(dqrobotics, m) {
      *  DQ_LinearAlgebra
      * **************************************************/
     //#include<dqrobotics/utils/DQ_LinearAlgebra.h>
-    py::module linearalgebra_py = m.def_submodule("DQ_LinearAlgebra","A submodule of utils");
+    py::module linearalgebra_py = utils_py.def_submodule("DQ_LinearAlgebra","A submodule of utils");
     linearalgebra_py.def("pinv", (MatrixXd (*) (const MatrixXd&))&DQ_robotics::pinv, "Retrieves the pseudo-inverse of the input matrix");
 
     /*****************************************************
@@ -355,8 +355,10 @@ PYBIND11_MODULE(dqrobotics, m) {
     vrepinterface_py.def("get_object_poses",&VrepInterface::get_object_poses,"Get the poses of many objects");
     vrepinterface_py.def("set_object_poses",&VrepInterface::set_object_poses,"Set object poses of many objects");
     vrepinterface_py.def("set_joint_position",&VrepInterface::set_joint_position,"Set joint position");
+    vrepinterface_py.def("set_joint_target_position",&VrepInterface::set_joint_target_position,"Set joint position");
     vrepinterface_py.def("get_joint_position",&VrepInterface::get_joint_position,"Get joint position");
     vrepinterface_py.def("set_joint_positions",&VrepInterface::set_joint_positions,"Set joint positions");
+    vrepinterface_py.def("set_joint_target_positions",&VrepInterface::set_joint_target_positions,"Set joint positions");
     vrepinterface_py.def("get_joint_positions",&VrepInterface::get_joint_positions,"Get joint positions");
 
 }
