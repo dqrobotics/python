@@ -21,6 +21,8 @@ namespace py = pybind11;
 #include <dqrobotics/robots/ComauSmartSixRobot.h>
 #include <dqrobotics/robots/KukaLw4Robot.h>
 
+#include <dqrobotics/interfaces/vrep_interface.h>
+
 using namespace DQ_robotics;
 using namespace Eigen;
 
@@ -288,5 +290,73 @@ PYBIND11_MODULE(dqrobotics, m) {
     dqwholebody_py.def("fkm",(DQ (DQ_WholeBody::*)(const VectorXd&,const int&) const)&DQ_WholeBody::fkm,"Gets the fkm.");
     dqwholebody_py.def("get_dim_configuration_space",&DQ_WholeBody::get_dim_configuration_space,"Gets the dimention of the configuration space");
     dqwholebody_py.def("pose_jacobian",&DQ_WholeBody::pose_jacobian,"Returns the combined pose Jacobian");
+
+
+    /*****************************************************
+     *  Interfaces Submodule
+     * **************************************************/
+    py::module interfaces_py = m.def_submodule("interfaces", "A submodule of dqrobotics");
+
+    /*****************************************************
+     *  VrepInterface
+     * **************************************************/
+    py::class_<VrepInterface> vrepinterface_py(interfaces_py,"VrepInterface");
+    vrepinterface_py.def(py::init<>());
+    vrepinterface_py.def(py::init<std::atomic_bool*>());
+
+    py::enum_<VrepInterface::OP_MODES>(vrepinterface_py, "OP_MODES")
+            .value("OP_BUFFER",    VrepInterface::OP_MODES::OP_BUFFER)
+            .value("OP_ONESHOT",   VrepInterface::OP_MODES::OP_ONESHOT)
+            .value("OP_BLOCKING",  VrepInterface::OP_MODES::OP_BLOCKING)
+            .value("OP_STREAMING", VrepInterface::OP_MODES::OP_STREAMING)
+            .export_values();
+
+    vrepinterface_py.def("connect",(bool (VrepInterface::*) (const int&, const int&, const int&))&VrepInterface::connect,"Connects to V-REP in local machine.");
+    vrepinterface_py.def("connect",(bool (VrepInterface::*) (const std::string&, const int&, const int&, const int&))&VrepInterface::connect,"Connects to V-REP with a given ip.");
+    vrepinterface_py.def("disconnect",&VrepInterface::disconnect,"Disconnects from V-REP.");
+    vrepinterface_py.def("disconnect_all",&VrepInterface::disconnect_all,"Disconnect all from V-REP");
+    vrepinterface_py.def("start_simulation",&VrepInterface::start_simulation,"Start simulation");
+    vrepinterface_py.def("stop_simulation",&VrepInterface::stop_simulation,"Stops simulation");
+    vrepinterface_py.def("is_simulation_running",&VrepInterface::is_simulation_running,"Checks whether the simulation is running or not");
+    vrepinterface_py.def("get_object_handle",&VrepInterface::get_object_handle,"Gets an object handle");
+    vrepinterface_py.def("get_object_handles",&VrepInterface::get_object_handles,"Get object handles");
+
+    vrepinterface_py.def("get_object_translation",(DQ (VrepInterface::*) (const int&, const int&, const VrepInterface::OP_MODES&))&VrepInterface::get_object_translation,"Gets object translation.");
+    vrepinterface_py.def("get_object_translation",(DQ (VrepInterface::*) (const std::string&, const int&, const VrepInterface::OP_MODES&))&VrepInterface::get_object_translation,"Gets object translation.");
+    vrepinterface_py.def("get_object_translation",(DQ (VrepInterface::*) (const int&, const std::string&, const VrepInterface::OP_MODES&))&VrepInterface::get_object_translation,"Gets object translation.");
+    vrepinterface_py.def("get_object_translation",(DQ (VrepInterface::*) (const std::string&, const std::string&, const VrepInterface::OP_MODES&))&VrepInterface::get_object_translation,"Gets object translation.");
+
+    vrepinterface_py.def("set_object_translation",(void (VrepInterface::*) (const int&, const int&, const DQ&, const VrepInterface::OP_MODES&) const)&VrepInterface::set_object_translation,"Sets object translation.");
+    vrepinterface_py.def("set_object_translation",(void (VrepInterface::*) (const std::string&, const int&, const DQ&,  const VrepInterface::OP_MODES&))&VrepInterface::set_object_translation,"Sets object translation.");
+    vrepinterface_py.def("set_object_translation",(void (VrepInterface::*) (const int&, const std::string&, const DQ&,  const VrepInterface::OP_MODES&))&VrepInterface::set_object_translation,"Sets object translation.");
+    vrepinterface_py.def("set_object_translation",(void (VrepInterface::*) (const std::string&, const std::string&, const DQ&,  const VrepInterface::OP_MODES&))&VrepInterface::set_object_translation,"Sets object translation.");
+
+    vrepinterface_py.def("get_object_rotation",(DQ (VrepInterface::*) (const int&, const int&, const VrepInterface::OP_MODES&))&VrepInterface::get_object_rotation,"Gets object rotation.");
+    vrepinterface_py.def("get_object_rotation",(DQ (VrepInterface::*) (const std::string&, const int&, const VrepInterface::OP_MODES&))&VrepInterface::get_object_rotation,"Gets object rotation.");
+    vrepinterface_py.def("get_object_rotation",(DQ (VrepInterface::*) (const int&, const std::string&, const VrepInterface::OP_MODES&))&VrepInterface::get_object_rotation,"Gets object rotation.");
+    vrepinterface_py.def("get_object_rotation",(DQ (VrepInterface::*) (const std::string&, const std::string&, const VrepInterface::OP_MODES&))&VrepInterface::get_object_rotation,"Gets object rotation.");
+
+    vrepinterface_py.def("set_object_rotation",(void (VrepInterface::*) (const int&, const int&, const DQ&, const VrepInterface::OP_MODES&) const)&VrepInterface::set_object_rotation,"Sets object rotation.");
+    vrepinterface_py.def("set_object_rotation",(void (VrepInterface::*) (const std::string&, const int&, const DQ&,  const VrepInterface::OP_MODES&))&VrepInterface::set_object_rotation,"Sets object rotation.");
+    vrepinterface_py.def("set_object_rotation",(void (VrepInterface::*) (const int&, const std::string&, const DQ&,  const VrepInterface::OP_MODES&))&VrepInterface::set_object_rotation,"Sets object rotation.");
+    vrepinterface_py.def("set_object_rotation",(void (VrepInterface::*) (const std::string&, const std::string&, const DQ&,  const VrepInterface::OP_MODES&))&VrepInterface::set_object_rotation,"Sets object rotation.");
+
+    vrepinterface_py.def("get_object_pose",(DQ (VrepInterface::*) (const int&, const int&, const VrepInterface::OP_MODES&))&VrepInterface::get_object_pose,"Gets object pose.");
+    vrepinterface_py.def("get_object_pose",(DQ (VrepInterface::*) (const std::string&, const int&, const VrepInterface::OP_MODES&))&VrepInterface::get_object_pose,"Gets object pose.");
+    vrepinterface_py.def("get_object_pose",(DQ (VrepInterface::*) (const int&, const std::string&, const VrepInterface::OP_MODES&))&VrepInterface::get_object_pose,"Gets object pose.");
+    vrepinterface_py.def("get_object_pose",(DQ (VrepInterface::*) (const std::string&, const std::string&, const VrepInterface::OP_MODES&))&VrepInterface::get_object_pose,"Gets object pose.");
+
+    vrepinterface_py.def("set_object_pose",(void (VrepInterface::*) (const int&, const int&, const DQ&, const VrepInterface::OP_MODES&) const)&VrepInterface::set_object_pose,"Sets object pose.");
+    vrepinterface_py.def("set_object_pose",(void (VrepInterface::*) (const std::string&, const int&, const DQ&,  const VrepInterface::OP_MODES&))&VrepInterface::set_object_pose,"Sets object pose.");
+    vrepinterface_py.def("set_object_pose",(void (VrepInterface::*) (const int&, const std::string&, const DQ&,  const VrepInterface::OP_MODES&))&VrepInterface::set_object_pose,"Sets object pose.");
+    vrepinterface_py.def("set_object_pose",(void (VrepInterface::*) (const std::string&, const std::string&, const DQ&,  const VrepInterface::OP_MODES&))&VrepInterface::set_object_pose,"Sets object pose.");
+
+    vrepinterface_py.def("get_object_poses",&VrepInterface::get_object_poses,"Get the poses of many objects");
+    vrepinterface_py.def("set_object_poses",&VrepInterface::set_object_poses,"Set object poses of many objects");
+    vrepinterface_py.def("set_joint_position",&VrepInterface::set_joint_position,"Set joint position");
+    vrepinterface_py.def("get_joint_position",&VrepInterface::get_joint_position,"Get joint position");
+    vrepinterface_py.def("set_joint_positions",&VrepInterface::set_joint_positions,"Set joint positions");
+    vrepinterface_py.def("get_joint_positions",&VrepInterface::get_joint_positions,"Get joint positions");
+
 }
 
