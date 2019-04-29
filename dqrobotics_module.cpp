@@ -71,6 +71,7 @@ PYBIND11_MODULE(dqrobotics, m) {
     dq.def("sharp"               ,&DQ::sharp,                 "Retrieves the sharp of a DQ");
     dq.def("Ad"                  ,&DQ::Ad,                    "Retrieves the adjoint transformation of a DQ.");
     dq.def("Adsharp"             ,&DQ::Adsharp,               "Retrieves the adjoint sharp transformation of a DQ.");
+    //dq.def("cross"               ,&DQ::cross,                 "Returns the result of the cross operation with another DQ");
     ////Deprecated
     //dq.def("generalizedJacobian", &DQ::generalizedJacobian,"Retrieves the generalized Jacobian of a DQ.");
 
@@ -125,6 +126,8 @@ PYBIND11_MODULE(dqrobotics, m) {
     m.def("crossmatrix4"        ,&DQ_robotics::crossmatrix4,         "Returns the crossmatrix4 operator.");
     m.def("Ad"                  ,&DQ_robotics::Ad,                   "Retrieves the adjoint transformation of a DQ.");
     m.def("Adsharp"             ,&DQ_robotics::Adsharp,              "Retrieves the adjoint sharp transformation of a DQ.");
+    m.def("cross"               ,&DQ_robotics::cross,                "Returns the result of the cross product between two DQ");
+    m.def("dot"                 ,&DQ_robotics::dot,                  "Returns the result of the dot product between two DQ");
     ////DEPRECATED
     //m.def("generalizedJacobian",&DQ_robotics::generalizedJacobian,"Retrieves the generalized Jacobian of a DQ.");
 
