@@ -156,11 +156,11 @@ PYBIND11_MODULE(dqrobotics, m) {
      *  DQ_Geometry
      * **************************************************/
     //#include<dqrobotics/utils/DQ_Geometry.h>
-    py::module geometry_py = m.def_submodule("DQ_Geometry","A submodule of utils");
-    geometry_py.def("point_to_point_squared_distance",  &DQ_robotics::point_to_point_squared_distance, "Returns the squared distance between two points");
-    geometry_py.def("point_to_line_squared_distance",   &DQ_robotics::point_to_line_squared_distance,  "Returns the squared distance between a point and a line");
-    geometry_py.def("point_to_plane_distance",          &DQ_robotics::point_to_plane_distance,         "Returns the distance between a point and a plane");
-    geometry_py.def("line_to_line_squared_distance",    &DQ_robotics::line_to_line_squared_distance,   "Returns the squared distance between two lines");
+    py::class_<DQ_Geometry> geometry_py = m.def_submodule("DQ_Geometry","A submodule of utils");
+    geometry_py.def_static("point_to_point_squared_distance",  &DQ_Geometry::point_to_point_squared_distance, "Returns the squared distance between two points");
+    geometry_py.def_static("point_to_line_squared_distance",   &DQ_Geometry::point_to_line_squared_distance,  "Returns the squared distance between a point and a line");
+    geometry_py.def_static("point_to_plane_distance",          &DQ_Geometry::point_to_plane_distance,         "Returns the distance between a point and a plane");
+    geometry_py.def_static("line_to_line_squared_distance",    &DQ_Geometry::line_to_line_squared_distance,   "Returns the squared distance between two lines");
 
     /*****************************************************
      *  Robots Kinematic Models
