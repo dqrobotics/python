@@ -37,9 +37,10 @@ script:
 - python3.6 -m pip install --user ./python
 - python3.6 -c "from dqrobotics import *"
 after_success:
-  if: branch = master
-  - cd python
-  - cd dist
-  - rename 's/linux/manylinux1/' *
-  - cd ..
-  - python3.6 -m twine upload dist/*
+- if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]
+- cd python
+- cd dist
+- rename 's/linux/manylinux1/' *
+- cd ..
+- python3.6 -m twine upload dist/*
+- fi
