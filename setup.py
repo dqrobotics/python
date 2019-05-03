@@ -63,7 +63,8 @@ setup(
     author='Murilo Marinho',
     author_email='murilo@nml.t.u-tokyo.ac.jp',
     description='DQRobotics python',
-    long_description='',
+    long_description=long_description,
+    long_description_content_type="text/markdown",
     url="https://github.com/dqrobotics/python/issues"
     ext_modules=[CMakeExtension('dqrobotics')],
     cmdclass=dict(build_ext=CMakeBuild),
