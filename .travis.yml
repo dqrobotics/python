@@ -20,6 +20,8 @@ matrix:
         - python3-wheel
         - python3-setuptools-git
 script:
+- chmod +x .build.sh
 - ./.build.sh
 after_success:
+- chmod +x .deploy.sh
 - ./.deploy.sh
