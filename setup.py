@@ -64,10 +64,18 @@ setup(
     author_email='murilo@nml.t.u-tokyo.ac.jp',
     description='DQRobotics python',
     long_description='',
+    url="https://github.com/dqrobotics/python/issues"
     ext_modules=[CMakeExtension('dqrobotics')],
     cmdclass=dict(build_ext=CMakeBuild),
     install_requires=[
        'numpy',
     ],
     zip_safe=False,
+    classifiers=[
+        "Programming Language :: Python :: 3",
+        "Programming Language :: C++",
+        "Development Status :: 4 - Beta",
+        "Operating System :: POSIX :: Linux",
+        "License :: OSI Approved :: GNU Lesser General Public License v3 or later (LGPLv3+)",        
+    ],
 )
