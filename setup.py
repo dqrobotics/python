@@ -8,6 +8,11 @@ from setuptools import setup, Extension
 from setuptools.command.build_ext import build_ext
 from distutils.version import LooseVersion
 
+# read the contents of your README file
+from os import path
+this_directory = path.abspath(path.dirname(__file__))
+with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
+    long_description = f.read()
 
 class CMakeExtension(Extension):
     def __init__(self, name, sourcedir=''):
@@ -63,8 +68,8 @@ setup(
     author='Murilo Marinho',
     author_email='murilo@nml.t.u-tokyo.ac.jp',
     description='DQRobotics python',
-    long_description=open('README.md').read(),
-    long_description_content_type="text/markdown",
+    long_description=long_description,
+    long_description_content_type='text/markdown'
     url="https://github.com/dqrobotics/python",
     ext_modules=[CMakeExtension('dqrobotics')],
     cmdclass=dict(build_ext=CMakeBuild),
