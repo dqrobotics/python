@@ -65,7 +65,7 @@ setup(
     description='DQRobotics python',
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/dqrobotics/python/issues",
+    url="https://github.com/dqrobotics/python",
     ext_modules=[CMakeExtension('dqrobotics')],
     cmdclass=dict(build_ext=CMakeBuild),
     install_requires=[
