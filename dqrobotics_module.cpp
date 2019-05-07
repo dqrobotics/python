@@ -1,3 +1,25 @@
+/**
+(C) Copyright 2019 DQ Robotics Developers
+
+This file is part of DQ Robotics.
+
+    DQ Robotics is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Lesser General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    DQ Robotics is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public License
+    along with DQ Robotics.  If not, see <http://www.gnu.org/licenses/>.
+
+Contributors:
+- Murilo M. Marinho (murilo@nml.t.u-tokyo.ac.jp)
+*/
+
 #include <pybind11/pybind11.h>
 #include <pybind11/operators.h>
 #include <pybind11/stl.h>
@@ -317,12 +339,16 @@ PYBIND11_MODULE(dqrobotics, m) {
 
     vrepinterface_py.def("connect",(bool (VrepInterface::*) (const int&, const int&, const int&))&VrepInterface::connect,"Connects to V-REP in local machine.");
     vrepinterface_py.def("connect",(bool (VrepInterface::*) (const std::string&, const int&, const int&, const int&))&VrepInterface::connect,"Connects to V-REP with a given ip.");
-    vrepinterface_py.def("disconnect",&VrepInterface::disconnect,"Disconnects from V-REP.");
+
+    vrepinterface_py.def("disconnect",    &VrepInterface::disconnect,"Disconnects from V-REP.");
     vrepinterface_py.def("disconnect_all",&VrepInterface::disconnect_all,"Disconnect all from V-REP");
+
     vrepinterface_py.def("start_simulation",&VrepInterface::start_simulation,"Start simulation");
-    vrepinterface_py.def("stop_simulation",&VrepInterface::stop_simulation,"Stops simulation");
+    vrepinterface_py.def("stop_simulation", &VrepInterface::stop_simulation,"Stops simulation");
+
     vrepinterface_py.def("is_simulation_running",&VrepInterface::is_simulation_running,"Checks whether the simulation is running or not");
-    vrepinterface_py.def("get_object_handle",&VrepInterface::get_object_handle,"Gets an object handle");
+
+    vrepinterface_py.def("get_object_handle", &VrepInterface::get_object_handle,"Gets an object handle");
     vrepinterface_py.def("get_object_handles",&VrepInterface::get_object_handles,"Get object handles");
 
     vrepinterface_py.def("get_object_translation",(DQ (VrepInterface::*) (const int&, const int&, const VrepInterface::OP_MODES&))&VrepInterface::get_object_translation,"Gets object translation.");
@@ -357,12 +383,24 @@ PYBIND11_MODULE(dqrobotics, m) {
 
     vrepinterface_py.def("get_object_poses",&VrepInterface::get_object_poses,"Get the poses of many objects");
     vrepinterface_py.def("set_object_poses",&VrepInterface::set_object_poses,"Set object poses of many objects");
-    vrepinterface_py.def("set_joint_position",&VrepInterface::set_joint_position,"Set joint position");
-    vrepinterface_py.def("set_joint_target_position",&VrepInterface::set_joint_target_position,"Set joint position");
-    vrepinterface_py.def("get_joint_position",&VrepInterface::get_joint_position,"Get joint position");
-    vrepinterface_py.def("set_joint_positions",&VrepInterface::set_joint_positions,"Set joint positions");
-    vrepinterface_py.def("set_joint_target_positions",&VrepInterface::set_joint_target_positions,"Set joint positions");
-    vrepinterface_py.def("get_joint_positions",&VrepInterface::get_joint_positions,"Get joint positions");
+
+    vrepinterface_py.def("set_joint_position",(void (VrepInterface::*) (const int&, const double&, const VrepInterface::OP_MODES&) const)  &VrepInterface::set_joint_position,"Set joint position");
+    vrepinterface_py.def("set_joint_position",(void (VrepInterface::*) (const std::string&, const double&, const VrepInterface::OP_MODES&))&VrepInterface::set_joint_position,"Set joint position");
+
+    vrepinterface_py.def("set_joint_target_position",(void (VrepInterface::*) (const int&, const double&, const VrepInterface::OP_MODES&) const)  &VrepInterface::set_joint_target_position,"Set joint position");
+    vrepinterface_py.def("set_joint_target_position",(void (VrepInterface::*) (const std::string&, const double&, const VrepInterface::OP_MODES&))&VrepInterface::set_joint_target_position,"Set joint position");
+
+    vrepinterface_py.def("get_joint_position",(double (VrepInterface::*) (const int&, const VrepInterface::OP_MODES&) const)  &VrepInterface::get_joint_position,"Get joint position");
+    vrepinterface_py.def("get_joint_position",(double (VrepInterface::*) (const std::string&, const VrepInterface::OP_MODES&))&VrepInterface::get_joint_position,"Get joint position");
+
+    vrepinterface_py.def("set_joint_positions",(void (VrepInterface::*) (const std::vector<int>&, const VectorXd&, const VrepInterface::OP_MODES&) const)  &VrepInterface::set_joint_positions,"Set joint positions");
+    vrepinterface_py.def("set_joint_positions",(void (VrepInterface::*) (const std::vector<std::string>&, const VectorXd&, const VrepInterface::OP_MODES&))&VrepInterface::set_joint_positions,"Set joint positions");
+
+    vrepinterface_py.def("set_joint_target_positions",(void (VrepInterface::*) (const std::vector<int>&, const VectorXd&, const VrepInterface::OP_MODES&) const)  &VrepInterface::set_joint_target_positions,"Set joint positions");
+    vrepinterface_py.def("set_joint_target_positions",(void (VrepInterface::*) (const std::vector<std::string>&, const VectorXd&, const VrepInterface::OP_MODES&))&VrepInterface::set_joint_target_positions,"Set joint positions");
+
+    vrepinterface_py.def("get_joint_positions",(VectorXd (VrepInterface::*) (const std::vector<int>&, const VrepInterface::OP_MODES&) const)  &VrepInterface::get_joint_positions,"Get joint positions");
+    vrepinterface_py.def("get_joint_positions",(VectorXd (VrepInterface::*) (const std::vector<std::string>&, const VrepInterface::OP_MODES&))&VrepInterface::get_joint_positions,"Get joint positions");
 
 }
 
