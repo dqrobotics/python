@@ -33,6 +33,9 @@ if(UNIX AND NOT APPLE)
         cpp/src/robot_modeling/DQ_DifferentialDriveRobot.cpp
         cpp/src/robot_modeling/DQ_WholeBody.cpp
 
+        cpp/src/robot_control/DQ_KinematicController.cpp
+        cpp/src/robot_control/DQ_TaskSpacePseudoInverseController.cpp
+
         cpp/src/robots/Ax18ManipulatorRobot.cpp
         cpp/src/robots/BarrettWamArmRobot.cpp
         cpp/src/robots/ComauSmartSixRobot.cpp
