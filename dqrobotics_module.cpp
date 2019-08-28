@@ -340,21 +340,22 @@ PYBIND11_MODULE(dqrobotics, m) {
     /*****************************************************
      *  DQ KinematicController
      * **************************************************/
-    py::class_<DQ_KinematicController> dqkinematiccontroller_py(robot_control,"DQ_KinematicController");
-    dqkinematiccontroller_py.def(py::init<DQ_Kinematics*>());
-    dqkinematiccontroller_py.def("get_control_objective"  ,&DQ_KinematicController::get_control_objective,"Gets the control objective");
-    dqkinematiccontroller_py.def("get_jacobian"           ,&DQ_KinematicController::get_jacobian,"Gets the Jacobian");
-    dqkinematiccontroller_py.def("is_set"                 ,&DQ_KinematicController::is_set,"Checks if the controller's objective has been set");
-    dqkinematiccontroller_py.def("is_stable"              ,&DQ_KinematicController::is_stable,"Checks if the controller has stabilized");
-    dqkinematiccontroller_py.def("set_control_objective"  ,&DQ_KinematicController::set_control_objective,"Sets the control objective");
-    dqkinematiccontroller_py.def("set_gain"               ,&DQ_KinematicController::set_gain,"Sets the controller gain");
-    dqkinematiccontroller_py.def("set_stability_threshold",&DQ_KinematicController::set_stability_threshold,"Sets the stability threshold");
+    // py::class_<DQ_KinematicController> dqkinematiccontroller_py(robot_control,"DQ_KinematicController");
+    // dqkinematiccontroller_py.def(py::init<DQ_Kinematics*>());
+    // dqkinematiccontroller_py.def("get_control_objective"  ,&DQ_KinematicController::get_control_objective,"Gets the control objective");
+    // dqkinematiccontroller_py.def("get_jacobian"           ,&DQ_KinematicController::get_jacobian,"Gets the Jacobian");
+    // dqkinematiccontroller_py.def("is_set"                 ,&DQ_KinematicController::is_set,"Checks if the controller's objective has been set");
+    // dqkinematiccontroller_py.def("is_stable"              ,&DQ_KinematicController::is_stable,"Checks if the controller has stabilized");
+    // dqkinematiccontroller_py.def("set_control_objective"  ,&DQ_KinematicController::set_control_objective,"Sets the control objective");
+    // dqkinematiccontroller_py.def("set_gain"               ,&DQ_KinematicController::set_gain,"Sets the controller gain");
+    // dqkinematiccontroller_py.def("set_stability_threshold",&DQ_KinematicController::set_stability_threshold,"Sets the stability threshold");
 
     /*****************************************************
      *  DQ TaskSpacePseudoInverseController
      * **************************************************/
-    py::class_<DQ_TaskSpacePseudoInverseController,DQ_KinematicController> dqtaskspacepseudoinversecontroller_py(robot_control,"DQ_TaskSpacePseudoInverseController");
-    dqtaskspacepseudoinversecontroller_py.def("compute_control_signal",&DQ_TaskSpacePseudoInverseController::compute_control_signal,"Computes the control signal.");
+    // py::class_<DQ_TaskSpacePseudoInverseController,DQ_KinematicController> dqtaskspacepseudoinversecontroller_py(robot_control,"DQ_TaskSpacePseudoInverseController");
+    // dqtaskspacepseudoinversecontroller_py.def("compute_setpoint_control_signal",&DQ_TaskSpacePseudoInverseController::compute_setpoint_control_signal,"Computes the setpoint control signal.");
+    // dqtaskspacepseudoinversecontroller_py.def("compute_tracking_control_signal",&DQ_TaskSpacePseudoInverseController::compute_tracking_control_signal,"Computes the tracking control signal.");
 
     /*****************************************************
      *  Interfaces Submodule
