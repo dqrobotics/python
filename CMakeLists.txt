@@ -43,6 +43,7 @@ if(UNIX AND NOT APPLE)
 
         #VREP INTERFACE
         interfaces/cpp-interface-vrep/src/vrep_interface.cpp
+        interfaces/cpp-interface-vrep/src/VrepInterfaceMapElement.cpp
         interfaces/cpp-interface-vrep/coppeliarobotics/remoteApi/extApi.c
         interfaces/cpp-interface-vrep/coppeliarobotics/remoteApi/extApiPlatform.h
         interfaces/cpp-interface-vrep/coppeliarobotics/remoteApi/extApiPlatform.c
