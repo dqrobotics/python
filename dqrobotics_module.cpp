@@ -351,6 +351,7 @@ PYBIND11_MODULE(dqrobotics, m) {
      *  DQ DQ_QuadraticProgrammingSolver
      * **************************************************/
     py::class_<DQ_QuadraticProgrammingSolver, DQ_QuadraticProgrammingSolverPy> dqquadraticprogrammingsolver_py(solvers,"DQ_QuadraticProgrammingSolver");
+    dqquadraticprogrammingsolver_py.def(py::init<>());
     dqquadraticprogrammingsolver_py.def("solve_quadratic_program", &DQ_QuadraticProgrammingSolver::solve_quadratic_program, "Solves a quadratic program");
 
     /*****************************************************
