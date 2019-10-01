@@ -42,8 +42,11 @@ if(UNIX AND NOT APPLE)
         cpp/src/robots/KukaLw4Robot.cpp
 
         #VREP INTERFACE
-        interfaces/cpp-interface-vrep/src/vrep_interface.cpp
-        interfaces/cpp-interface-vrep/src/VrepInterfaceMapElement.cpp
+        interfaces/cpp-interface-vrep/src/DQ_VrepInterface.cpp
+        interfaces/cpp-interface-vrep/src/DQ_VrepInterfaceMapElement.cpp
+        interfaces/cpp-interface-vrep/src/DQ_VrepRobot.cpp
+        interfaces/cpp-interface-vrep/src/LBR4pVrepRobot.cpp
+        interfaces/cpp-interface-vrep/src/YouBotVrepRobot.cpp
         interfaces/cpp-interface-vrep/coppeliarobotics/remoteApi/extApi.c
         interfaces/cpp-interface-vrep/coppeliarobotics/remoteApi/extApiPlatform.h
         interfaces/cpp-interface-vrep/coppeliarobotics/remoteApi/extApiPlatform.c

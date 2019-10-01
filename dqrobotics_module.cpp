@@ -47,7 +47,10 @@ namespace py = pybind11;
 #include <dqrobotics/robots/ComauSmartSixRobot.h>
 #include <dqrobotics/robots/KukaLw4Robot.h>
 
-#include <dqrobotics/interfaces/vrep_interface.h>
+#include <dqrobotics/interfaces/vrep/DQ_VrepInterface.h>
+#include <dqrobotics/interfaces/vrep/DQ_VrepRobot.h>
+#include <dqrobotics/interfaces/vrep/robots/LBR4pVrepRobot.h>
+#include <dqrobotics/interfaces/vrep/robots/YouBotVrepRobot.h>
 
 using namespace DQ_robotics;
 using namespace Eigen;
@@ -83,7 +86,6 @@ PYBIND11_MODULE(dqrobotics, m) {
     dq.def("pow"                 ,&DQ::pow,                   "Retrieves the pow of a DQ.");
     dq.def("tplus"               ,&DQ::tplus,                 "Retrieves the tplus operators for a DQ.");
     dq.def("pinv"                ,&DQ::pinv ,                 "Retrieves the pinv of a DQ.");
-    //NOT DEFINED IN CPP dq.def("dec_mult"           ,&DQ::dec_mult,"Retrieves the dec mult of a DQ.");
     dq.def("hamiplus4"           ,&DQ::hamiplus4,             "Retrieves the H+ operator for the primary part of a DQ.");
     dq.def("haminus4"            ,&DQ::haminus4,              "Retrieves the H- operator for the primary part of a DQ.");
     dq.def("hamiplus8"           ,&DQ::hamiplus8,             "Retrieves the H+ operator for a DQ.");
@@ -96,9 +98,6 @@ PYBIND11_MODULE(dqrobotics, m) {
     dq.def("sharp"               ,&DQ::sharp,                 "Retrieves the sharp of a DQ");
     dq.def("Ad"                  ,&DQ::Ad,                    "Retrieves the adjoint transformation of a DQ.");
     dq.def("Adsharp"             ,&DQ::Adsharp,               "Retrieves the adjoint sharp transformation of a DQ.");
-    //dq.def("cross"               ,&DQ::cross,                 "Returns the result of the cross operation with another DQ");
-    ////Deprecated
-    //dq.def("generalizedJacobian", &DQ::generalizedJacobian,"Retrieves the generalized Jacobian of a DQ.");
 
     ///Operators
     //Self
@@ -153,16 +152,12 @@ PYBIND11_MODULE(dqrobotics, m) {
     m.def("Adsharp"             ,&DQ_robotics::Adsharp,              "Retrieves the adjoint sharp transformation of a DQ.");
     m.def("cross"               ,&DQ_robotics::cross,                "Returns the result of the cross product between two DQ");
     m.def("dot"                 ,&DQ_robotics::dot,                  "Returns the result of the dot product between two DQ");
-    ////DEPRECATED
-    //m.def("generalizedJacobian",&DQ_robotics::generalizedJacobian,"Retrieves the generalized Jacobian of a DQ.");
 
     ///Namespace readonly
     m.attr("DQ_threshold") = DQ_threshold;
     m.attr("i_")           = DQ_robotics::i_;
     m.attr("j_")           = DQ_robotics::j_;
     m.attr("k_")           = DQ_robotics::k_;
-
-    ////DEPRECATED
 
     /*****************************************************
      *  Utils
@@ -248,9 +243,6 @@ PYBIND11_MODULE(dqrobotics, m) {
     dqserialmanipulator_py.def("d",                           &DQ_SerialManipulator::d,"Retrieves the vector d.");
     dqserialmanipulator_py.def("a",                           &DQ_SerialManipulator::a,"Retrieves the vector a.");
     dqserialmanipulator_py.def("alpha",                       &DQ_SerialManipulator::alpha,"Retrieves the vector of alphas.");
-    //dqserialmanipulator_py.def("dummy",                       &DQ_SerialManipulator::dummy,"Retrieves the vector of dummies.");
-    //dqserialmanipulator_py.def("set_dummy",                   &DQ_SerialManipulator::set_dummy,"Sets the vector of dummies.");
-    //dqserialmanipulator_py.def("n_dummy",                     &DQ_SerialManipulator::n_dummy,"Retrieves the number of dummy joints.");
     dqserialmanipulator_py.def("get_dim_configuration_space", &DQ_SerialManipulator::get_dim_configuration_space,"Retrieves the number of links.");
     dqserialmanipulator_py.def("convention",                  &DQ_SerialManipulator::convention,"Retrieves the DH convention.");
     dqserialmanipulator_py.def("base_frame",                  &DQ_SerialManipulator::base_frame,"Retrieves the base.");
@@ -363,83 +355,119 @@ PYBIND11_MODULE(dqrobotics, m) {
     py::module interfaces_py = m.def_submodule("interfaces", "A submodule of dqrobotics");
 
     /*****************************************************
+     *  Vrep Submodule
+     * **************************************************/
+    py::module vrep_py = m.def_submodule("vrep", "A submodule of dqrobotics");
+
+    /*****************************************************
      *  VrepInterface
      * **************************************************/
-    py::class_<VrepInterface> vrepinterface_py(interfaces_py,"VrepInterface");
-    vrepinterface_py.def(py::init<>());
-    vrepinterface_py.def(py::init<std::atomic_bool*>());
+    py::class_<DQ_VrepInterface> dqvrepinterface_py(vrep_py,"DQ_VrepInterface");
+    dqvrepinterface_py.def(py::init<>());
+    dqvrepinterface_py.def(py::init<std::atomic_bool*>());
 
-    py::enum_<VrepInterface::OP_MODES>(vrepinterface_py, "OP_MODES")
-            .value("OP_BUFFER",    VrepInterface::OP_MODES::OP_BUFFER)
-            .value("OP_ONESHOT",   VrepInterface::OP_MODES::OP_ONESHOT)
-            .value("OP_BLOCKING",  VrepInterface::OP_MODES::OP_BLOCKING)
-            .value("OP_STREAMING", VrepInterface::OP_MODES::OP_STREAMING)
+    dqvrepinterface_py.attr("VREP_OBJECTNAME_ABSOLUTE") = VREP_OBJECTNAME_ABSOLUTE;
+
+    py::enum_<DQ_VrepInterface::OP_MODES>(dqvrepinterface_py, "OP_MODES")
+            .value("OP_BUFFER",    DQ_VrepInterface::OP_MODES::OP_BUFFER)
+            .value("OP_ONESHOT",   DQ_VrepInterface::OP_MODES::OP_ONESHOT)
+            .value("OP_BLOCKING",  DQ_VrepInterface::OP_MODES::OP_BLOCKING)
+            .value("OP_STREAMING", DQ_VrepInterface::OP_MODES::OP_STREAMING)
+            .value("OP_AUTOMATIC", DQ_VrepInterface::OP_MODES::OP_AUTOMATIC)
             .export_values();
 
-    vrepinterface_py.def("connect",(bool (VrepInterface::*) (const int&, const int&, const int&))&VrepInterface::connect,"Connects to V-REP in local machine.");
-    vrepinterface_py.def("connect",(bool (VrepInterface::*) (const std::string&, const int&, const int&, const int&))&VrepInterface::connect,"Connects to V-REP with a given ip.");
+    dqvrepinterface_py.def("connect",(bool (DQ_VrepInterface::*) (const int&, const int&, const int&))&DQ_VrepInterface::connect,"Connects to V-REP in local machine.");
+    dqvrepinterface_py.def("connect",(bool (DQ_VrepInterface::*) (const std::string&, const int&, const int&, const int&))&DQ_VrepInterface::connect,"Connects to V-REP with a given ip.");
 
-    vrepinterface_py.def("disconnect",    &VrepInterface::disconnect,"Disconnects from V-REP.");
-    vrepinterface_py.def("disconnect_all",&VrepInterface::disconnect_all,"Disconnect all from V-REP");
+    dqvrepinterface_py.def("disconnect",    &DQ_VrepInterface::disconnect,"Disconnects from V-REP.");
+    dqvrepinterface_py.def("disconnect_all",&DQ_VrepInterface::disconnect_all,"Disconnect all from V-REP");
 
-    vrepinterface_py.def("start_simulation",&VrepInterface::start_simulation,"Start simulation");
-    vrepinterface_py.def("stop_simulation", &VrepInterface::stop_simulation,"Stops simulation");
+    dqvrepinterface_py.def("start_simulation",&DQ_VrepInterface::start_simulation,"Start simulation");
+    dqvrepinterface_py.def("stop_simulation", &DQ_VrepInterface::stop_simulation,"Stops simulation");
 
-    vrepinterface_py.def("is_simulation_running",&VrepInterface::is_simulation_running,"Checks whether the simulation is running or not");
+    dqvrepinterface_py.def("is_simulation_running",&DQ_VrepInterface::is_simulation_running,"Checks whether the simulation is running or not");
 
-    vrepinterface_py.def("get_object_handle", &VrepInterface::get_object_handle,"Gets an object handle");
-    vrepinterface_py.def("get_object_handles",&VrepInterface::get_object_handles,"Get object handles");
+    dqvrepinterface_py.def("get_object_handle", &DQ_VrepInterface::get_object_handle,"Gets an object handle");
+    dqvrepinterface_py.def("get_object_handles",&DQ_VrepInterface::get_object_handles,"Get object handles");
 
-    vrepinterface_py.def("get_object_translation",(DQ (VrepInterface::*) (const int&, const int&, const VrepInterface::OP_MODES&))&VrepInterface::get_object_translation,"Gets object translation.");
-    vrepinterface_py.def("get_object_translation",(DQ (VrepInterface::*) (const std::string&, const int&, const VrepInterface::OP_MODES&))&VrepInterface::get_object_translation,"Gets object translation.");
-    vrepinterface_py.def("get_object_translation",(DQ (VrepInterface::*) (const int&, const std::string&, const VrepInterface::OP_MODES&))&VrepInterface::get_object_translation,"Gets object translation.");
-    vrepinterface_py.def("get_object_translation",(DQ (VrepInterface::*) (const std::string&, const std::string&, const VrepInterface::OP_MODES&))&VrepInterface::get_object_translation,"Gets object translation.");
+    dqvrepinterface_py.def("get_object_translation",(DQ (DQ_VrepInterface::*) (const int&, const int&, const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::get_object_translation,"Gets object translation.");
+    dqvrepinterface_py.def("get_object_translation",(DQ (DQ_VrepInterface::*) (const std::string&, const int&, const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::get_object_translation,"Gets object translation.");
+    dqvrepinterface_py.def("get_object_translation",(DQ (DQ_VrepInterface::*) (const int&, const std::string&, const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::get_object_translation,"Gets object translation.");
+    dqvrepinterface_py.def("get_object_translation",(DQ (DQ_VrepInterface::*) (const std::string&, const std::string&, const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::get_object_translation,"Gets object translation.");
 
-    vrepinterface_py.def("set_object_translation",(void (VrepInterface::*) (const int&, const int&, const DQ&, const VrepInterface::OP_MODES&) const)&VrepInterface::set_object_translation,"Sets object translation.");
-    vrepinterface_py.def("set_object_translation",(void (VrepInterface::*) (const std::string&, const int&, const DQ&,  const VrepInterface::OP_MODES&))&VrepInterface::set_object_translation,"Sets object translation.");
-    vrepinterface_py.def("set_object_translation",(void (VrepInterface::*) (const int&, const std::string&, const DQ&,  const VrepInterface::OP_MODES&))&VrepInterface::set_object_translation,"Sets object translation.");
-    vrepinterface_py.def("set_object_translation",(void (VrepInterface::*) (const std::string&, const DQ&, const std::string&, const VrepInterface::OP_MODES&))&VrepInterface::set_object_translation,"Sets object translation.");
+    dqvrepinterface_py.def("set_object_translation",(void (DQ_VrepInterface::*) (const int&, const int&, const DQ&, const DQ_VrepInterface::OP_MODES&) const)&DQ_VrepInterface::set_object_translation,"Sets object translation.");
+    dqvrepinterface_py.def("set_object_translation",(void (DQ_VrepInterface::*) (const std::string&, const int&, const DQ&,  const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::set_object_translation,"Sets object translation.");
+    dqvrepinterface_py.def("set_object_translation",(void (DQ_VrepInterface::*) (const int&, const std::string&, const DQ&,  const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::set_object_translation,"Sets object translation.");
+    dqvrepinterface_py.def("set_object_translation",(void (DQ_VrepInterface::*) (const std::string&, const DQ&, const std::string&, const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::set_object_translation,"Sets object translation.");
 
-    vrepinterface_py.def("get_object_rotation",(DQ (VrepInterface::*) (const int&, const int&, const VrepInterface::OP_MODES&))&VrepInterface::get_object_rotation,"Gets object rotation.");
-    vrepinterface_py.def("get_object_rotation",(DQ (VrepInterface::*) (const std::string&, const int&, const VrepInterface::OP_MODES&))&VrepInterface::get_object_rotation,"Gets object rotation.");
-    vrepinterface_py.def("get_object_rotation",(DQ (VrepInterface::*) (const int&, const std::string&, const VrepInterface::OP_MODES&))&VrepInterface::get_object_rotation,"Gets object rotation.");
-    vrepinterface_py.def("get_object_rotation",(DQ (VrepInterface::*) (const std::string&, const std::string&, const VrepInterface::OP_MODES&))&VrepInterface::get_object_rotation,"Gets object rotation.");
+    dqvrepinterface_py.def("get_object_rotation",(DQ (DQ_VrepInterface::*) (const int&, const int&, const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::get_object_rotation,"Gets object rotation.");
+    dqvrepinterface_py.def("get_object_rotation",(DQ (DQ_VrepInterface::*) (const std::string&, const int&, const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::get_object_rotation,"Gets object rotation.");
+    dqvrepinterface_py.def("get_object_rotation",(DQ (DQ_VrepInterface::*) (const int&, const std::string&, const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::get_object_rotation,"Gets object rotation.");
+    dqvrepinterface_py.def("get_object_rotation",(DQ (DQ_VrepInterface::*) (const std::string&, const std::string&, const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::get_object_rotation,"Gets object rotation.");
 
-    vrepinterface_py.def("set_object_rotation",(void (VrepInterface::*) (const int&, const int&, const DQ&, const VrepInterface::OP_MODES&) const)&VrepInterface::set_object_rotation,"Sets object rotation.");
-    vrepinterface_py.def("set_object_rotation",(void (VrepInterface::*) (const std::string&, const int&, const DQ&,  const VrepInterface::OP_MODES&))&VrepInterface::set_object_rotation,"Sets object rotation.");
-    vrepinterface_py.def("set_object_rotation",(void (VrepInterface::*) (const int&, const std::string&, const DQ&,  const VrepInterface::OP_MODES&))&VrepInterface::set_object_rotation,"Sets object rotation.");
-    vrepinterface_py.def("set_object_rotation",(void (VrepInterface::*) (const std::string&, const DQ&, const std::string&, const VrepInterface::OP_MODES&))&VrepInterface::set_object_rotation,"Sets object rotation.");
+    dqvrepinterface_py.def("set_object_rotation",(void (DQ_VrepInterface::*) (const int&, const int&, const DQ&, const DQ_VrepInterface::OP_MODES&) const)&DQ_VrepInterface::set_object_rotation,"Sets object rotation.");
+    dqvrepinterface_py.def("set_object_rotation",(void (DQ_VrepInterface::*) (const std::string&, const int&, const DQ&,  const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::set_object_rotation,"Sets object rotation.");
+    dqvrepinterface_py.def("set_object_rotation",(void (DQ_VrepInterface::*) (const int&, const std::string&, const DQ&,  const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::set_object_rotation,"Sets object rotation.");
+    dqvrepinterface_py.def("set_object_rotation",(void (DQ_VrepInterface::*) (const std::string&, const DQ&, const std::string&, const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::set_object_rotation,"Sets object rotation.");
 
-    vrepinterface_py.def("get_object_pose",(DQ (VrepInterface::*) (const int&, const int&, const VrepInterface::OP_MODES&))&VrepInterface::get_object_pose,"Gets object pose.");
-    vrepinterface_py.def("get_object_pose",(DQ (VrepInterface::*) (const std::string&, const int&, const VrepInterface::OP_MODES&))&VrepInterface::get_object_pose,"Gets object pose.");
-    vrepinterface_py.def("get_object_pose",(DQ (VrepInterface::*) (const int&, const std::string&, const VrepInterface::OP_MODES&))&VrepInterface::get_object_pose,"Gets object pose.");
-    vrepinterface_py.def("get_object_pose",(DQ (VrepInterface::*) (const std::string&, const std::string&, const VrepInterface::OP_MODES&))&VrepInterface::get_object_pose,"Gets object pose.");
+    dqvrepinterface_py.def("get_object_pose",(DQ (DQ_VrepInterface::*) (const int&, const int&, const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::get_object_pose,"Gets object pose.");
+    dqvrepinterface_py.def("get_object_pose",(DQ (DQ_VrepInterface::*) (const std::string&, const int&, const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::get_object_pose,"Gets object pose.");
+    dqvrepinterface_py.def("get_object_pose",(DQ (DQ_VrepInterface::*) (const int&, const std::string&, const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::get_object_pose,"Gets object pose.");
+    dqvrepinterface_py.def("get_object_pose",(DQ (DQ_VrepInterface::*) (const std::string&, const std::string&, const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::get_object_pose,"Gets object pose.");
 
-    vrepinterface_py.def("set_object_pose",(void (VrepInterface::*) (const int&, const int&, const DQ&, const VrepInterface::OP_MODES&) const)&VrepInterface::set_object_pose,"Sets object pose.");
-    vrepinterface_py.def("set_object_pose",(void (VrepInterface::*) (const std::string&, const int&, const DQ&,  const VrepInterface::OP_MODES&))&VrepInterface::set_object_pose,"Sets object pose.");
-    vrepinterface_py.def("set_object_pose",(void (VrepInterface::*) (const int&, const std::string&, const DQ&,  const VrepInterface::OP_MODES&))&VrepInterface::set_object_pose,"Sets object pose.");
-    vrepinterface_py.def("set_object_pose",(void (VrepInterface::*) (const std::string&, const DQ&, const std::string&, const VrepInterface::OP_MODES&))&VrepInterface::set_object_pose,"Sets object pose.");
+    dqvrepinterface_py.def("set_object_pose",(void (DQ_VrepInterface::*) (const int&, const int&, const DQ&, const DQ_VrepInterface::OP_MODES&) const)&DQ_VrepInterface::set_object_pose,"Sets object pose.");
+    dqvrepinterface_py.def("set_object_pose",(void (DQ_VrepInterface::*) (const std::string&, const int&, const DQ&,  const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::set_object_pose,"Sets object pose.");
+    dqvrepinterface_py.def("set_object_pose",(void (DQ_VrepInterface::*) (const int&, const std::string&, const DQ&,  const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::set_object_pose,"Sets object pose.");
+    dqvrepinterface_py.def("set_object_pose",(void (DQ_VrepInterface::*) (const std::string&, const DQ&, const std::string&, const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::set_object_pose,"Sets object pose.");
 
-    vrepinterface_py.def("get_object_poses",&VrepInterface::get_object_poses,"Get the poses of many objects");
-    vrepinterface_py.def("set_object_poses",&VrepInterface::set_object_poses,"Set object poses of many objects");
+    dqvrepinterface_py.def("get_object_poses",&DQ_VrepInterface::get_object_poses,"Get the poses of many objects");
+    dqvrepinterface_py.def("set_object_poses",&DQ_VrepInterface::set_object_poses,"Set object poses of many objects");
 
-    vrepinterface_py.def("set_joint_position",(void (VrepInterface::*) (const int&, const double&, const VrepInterface::OP_MODES&) const)  &VrepInterface::set_joint_position,"Set joint position");
-    vrepinterface_py.def("set_joint_position",(void (VrepInterface::*) (const std::string&, const double&, const VrepInterface::OP_MODES&))&VrepInterface::set_joint_position,"Set joint position");
+    dqvrepinterface_py.def("set_joint_position",(void (DQ_VrepInterface::*) (const int&, const double&, const DQ_VrepInterface::OP_MODES&) const)  &DQ_VrepInterface::set_joint_position,"Set joint position");
+    dqvrepinterface_py.def("set_joint_position",(void (DQ_VrepInterface::*) (const std::string&, const double&, const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::set_joint_position,"Set joint position");
 
-    vrepinterface_py.def("set_joint_target_position",(void (VrepInterface::*) (const int&, const double&, const VrepInterface::OP_MODES&) const)  &VrepInterface::set_joint_target_position,"Set joint position");
-    vrepinterface_py.def("set_joint_target_position",(void (VrepInterface::*) (const std::string&, const double&, const VrepInterface::OP_MODES&))&VrepInterface::set_joint_target_position,"Set joint position");
+    dqvrepinterface_py.def("set_joint_target_position",(void (DQ_VrepInterface::*) (const int&, const double&, const DQ_VrepInterface::OP_MODES&) const)  &DQ_VrepInterface::set_joint_target_position,"Set joint position");
+    dqvrepinterface_py.def("set_joint_target_position",(void (DQ_VrepInterface::*) (const std::string&, const double&, const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::set_joint_target_position,"Set joint position");
 
-    vrepinterface_py.def("get_joint_position",(double (VrepInterface::*) (const int&, const VrepInterface::OP_MODES&) const)  &VrepInterface::get_joint_position,"Get joint position");
-    vrepinterface_py.def("get_joint_position",(double (VrepInterface::*) (const std::string&, const VrepInterface::OP_MODES&))&VrepInterface::get_joint_position,"Get joint position");
+    dqvrepinterface_py.def("get_joint_position",(double (DQ_VrepInterface::*) (const int&, const DQ_VrepInterface::OP_MODES&) const)  &DQ_VrepInterface::get_joint_position,"Get joint position");
+    dqvrepinterface_py.def("get_joint_position",(double (DQ_VrepInterface::*) (const std::string&, const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::get_joint_position,"Get joint position");
 
-    vrepinterface_py.def("set_joint_positions",(void (VrepInterface::*) (const std::vector<int>&, const VectorXd&, const VrepInterface::OP_MODES&) const)  &VrepInterface::set_joint_positions,"Set joint positions");
-    vrepinterface_py.def("set_joint_positions",(void (VrepInterface::*) (const std::vector<std::string>&, const VectorXd&, const VrepInterface::OP_MODES&))&VrepInterface::set_joint_positions,"Set joint positions");
+    dqvrepinterface_py.def("set_joint_positions",(void (DQ_VrepInterface::*) (const std::vector<int>&, const VectorXd&, const DQ_VrepInterface::OP_MODES&) const)  &DQ_VrepInterface::set_joint_positions,"Set joint positions");
+    dqvrepinterface_py.def("set_joint_positions",(void (DQ_VrepInterface::*) (const std::vector<std::string>&, const VectorXd&, const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::set_joint_positions,"Set joint positions");
 
-    vrepinterface_py.def("set_joint_target_positions",(void (VrepInterface::*) (const std::vector<int>&, const VectorXd&, const VrepInterface::OP_MODES&) const)  &VrepInterface::set_joint_target_positions,"Set joint positions");
-    vrepinterface_py.def("set_joint_target_positions",(void (VrepInterface::*) (const std::vector<std::string>&, const VectorXd&, const VrepInterface::OP_MODES&))&VrepInterface::set_joint_target_positions,"Set joint positions");
+    dqvrepinterface_py.def("set_joint_target_positions",(void (DQ_VrepInterface::*) (const std::vector<int>&, const VectorXd&, const DQ_VrepInterface::OP_MODES&) const)  &DQ_VrepInterface::set_joint_target_positions,"Set joint positions");
+    dqvrepinterface_py.def("set_joint_target_positions",(void (DQ_VrepInterface::*) (const std::vector<std::string>&, const VectorXd&, const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::set_joint_target_positions,"Set joint positions");
 
-    vrepinterface_py.def("get_joint_positions",(VectorXd (VrepInterface::*) (const std::vector<int>&, const VrepInterface::OP_MODES&) const)  &VrepInterface::get_joint_positions,"Get joint positions");
-    vrepinterface_py.def("get_joint_positions",(VectorXd (VrepInterface::*) (const std::vector<std::string>&, const VrepInterface::OP_MODES&))&VrepInterface::get_joint_positions,"Get joint positions");
+    dqvrepinterface_py.def("get_joint_positions",(VectorXd (DQ_VrepInterface::*) (const std::vector<int>&, const DQ_VrepInterface::OP_MODES&) const)  &DQ_VrepInterface::get_joint_positions,"Get joint positions");
+    dqvrepinterface_py.def("get_joint_positions",(VectorXd (DQ_VrepInterface::*) (const std::vector<std::string>&, const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::get_joint_positions,"Get joint positions");
+
+    /*****************************************************
+     *  VrepRobot
+     * **************************************************/
+    py::class_<DQ_VrepRobot> dqvreprobot_py(vrep_py,"DQ_VrepRobot");
+
+    dqvreprobot_py.def("send_q_to_vrep", &DQ_VrepRobot::send_q_to_vrep, "Get joint values from vrep.");
+    dqvreprobot_py.def("get_q_from_vrep", &DQ_VrepRobot::get_q_from_vrep, "Send joint values to vrep.");
+
+    /*****************************************************
+     *  LBR4pVrepRobot
+     * **************************************************/
+    py::class_<LBR4pVrepRobot,DQ_VrepRobot> lbr4pvreprobot_py(vrep_py,"LBR4pVrepRobot");
+    lbr4pvreprobot_py.def(py::init<const std::string&, DQ_VrepInterface*>());
+
+    lbr4pvreprobot_py.def("send_q_to_vrep", &LBR4pVrepRobot::send_q_to_vrep, "Send joint values to vrep.");
+    lbr4pvreprobot_py.def("get_q_from_vrep", &LBR4pVrepRobot::send_q_to_vrep, "Get joint values from vrep.");
+    lbr4pvreprobot_py.def("kinematics", &LBR4pVrepRobot::kinematics, "Get kinematics model.");
+
+    /*****************************************************
+     *  YouBotVrepRobot
+     * **************************************************/
+    py::class_<YouBotVrepRobot,DQ_VrepRobot> youbotvreprobot_py(vrep_py,"YouBotVrepRobot");
+    youbotvreprobot_py.def(py::init<const std::string&, DQ_VrepInterface*>());
+
+    youbotvreprobot_py.def("send_q_to_vrep", &YouBotVrepRobot::send_q_to_vrep, "Send joint values to vrep.");
+    youbotvreprobot_py.def("get_q_from_vrep", &YouBotVrepRobot::send_q_to_vrep, "Get joint values from vrep.");
+    youbotvreprobot_py.def("kinematics", &YouBotVrepRobot::kinematics, "Get kinematics model.");
 
 }
 
