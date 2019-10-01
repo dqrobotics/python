@@ -355,6 +355,7 @@ PYBIND11_MODULE(dqrobotics, m) {
     dqkinematiccontroller_py.def("set_control_objective"  ,&DQ_KinematicController::set_control_objective,"Sets the control objective");
     dqkinematiccontroller_py.def("set_gain"               ,&DQ_KinematicController::set_gain,"Sets the controller gain");
     dqkinematiccontroller_py.def("set_stability_threshold",&DQ_KinematicController::set_stability_threshold,"Sets the stability threshold");
+    dqkinematiccontroller_py.def("set_damping"            ,&DQ_KinematicController::set_damping, "Sets the damping.");
 
     /*****************************************************
      *  DQ TaskSpacePseudoInverseController
