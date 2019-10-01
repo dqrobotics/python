@@ -261,7 +261,6 @@ PYBIND11_MODULE(dqrobotics, m) {
      * **************************************************/
     py::class_<DQ_SerialManipulator,DQ_Kinematics> dqserialmanipulator_py(robot_modeling, "DQ_SerialManipulator");
     dqserialmanipulator_py.def(py::init<MatrixXd, std::string>());
-    dqserialmanipulator_py.def(py::init());
     ///Methods
     dqserialmanipulator_py.def("getDHMatrix",                 &DQ_SerialManipulator::getDHMatrix,"Gets the DH matrix.");
     dqserialmanipulator_py.def("theta",                       &DQ_SerialManipulator::theta,"Retrieves the vector of thetas.");
