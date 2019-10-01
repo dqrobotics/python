@@ -111,6 +111,7 @@ PYBIND11_MODULE(dqrobotics, m) {
     dq.def(py::self - py::self);
     dq.def(py::self == py::self);
     dq.def(py::self != py::self);
+    dq.def(- py::self);
     //Float
     dq.def(float()  * py::self);
     dq.def(py::self * float());
