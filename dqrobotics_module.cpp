@@ -163,6 +163,7 @@ PYBIND11_MODULE(dqrobotics, m) {
     m.attr("i_")           = DQ_robotics::i_;
     m.attr("j_")           = DQ_robotics::j_;
     m.attr("k_")           = DQ_robotics::k_;
+    m.attr("E_")           = DQ_robotics::E_;
 
     /*****************************************************
      *  Utils
