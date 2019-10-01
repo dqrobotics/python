@@ -490,7 +490,7 @@ PYBIND11_MODULE(dqrobotics, m) {
     /*****************************************************
      *  Vrep Robots Submodule
      * **************************************************/
-    py::module vreprobots_py = interfaces_py.def_submodule("robots", "A submodule of dqrobotics");
+    py::module vreprobots_py = vrep_py.def_submodule("robots", "A submodule of dqrobotics");
 
     /*****************************************************
      *  LBR4pVrepRobot
