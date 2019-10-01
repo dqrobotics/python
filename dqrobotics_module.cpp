@@ -65,7 +65,7 @@ class DQ_QuadraticProgrammingSolverPy : public DQ_QuadraticProgrammingSolver
 {
 public:
     /* Inherit the constructors */
-    //using DQ_QuadraticProgrammingSolver::DQ_QuadraticProgrammingSolver; (There are no constructors)
+    using DQ_QuadraticProgrammingSolver::DQ_QuadraticProgrammingSolver;
 
     /* Trampoline (need one for each virtual function) */
     VectorXd solve_quadratic_program(const MatrixXd &H, const MatrixXd &f, const MatrixXd A, const MatrixXd &b, const MatrixXd &Aeq, const MatrixXd &beq) override{
