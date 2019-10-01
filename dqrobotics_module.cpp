@@ -60,6 +60,24 @@ namespace py = pybind11;
 using namespace DQ_robotics;
 using namespace Eigen;
 
+//https://pybind11.readthedocs.io/en/stable/advanced/classes.html
+class DQ_QuadraticProgrammingSolverPy : public DQ_QuadraticProgrammingSolver
+{
+public:
+    /* Inherit the constructors */
+    using DQ_QuadraticProgrammingSolver::DQ_QuadraticProgrammingSolver;
+
+    /* Trampoline (need one for each virtual function) */
+    VectorXd solve_quadratic_program(const MatrixXd &H, const MatrixXd &f, const MatrixXd A, const MatrixXd &b, const MatrixXd &Aeq, const MatrixXd &beq) override{
+        PYBIND11_OVERLOAD_PURE(
+                    VectorXd,                       /* Return type */
+                    DQ_QuadraticProgrammingSolver,  /* Parent class */
+                    solve_quadratic_program,        /* Name of function in C++ (must match Python name) */
+                    H, f, A, b, Aeq, beq            /* Argument(s) */
+                    )
+    }
+};
+
 PYBIND11_MODULE(dqrobotics, m) {
     /*****************************************************
      *  DQ
@@ -331,7 +349,7 @@ PYBIND11_MODULE(dqrobotics, m) {
     /*****************************************************
      *  DQ DQ_QuadraticProgrammingSolver
      * **************************************************/
-    py::class_<DQ_QuadraticProgrammingSolver> dqquadraticprogrammingsolver_py(solvers,"DQ_QuadraticProgrammingSolver");
+    py::class_<DQ_QuadraticProgrammingSolver, DQ_QuadraticProgrammingSolverPy> dqquadraticprogrammingsolver_py(solvers,"DQ_QuadraticProgrammingSolver");
     dqquadraticprogrammingsolver_py.def("solve_quadratic_program", &DQ_QuadraticProgrammingSolver::solve_quadratic_program, "Solvers a quadratic program");
 
     /*****************************************************
