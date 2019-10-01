@@ -399,6 +399,7 @@ PYBIND11_MODULE(dqrobotics, m) {
      *  Vrep Submodule
      * **************************************************/
     py::module vrep_py = interfaces_py.def_submodule("vrep", "A submodule of dqrobotics");
+    vrep_py.attr("VREP_OBJECTNAME_ABSOLUTE") = VREP_OBJECTNAME_ABSOLUTE;
 
     /*****************************************************
      *  VrepInterface
@@ -406,8 +407,6 @@ PYBIND11_MODULE(dqrobotics, m) {
     py::class_<DQ_VrepInterface> dqvrepinterface_py(vrep_py,"DQ_VrepInterface");
     dqvrepinterface_py.def(py::init<>());
     dqvrepinterface_py.def(py::init<std::atomic_bool*>());
-
-    dqvrepinterface_py.attr("VREP_OBJECTNAME_ABSOLUTE") = VREP_OBJECTNAME_ABSOLUTE;
 
     py::enum_<DQ_VrepInterface::OP_MODES>(dqvrepinterface_py, "OP_MODES")
             .value("OP_BUFFER",    DQ_VrepInterface::OP_MODES::OP_BUFFER)
