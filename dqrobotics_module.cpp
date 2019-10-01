@@ -64,8 +64,10 @@ using namespace Eigen;
 class DQ_QuadraticProgrammingSolverPy : public DQ_QuadraticProgrammingSolver
 {
 public:
+    //protected:
     /* Inherit the constructors */
     using DQ_QuadraticProgrammingSolver::DQ_QuadraticProgrammingSolver;
+    //DQ_QuadraticProgrammingSolverPy() = default;
 
     /* Trampoline (need one for each virtual function) */
     VectorXd solve_quadratic_program(const MatrixXd &H, const MatrixXd &f, const MatrixXd A, const MatrixXd &b, const MatrixXd &Aeq, const MatrixXd &beq) override{
@@ -74,7 +76,7 @@ public:
                     DQ_QuadraticProgrammingSolver,  /* Parent class */
                     solve_quadratic_program,        /* Name of function in C++ (must match Python name) */
                     H, f, A, b, Aeq, beq            /* Argument(s) */
-                    );
+                    )
     }
 };
 
@@ -201,7 +203,7 @@ PYBIND11_MODULE(dqrobotics, m) {
      *  DQ_Geometry
      * **************************************************/
     //#include<dqrobotics/utils/DQ_Geometry.h>
-    py::class_<DQ_Geometry> geometry_py = utils_py.def_submodule("DQ_Geometry","A submodule of utils");
+    py::class_<DQ_Geometry> geometry_py(utils_py, "DQ_Geometry");
     geometry_py.def_static("point_to_point_squared_distance",  &DQ_Geometry::point_to_point_squared_distance, "Returns the squared distance between two points");
     geometry_py.def_static("point_to_line_squared_distance",   &DQ_Geometry::point_to_line_squared_distance,  "Returns the squared distance between a point and a line");
     geometry_py.def_static("point_to_plane_distance",          &DQ_Geometry::point_to_plane_distance,         "Returns the distance between a point and a plane");
