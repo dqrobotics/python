@@ -406,7 +406,6 @@ PYBIND11_MODULE(dqrobotics, m) {
     dqtaskspacequadraticprogrammingcontroller_py.def("compute_objective_function_linear_component", &DQ_TaskspaceQuadraticProgrammingController::compute_objective_function_linear_component, "Compute the objective function.");
     dqtaskspacequadraticprogrammingcontroller_py.def("compute_setpoint_control_signal", &DQ_TaskspaceQuadraticProgrammingController::compute_setpoint_control_signal, "Compute the setpoint control signal.");
     dqtaskspacequadraticprogrammingcontroller_py.def("compute_tracking_control_signal", &DQ_TaskspaceQuadraticProgrammingController::compute_tracking_control_signal, "Compute the tracking control signal.");
-    dqtaskspacequadraticprogrammingcontroller_py.def("compute_tracking_control_signal_test", &DQ_TaskspaceQuadraticProgrammingController::compute_tracking_control_signal_test);
 
     /*****************************************************
      *  DQ ClassicQPController
