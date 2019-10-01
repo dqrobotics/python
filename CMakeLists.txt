@@ -35,6 +35,9 @@ if(UNIX AND NOT APPLE)
 
         cpp/src/robot_control/DQ_KinematicController.cpp
         cpp/src/robot_control/DQ_TaskSpacePseudoInverseController.cpp
+        cpp/src/robot_control/DQ_KinematicConstrainedController.cpp
+        cpp/src/robot_control/DQ_TaskspaceQuadraticProgrammingController.cpp
+        cpp/src/robot_control/DQ_ClassicQPController.cpp
 
         cpp/src/robots/Ax18ManipulatorRobot.cpp
         cpp/src/robots/BarrettWamArmRobot.cpp

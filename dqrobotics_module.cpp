@@ -40,7 +40,12 @@ namespace py = pybind11;
 #include <dqrobotics/robot_modeling/DQ_WholeBody.h>
 
 #include <dqrobotics/robot_control/DQ_KinematicController.h>
+#include <dqrobotics/robot_control/DQ_KinematicConstrainedController.h>
 #include <dqrobotics/robot_control/DQ_TaskSpacePseudoInverseController.h>
+#include <dqrobotics/robot_control/DQ_TaskspaceQuadraticProgrammingController.h>
+#include <dqrobotics/robot_control/DQ_ClassicQPController.h>
+
+#include <dqrobotics/solvers/DQ_QuadraticProgrammingSolver.h>
 
 #include <dqrobotics/robots/Ax18ManipulatorRobot.h>
 #include <dqrobotics/robots/BarrettWamArmRobot.h>
@@ -313,6 +318,16 @@ PYBIND11_MODULE(dqrobotics, m) {
     dqwholebody_py.def("get_dim_configuration_space",&DQ_WholeBody::get_dim_configuration_space,"Gets the dimention of the configuration space");
     dqwholebody_py.def("pose_jacobian",&DQ_WholeBody::pose_jacobian,"Returns the combined pose Jacobian");
 
+    /*****************************************************
+     *  Solvers <dqrobotics/solvers/...>
+     * **************************************************/
+    py::module solvers = m.def_submodule("solvers", "The solvers submodule of dqrobotics");
+
+    /*****************************************************
+     *  DQ DQ_QuadraticProgrammingSolver
+     * **************************************************/
+    py::class_<DQ_QuadraticProgrammingSolver> dqquadraticprogrammingsolver_py(solvers,"DQ_QuadraticProgrammingSolver");
+    dqquadraticprogrammingsolver_py.def("solve_quadratic_program", &DQ_QuadraticProgrammingSolver::solve_quadratic_program, "Solvers a quadratic program");
 
     /*****************************************************
      *  Robot Control <dqrobotics/robot_control/...>
@@ -333,7 +348,6 @@ PYBIND11_MODULE(dqrobotics, m) {
      *  DQ KinematicController
      * **************************************************/
     py::class_<DQ_KinematicController> dqkinematiccontroller_py(robot_control,"DQ_KinematicController");
-    // dqkinematiccontroller_py.def(py::init<DQ_Kinematics*>());
     dqkinematiccontroller_py.def("get_control_objective"  ,&DQ_KinematicController::get_control_objective,"Gets the control objective");
     dqkinematiccontroller_py.def("get_jacobian"           ,&DQ_KinematicController::get_jacobian,"Gets the Jacobian");
     dqkinematiccontroller_py.def("is_set"                 ,&DQ_KinematicController::is_set,"Checks if the controller's objective has been set");
@@ -345,9 +359,33 @@ PYBIND11_MODULE(dqrobotics, m) {
     /*****************************************************
      *  DQ TaskSpacePseudoInverseController
      * **************************************************/
-    py::class_<DQ_TaskSpacePseudoInverseController,DQ_KinematicController> dqtaskspacepseudoinversecontroller_py(robot_control,"DQ_TaskSpacePseudoInverseController");
+    py::class_<DQ_TaskSpacePseudoInverseController, DQ_KinematicController> dqtaskspacepseudoinversecontroller_py(robot_control,"DQ_TaskSpacePseudoInverseController");
     dqtaskspacepseudoinversecontroller_py.def("compute_setpoint_control_signal",&DQ_TaskSpacePseudoInverseController::compute_setpoint_control_signal,"Computes the setpoint control signal.");
     dqtaskspacepseudoinversecontroller_py.def("compute_tracking_control_signal",&DQ_TaskSpacePseudoInverseController::compute_tracking_control_signal,"Computes the tracking control signal.");
+
+    /*****************************************************
+     *  DQ KinematicConstrainedController
+     * **************************************************/
+    py::class_<DQ_KinematicConstrainedController, DQ_KinematicController> dqkinematicconstrainedcontroller_py(robot_control,"DQ_KinematicConstrainedController");
+    dqkinematicconstrainedcontroller_py.def("set_equality_constraint", &DQ_KinematicConstrainedController::set_equality_constraint,  "Sets equality constraints.");
+    dqkinematicconstrainedcontroller_py.def("set_inequality_constraint", &DQ_KinematicConstrainedController::set_inequality_constraint,  "Sets inequality constraints.");
+
+    /*****************************************************
+     *  DQ TaskspaceQuadraticProgrammingController
+     * **************************************************/
+    py::class_<DQ_TaskspaceQuadraticProgrammingController, DQ_KinematicConstrainedController> dqtaskspacequadraticprogrammingcontroller_py(robot_control,"DQ_TaskspaceQuadraticProgrammingController");
+    dqtaskspacequadraticprogrammingcontroller_py.def("compute_objective_function_symmetric_matrix", &DQ_TaskspaceQuadraticProgrammingController::compute_objective_function_symmetric_matrix, "Compute symmetric matrix.");
+    dqtaskspacequadraticprogrammingcontroller_py.def("compute_objective_function_linear_component", &DQ_TaskspaceQuadraticProgrammingController::compute_objective_function_linear_component, "Compute the objective function.");
+    dqtaskspacequadraticprogrammingcontroller_py.def("compute_setpoint_control_signal", &DQ_TaskspaceQuadraticProgrammingController::compute_setpoint_control_signal, "Compute the setpoint control signal.");
+    dqtaskspacequadraticprogrammingcontroller_py.def("compute_tracking_control_signal", &DQ_TaskspaceQuadraticProgrammingController::compute_tracking_control_signal, "Compute the tracking control signal.");
+
+    /*****************************************************
+     *  DQ ClassicQPController
+     * **************************************************/
+    py::class_<DQ_ClassicQPController, DQ_TaskspaceQuadraticProgrammingController> dq_classicqpcontroller_py(robot_control,"DQ_ClassicQPController");
+    dq_classicqpcontroller_py.def(py::init<DQ_Kinematics*, DQ_QuadraticProgrammingSolver*>());
+    dq_classicqpcontroller_py.def("compute_objective_function_symmetric_matrix", &DQ_ClassicQPController::compute_objective_function_symmetric_matrix, "Compute symmetric matrix.");
+    dq_classicqpcontroller_py.def("compute_objective_function_linear_component", &DQ_ClassicQPController::compute_objective_function_linear_component, "Compute the objective function.");
 
     /*****************************************************
      *  Interfaces Submodule
