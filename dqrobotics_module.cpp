@@ -486,7 +486,6 @@ PYBIND11_MODULE(dqrobotics, m) {
      *  VrepRobot
      * **************************************************/
     py::class_<DQ_VrepRobot> dqvreprobot_py(vrep_py,"DQ_VrepRobot");
-
     dqvreprobot_py.def("send_q_to_vrep", &DQ_VrepRobot::send_q_to_vrep, "Get joint values from vrep.");
     dqvreprobot_py.def("get_q_from_vrep", &DQ_VrepRobot::get_q_from_vrep, "Send joint values to vrep.");
 
@@ -502,7 +501,7 @@ PYBIND11_MODULE(dqrobotics, m) {
     lbr4pvreprobot_py.def(py::init<const std::string&, DQ_VrepInterface*>());
 
     lbr4pvreprobot_py.def("send_q_to_vrep", &LBR4pVrepRobot::send_q_to_vrep, "Send joint values to vrep.");
-    lbr4pvreprobot_py.def("get_q_from_vrep", &LBR4pVrepRobot::send_q_to_vrep, "Get joint values from vrep.");
+    lbr4pvreprobot_py.def("get_q_from_vrep", &LBR4pVrepRobot::get_q_from_vrep, "Get joint values from vrep.");
     lbr4pvreprobot_py.def("kinematics", &LBR4pVrepRobot::kinematics, "Get kinematics model.");
 
     /*****************************************************
@@ -512,7 +511,7 @@ PYBIND11_MODULE(dqrobotics, m) {
     youbotvreprobot_py.def(py::init<const std::string&, DQ_VrepInterface*>());
 
     youbotvreprobot_py.def("send_q_to_vrep", &YouBotVrepRobot::send_q_to_vrep, "Send joint values to vrep.");
-    youbotvreprobot_py.def("get_q_from_vrep", &YouBotVrepRobot::send_q_to_vrep, "Get joint values from vrep.");
+    youbotvreprobot_py.def("get_q_from_vrep", &YouBotVrepRobot::get_q_from_vrep, "Get joint values from vrep.");
     youbotvreprobot_py.def("kinematics", &YouBotVrepRobot::kinematics, "Get kinematics model.");
 
 }
