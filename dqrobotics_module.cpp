@@ -74,7 +74,7 @@ public:
                     DQ_QuadraticProgrammingSolver,  /* Parent class */
                     solve_quadratic_program,        /* Name of function in C++ (must match Python name) */
                     H, f, A, b, Aeq, beq            /* Argument(s) */
-                    )
+                    );
     }
 };
 
@@ -349,7 +349,7 @@ PYBIND11_MODULE(dqrobotics, m) {
      *  DQ DQ_QuadraticProgrammingSolver
      * **************************************************/
     py::class_<DQ_QuadraticProgrammingSolver, DQ_QuadraticProgrammingSolverPy> dqquadraticprogrammingsolver_py(solvers,"DQ_QuadraticProgrammingSolver");
-    dqquadraticprogrammingsolver_py.def("solve_quadratic_program", &DQ_QuadraticProgrammingSolver::solve_quadratic_program, "Solvers a quadratic program");
+    dqquadraticprogrammingsolver_py.def("solve_quadratic_program", &DQ_QuadraticProgrammingSolver::solve_quadratic_program, "Solves a quadratic program");
 
     /*****************************************************
      *  Robot Control <dqrobotics/robot_control/...>
@@ -403,6 +403,7 @@ PYBIND11_MODULE(dqrobotics, m) {
     dqtaskspacequadraticprogrammingcontroller_py.def("compute_objective_function_linear_component", &DQ_TaskspaceQuadraticProgrammingController::compute_objective_function_linear_component, "Compute the objective function.");
     dqtaskspacequadraticprogrammingcontroller_py.def("compute_setpoint_control_signal", &DQ_TaskspaceQuadraticProgrammingController::compute_setpoint_control_signal, "Compute the setpoint control signal.");
     dqtaskspacequadraticprogrammingcontroller_py.def("compute_tracking_control_signal", &DQ_TaskspaceQuadraticProgrammingController::compute_tracking_control_signal, "Compute the tracking control signal.");
+    dqtaskspacequadraticprogrammingcontroller_py.def("compute_tracking_control_signal_test", &DQ_TaskspaceQuadraticProgrammingController::compute_tracking_control_signal_test);
 
     /*****************************************************
      *  DQ ClassicQPController
