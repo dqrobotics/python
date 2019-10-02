@@ -1,6 +1,6 @@
 #include "../dqrobotics_module.h"
 
-void init_DQ_LinearAlgebrapy(py::module& m)
+void init_DQ_LinearAlgebra_py(py::module& m)
 {
     /*****************************************************
      *  DQ_LinearAlgebra

@@ -1,6 +1,6 @@
 #include "../dqrobotics_module.h"
 
-void init_DQ_Geometrypy(py::module& m)
+void init_DQ_Geometry_py(py::module& m)
 {
     /*****************************************************
      *  DQ_Geometry
