@@ -41,34 +41,62 @@ void init_DQ_VrepInterface_py(py::module& m)
     dqvrepinterface_py.def("get_object_translation",
                            (DQ (DQ_VrepInterface::*) (const std::string&, const std::string&, const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::get_object_translation,
                            "Gets object translation.",
-                           py::arg("objectname"),
+                           py::arg("objectname")=std::string(""),
                            py::arg("relative_to_objectname")=VREP_OBJECTNAME_ABSOLUTE,
                            py::arg("opmode")=DQ_VrepInterface::OP_AUTOMATIC);
 
     //dqvrepinterface_py.def("set_object_translation",(void (DQ_VrepInterface::*) (const int&, const int&, const DQ&, const DQ_VrepInterface::OP_MODES&) const)&DQ_VrepInterface::set_object_translation,"Sets object translation.");
     //dqvrepinterface_py.def("set_object_translation",(void (DQ_VrepInterface::*) (const std::string&, const int&, const DQ&,  const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::set_object_translation,"Sets object translation.");
     //dqvrepinterface_py.def("set_object_translation",(void (DQ_VrepInterface::*) (const int&, const std::string&, const DQ&,  const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::set_object_translation,"Sets object translation.");
-    dqvrepinterface_py.def("set_object_translation",(void (DQ_VrepInterface::*) (const std::string&, const DQ&, const std::string&, const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::set_object_translation,"Sets object translation.");
+    dqvrepinterface_py.def("set_object_translation",
+                           (void (DQ_VrepInterface::*) (const std::string&, const DQ&, const std::string&, const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::set_object_translation,
+                           "Sets object translation.",
+                           py::arg("objectname")=std::string(""),
+                           py::arg("t")=DQ(0),
+                           py::arg("relative_to_objectname")=VREP_OBJECTNAME_ABSOLUTE,
+                           py::arg("opmode")=DQ_VrepInterface::OP_ONESHOT);
 
     //dqvrepinterface_py.def("get_object_rotation",(DQ (DQ_VrepInterface::*) (const int&, const int&, const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::get_object_rotation,"Gets object rotation.");
     //dqvrepinterface_py.def("get_object_rotation",(DQ (DQ_VrepInterface::*) (const std::string&, const int&, const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::get_object_rotation,"Gets object rotation.");
     //dqvrepinterface_py.def("get_object_rotation",(DQ (DQ_VrepInterface::*) (const int&, const std::string&, const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::get_object_rotation,"Gets object rotation.");
-    dqvrepinterface_py.def("get_object_rotation",(DQ (DQ_VrepInterface::*) (const std::string&, const std::string&, const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::get_object_rotation,"Gets object rotation.");
+    dqvrepinterface_py.def("get_object_rotation",
+                           (DQ (DQ_VrepInterface::*) (const std::string&, const std::string&, const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::get_object_rotation,
+                           "Gets object rotation.",
+                           py::arg("objectname")=std::string(""),
+                           py::arg("relative_to_objectname")=VREP_OBJECTNAME_ABSOLUTE,
+                           py::arg("opmode")=DQ_VrepInterface::OP_AUTOMATIC);
 
     //dqvrepinterface_py.def("set_object_rotation",(void (DQ_VrepInterface::*) (const int&, const int&, const DQ&, const DQ_VrepInterface::OP_MODES&) const)&DQ_VrepInterface::set_object_rotation,"Sets object rotation.");
     //dqvrepinterface_py.def("set_object_rotation",(void (DQ_VrepInterface::*) (const std::string&, const int&, const DQ&,  const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::set_object_rotation,"Sets object rotation.");
     //dqvrepinterface_py.def("set_object_rotation",(void (DQ_VrepInterface::*) (const int&, const std::string&, const DQ&,  const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::set_object_rotation,"Sets object rotation.");
-    dqvrepinterface_py.def("set_object_rotation",(void (DQ_VrepInterface::*) (const std::string&, const DQ&, const std::string&, const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::set_object_rotation,"Sets object rotation.");
+    dqvrepinterface_py.def("set_object_rotation",
+                           (void (DQ_VrepInterface::*) (const std::string&, const DQ&, const std::string&, const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::set_object_rotation,
+                           "Sets object rotation.",
+                           py::arg("objectname")=std::string(""),
+                           py::arg("r")=DQ(1),
+                           py::arg("relative_to_objectname")=VREP_OBJECTNAME_ABSOLUTE,
+                           py::arg("opmode")=DQ_VrepInterface::OP_ONESHOT);
 
     //dqvrepinterface_py.def("get_object_pose",(DQ (DQ_VrepInterface::*) (const int&, const int&, const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::get_object_pose,"Gets object pose.");
     //dqvrepinterface_py.def("get_object_pose",(DQ (DQ_VrepInterface::*) (const std::string&, const int&, const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::get_object_pose,"Gets object pose.");
     //dqvrepinterface_py.def("get_object_pose",(DQ (DQ_VrepInterface::*) (const int&, const std::string&, const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::get_object_pose,"Gets object pose.");
-    dqvrepinterface_py.def("get_object_pose",(DQ (DQ_VrepInterface::*) (const std::string&, const std::string&, const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::get_object_pose,"Gets object pose.");
+    dqvrepinterface_py.def("get_object_pose",
+                           (DQ (DQ_VrepInterface::*) (const std::string&, const std::string&, const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::get_object_pose,
+                           "Gets object pose.",
+                           py::arg("objectname")=std::string(""),
+                           py::arg("relative_to_objectname")=VREP_OBJECTNAME_ABSOLUTE,
+                           py::arg("opmode")=DQ_VrepInterface::OP_AUTOMATIC);
 
     //dqvrepinterface_py.def("set_object_pose",(void (DQ_VrepInterface::*) (const int&, const int&, const DQ&, const DQ_VrepInterface::OP_MODES&) const)&DQ_VrepInterface::set_object_pose,"Sets object pose.");
     //dqvrepinterface_py.def("set_object_pose",(void (DQ_VrepInterface::*) (const std::string&, const int&, const DQ&,  const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::set_object_pose,"Sets object pose.");
     //dqvrepinterface_py.def("set_object_pose",(void (DQ_VrepInterface::*) (const int&, const std::string&, const DQ&,  const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::set_object_pose,"Sets object pose.");
-    dqvrepinterface_py.def("set_object_pose",(void (DQ_VrepInterface::*) (const std::string&, const DQ&, const std::string&, const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::set_object_pose,"Sets object pose.");
+    dqvrepinterface_py.def("set_object_pose",
+                           (void (DQ_VrepInterface::*) (const std::string&, const DQ&, const std::string&, const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::set_object_pose,
+                           "Sets object pose.",
+                           py::arg("objectname")=std::string(""),
+                           py::arg("h")=DQ(1),
+                           py::arg("relative_to_objectname")=VREP_OBJECTNAME_ABSOLUTE,
+                           py::arg("opmode")=DQ_VrepInterface::OP_ONESHOT);
 
     dqvrepinterface_py.def("get_object_poses",&DQ_VrepInterface::get_object_poses,"Get the poses of many objects");
     dqvrepinterface_py.def("set_object_poses",&DQ_VrepInterface::set_object_poses,"Set object poses of many objects");
