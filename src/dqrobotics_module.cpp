@@ -1,27 +1,5 @@
 #include "dqrobotics_module.h"
 
-//https://pybind11.readthedocs.io/en/stable/advanced/classes.html
-class DQ_QuadraticProgrammingSolverPy : public DQ_QuadraticProgrammingSolver
-{
-public:
-    //protected:
-    /* Inherit the constructors */
-    using DQ_QuadraticProgrammingSolver::DQ_QuadraticProgrammingSolver;
-    //DQ_QuadraticProgrammingSolverPy() = default;
-
-    /* Trampoline (need one for each virtual function) */
-    VectorXd solve_quadratic_program(const MatrixXd &H, const MatrixXd &f, const MatrixXd A, const MatrixXd &b, const MatrixXd &Aeq, const MatrixXd &beq) override{
-        PYBIND11_OVERLOAD_PURE(
-                    VectorXd,                       /* Return type */
-                    DQ_QuadraticProgrammingSolver,  /* Parent class */
-                    solve_quadratic_program,        /* Name of function in C++ (must match Python name) */
-                    H, f, A, b, Aeq, beq            /* Argument(s) */
-                    )
-    }
-};
-
-
-
 PYBIND11_MODULE(dqrobotics, m) {
 
     //DQ Class
@@ -91,12 +69,8 @@ PYBIND11_MODULE(dqrobotics, m) {
      * **************************************************/
     py::module solvers = m.def_submodule("solvers", "The solvers submodule of dqrobotics");
 
-    /*****************************************************
-     *  DQ DQ_QuadraticProgrammingSolver
-     * **************************************************/
-    py::class_<DQ_QuadraticProgrammingSolver, DQ_QuadraticProgrammingSolverPy> dqquadraticprogrammingsolver_py(solvers,"DQ_QuadraticProgrammingSolver");
-    dqquadraticprogrammingsolver_py.def(py::init<>());
-    dqquadraticprogrammingsolver_py.def("solve_quadratic_program", &DQ_QuadraticProgrammingSolver::solve_quadratic_program, "Solves a quadratic program");
+    //DQ_QuadraticProgrammingSolver
+    init_DQ_QuadraticProgrammingSolver_py(solvers);
 
     /*****************************************************
      *  Robot Control <dqrobotics/robot_control/...>

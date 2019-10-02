@@ -57,12 +57,17 @@ if(UNIX AND NOT APPLE)
         cpp/src/robot_control/DQ_ClassicQPController.cpp
         src/robot_control/DQ_ClassicQPController_py.cpp
 
+        #solvers
+        #DQ_QuadraticProgrammingSolver.h
+        src/solvers/DQ_QuadraticProgrammingSolver_py.cpp
+
+        #robots
         cpp/src/robots/Ax18ManipulatorRobot.cpp
         cpp/src/robots/BarrettWamArmRobot.cpp
         cpp/src/robots/ComauSmartSixRobot.cpp
         cpp/src/robots/KukaLw4Robot.cpp
 
-        #VREP INTERFACE
+        #interfaces/vrep
         interfaces/cpp-interface-vrep/src/DQ_VrepInterface.cpp
         interfaces/cpp-interface-vrep/src/DQ_VrepInterfaceMapElement.cpp
         interfaces/cpp-interface-vrep/coppeliarobotics/remoteApi/extApi.c

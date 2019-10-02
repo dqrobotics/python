@@ -86,6 +86,9 @@ void init_DQ_KinematicController_py(py::module& m);
 void init_DQ_TaskSpacePseudoInverseController_py(py::module& m);
 void init_DQ_TaskspaceQuadraticProgrammingController_py(py::module& m);
 
+//dqrobotics/solvers
+void init_DQ_QuadraticProgrammingSolver_py(py::module& m);
+
 //dqrobotics/interfaces/vrep
 void init_DQ_VrepInterface_py(py::module& m);
 void init_DQ_VrepRobot_py(py::module& m);
