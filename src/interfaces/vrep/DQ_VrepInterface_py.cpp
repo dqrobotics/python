@@ -102,20 +102,48 @@ void init_DQ_VrepInterface_py(py::module& m)
     dqvrepinterface_py.def("set_object_poses",&DQ_VrepInterface::set_object_poses,"Set object poses of many objects");
 
     //dqvrepinterface_py.def("set_joint_position",(void (DQ_VrepInterface::*) (const int&, const double&, const DQ_VrepInterface::OP_MODES&) const)  &DQ_VrepInterface::set_joint_position,"Set joint position");
-    dqvrepinterface_py.def("set_joint_position",(void (DQ_VrepInterface::*) (const std::string&, const double&, const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::set_joint_position,"Set joint position");
+    dqvrepinterface_py.def("set_joint_position",
+                           (void (DQ_VrepInterface::*) (const std::string&, const double&, const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::set_joint_position,
+                           "Set joint position",
+                           py::arg("jointname")=std::string(""),
+                           py::arg("angle_rad")=0.0,
+                           py::arg("opmode")=DQ_VrepInterface::OP_ONESHOT);
 
     //dqvrepinterface_py.def("set_joint_target_position",(void (DQ_VrepInterface::*) (const int&, const double&, const DQ_VrepInterface::OP_MODES&) const)  &DQ_VrepInterface::set_joint_target_position,"Set joint position");
-    dqvrepinterface_py.def("set_joint_target_position",(void (DQ_VrepInterface::*) (const std::string&, const double&, const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::set_joint_target_position,"Set joint position");
+    dqvrepinterface_py.def("set_joint_target_position",
+                           (void (DQ_VrepInterface::*) (const std::string&, const double&, const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::set_joint_target_position,
+                           "Set joint position",
+                           py::arg("jointname")=std::string(""),
+                           py::arg("angle_rad")=0.0,
+                           py::arg("opmode")=DQ_VrepInterface::OP_ONESHOT);
 
     //dqvrepinterface_py.def("get_joint_position",(double (DQ_VrepInterface::*) (const int&, const DQ_VrepInterface::OP_MODES&) const)  &DQ_VrepInterface::get_joint_position,"Get joint position");
-    dqvrepinterface_py.def("get_joint_position",(double (DQ_VrepInterface::*) (const std::string&, const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::get_joint_position,"Get joint position");
+    dqvrepinterface_py.def("get_joint_position",
+                           (double (DQ_VrepInterface::*) (const std::string&, const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::get_joint_position,
+                           "Get joint position",
+                           py::arg("jointname")=std::string(""),
+                           py::arg("opmode")=DQ_VrepInterface::OP_AUTOMATIC);
 
     //dqvrepinterface_py.def("set_joint_positions",(void (DQ_VrepInterface::*) (const std::vector<int>&, const VectorXd&, const DQ_VrepInterface::OP_MODES&) const)  &DQ_VrepInterface::set_joint_positions,"Set joint positions");
-    dqvrepinterface_py.def("set_joint_positions",(void (DQ_VrepInterface::*) (const std::vector<std::string>&, const VectorXd&, const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::set_joint_positions,"Set joint positions");
+    dqvrepinterface_py.def("set_joint_positions",
+                           (void (DQ_VrepInterface::*) (const std::vector<std::string>&, const VectorXd&, const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::set_joint_positions,
+                           "Set joint positions",
+                           py::arg("jointnames")=std::vector<std::string>(),
+                           py::arg("angles_rad")=VectorXd::Zero(1),
+                           py::arg("opmode")=DQ_VrepInterface::OP_ONESHOT);
 
     //dqvrepinterface_py.def("set_joint_target_positions",(void (DQ_VrepInterface::*) (const std::vector<int>&, const VectorXd&, const DQ_VrepInterface::OP_MODES&) const)  &DQ_VrepInterface::set_joint_target_positions,"Set joint positions");
-    dqvrepinterface_py.def("set_joint_target_positions",(void (DQ_VrepInterface::*) (const std::vector<std::string>&, const VectorXd&, const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::set_joint_target_positions,"Set joint positions");
+    dqvrepinterface_py.def("set_joint_target_positions",
+                           (void (DQ_VrepInterface::*) (const std::vector<std::string>&, const VectorXd&, const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::set_joint_target_positions,
+                           "Set joint positions",
+                           py::arg("jointnames")=std::vector<std::string>(),
+                           py::arg("angles_rad")=VectorXd::Zero(1),
+                           py::arg("opmode")=DQ_VrepInterface::OP_ONESHOT);
 
     //dqvrepinterface_py.def("get_joint_positions",(VectorXd (DQ_VrepInterface::*) (const std::vector<int>&, const DQ_VrepInterface::OP_MODES&) const)  &DQ_VrepInterface::get_joint_positions,"Get joint positions");
-    dqvrepinterface_py.def("get_joint_positions",(VectorXd (DQ_VrepInterface::*) (const std::vector<std::string>&, const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::get_joint_positions,"Get joint positions");
+    dqvrepinterface_py.def("get_joint_positions",
+                           (VectorXd (DQ_VrepInterface::*) (const std::vector<std::string>&, const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::get_joint_positions,
+                           "Get joint positions",
+                           py::arg("jointnames")=std::vector<std::string>(),
+                           py::arg("opmode")=DQ_VrepInterface::OP_AUTOMATIC);
 }
