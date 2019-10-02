@@ -91,13 +91,13 @@ PYBIND11_MODULE(dqrobotics, m) {
     init_DQ_KinematicController_py(robot_control);
 
     //DQ_TaskSpacePseudoInverseController
-    init_DQ_TaskSpacePseudoInverseController_py(robot_control);
+    init_DQ_PseudoinverseController_py(robot_control);
 
     //DQ_KinematicConstrainedController
     init_DQ_KinematicConstrainedController_py(robot_control);
 
     //DQ_TaskspaceQuadraticProgrammingController
-    init_DQ_TaskspaceQuadraticProgrammingController_py(robot_control);
+    init_DQ_QuadraticProgrammingController_py(robot_control);
 
     //DQ_ClassicQPController
     init_DQ_ClassicQPController_py(robot_control);

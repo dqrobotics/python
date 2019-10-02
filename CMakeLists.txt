@@ -48,12 +48,12 @@ if(UNIX AND NOT APPLE)
         #robot_control
         cpp/src/robot_control/DQ_KinematicController.cpp
         src/robot_control/DQ_KinematicController_py.cpp
-        cpp/src/robot_control/DQ_TaskSpacePseudoInverseController.cpp
-        src/robot_control/DQ_TaskSpacePseudoInverseController_py.cpp
+        cpp/src/robot_control/DQ_PseudoinverseController.cpp
+        src/robot_control/DQ_PseudoinverseController_py.cpp
         cpp/src/robot_control/DQ_KinematicConstrainedController.cpp
         src/robot_control/DQ_KinematicConstrainedController_py.cpp
-        cpp/src/robot_control/DQ_TaskspaceQuadraticProgrammingController.cpp
-        src/robot_control/DQ_TaskspaceQuadraticProgrammingController_py.cpp
+        cpp/src/robot_control/DQ_QuadraticProgrammingController.cpp
+        src/robot_control/DQ_QuadraticProgrammingController_py.cpp
         cpp/src/robot_control/DQ_ClassicQPController.cpp
         src/robot_control/DQ_ClassicQPController_py.cpp
 
