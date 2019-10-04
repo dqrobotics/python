@@ -6,6 +6,11 @@ void init_DQ_Kinematics_py(py::module& m)
      *  DQ Kinematics
      * **************************************************/
     py::class_<DQ_Kinematics> dqkinematics_py(m, "DQ_Kinematics");
+    //dqkinematics_py.def(py::init<>());
+
+    dqkinematics_py.def("pose_jacobian",                           (MatrixXd (DQ_Kinematics::*)(const VectorXd&) const)&DQ_Kinematics::pose_jacobian, "Returns the pose Jacobian");
+    dqkinematics_py.def("get_dim_configuration_space",             &DQ_Kinematics::get_dim_configuration_space, "Returns the dimension of the configuration space");
+
     dqkinematics_py.def_static("distance_jacobian",                &DQ_Kinematics::distance_jacobian,     "Returns the distance Jacobian");
     dqkinematics_py.def_static("translation_jacobian",             &DQ_Kinematics::translation_jacobian,  "Returns the translation Jacobian");
     dqkinematics_py.def_static("rotation_jacobian",                &DQ_Kinematics::rotation_jacobian,     "Returns the rotation Jacobian");
