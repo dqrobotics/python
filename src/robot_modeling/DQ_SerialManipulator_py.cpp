@@ -21,14 +21,19 @@ void init_DQ_SerialManipulator_py(py::module& m)
     dqserialmanipulator_py.def("set_base_frame",              &DQ_SerialManipulator::set_base_frame,"Sets the base.");
     dqserialmanipulator_py.def("set_reference_frame",         &DQ_SerialManipulator::set_reference_frame,"Sets the reference frame");
     dqserialmanipulator_py.def("set_effector",                &DQ_SerialManipulator::set_effector,"Sets the effector.");
+
     dqserialmanipulator_py.def("raw_fkm",                     (DQ (DQ_SerialManipulator::*)(const VectorXd&) const)&DQ_SerialManipulator::raw_fkm,"Gets the raw fkm.");
     dqserialmanipulator_py.def("raw_fkm",                     (DQ (DQ_SerialManipulator::*)(const VectorXd&,const int&) const)&DQ_SerialManipulator::raw_fkm,"Gets the raw fkm.");
+
     dqserialmanipulator_py.def("fkm",                         (DQ (DQ_SerialManipulator::*)(const VectorXd&) const)&DQ_SerialManipulator::fkm,"Gets the fkm.");
     dqserialmanipulator_py.def("fkm",                         (DQ (DQ_SerialManipulator::*)(const VectorXd&,const int&) const)&DQ_SerialManipulator::fkm,"Gets the fkm.");
+
     dqserialmanipulator_py.def("dh2dq",                       &DQ_SerialManipulator::dh2dq,"Returns a link's DH transformation as a DQ.");
     dqserialmanipulator_py.def("get_z",                       &DQ_SerialManipulator::get_z,"Returns the z of a transformation.");
     dqserialmanipulator_py.def("raw_pose_jacobian",           &DQ_SerialManipulator::raw_pose_jacobian, "Returns the pose Jacobian up to a given link without base and end-effector displacements.");
-    dqserialmanipulator_py.def("pose_jacobian",               (MatrixXd (DQ_SerialManipulator::*)(const VectorXd&) const)&DQ_SerialManipulator::pose_jacobian,"Returns the pose Jacobian");
-    dqserialmanipulator_py.def("pose_jacobian",               (MatrixXd (DQ_SerialManipulator::*)(const VectorXd&, const int&) const)&DQ_SerialManipulator::pose_jacobian,"Returns the pose Jacobian up to a given link");
-    dqserialmanipulator_py.def("pose_jacobian_derivative",    &DQ_SerialManipulator::pose_jacobian_derivative,"Returns the derivative of the pose Jacobian");
+
+    dqserialmanipulator_py.def("pose_jacobian",               &DQ_SerialManipulator::pose_jacobian,"Returns the pose Jacobian");
+
+    dqserialmanipulator_py.def("pose_jacobian_derivative",    (MatrixXd (DQ_SerialManipulator::*)(const VectorXd&, const VectorXd&, const int&) const)&DQ_SerialManipulator::pose_jacobian_derivative,"Returns the derivative of the pose Jacobian");
+    dqserialmanipulator_py.def("pose_jacobian_derivative",    (MatrixXd (DQ_SerialManipulator::*)(const VectorXd&, const VectorXd&) const)&DQ_SerialManipulator::pose_jacobian_derivative,"Returns the derivative of the pose Jacobian");
 }
