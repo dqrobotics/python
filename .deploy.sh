@@ -1,5 +1,6 @@
 #!/bin/bash
 pwd
+ls
 if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]
   then
     cd dist
