@@ -8,7 +8,12 @@ add_definitions(-DNON_MATLAB_PARSING)
 add_definitions(-DMAX_EXT_API_CONNECTIONS=255)
 add_definitions(-DDO_NOT_USE_SHARED_MEMORY)
 
-if(UNIX AND NOT APPLE)
+if(APPLE)
+        FIND_PACKAGE(Eigen3 REQUIRED)
+        INCLUDE_DIRECTORIES(${EIGEN3_INCLUDE_DIR}) #Writing this way is more OS agnostic
+endif()
+
+if(UNIX)
     include_directories(
         /usr/include/eigen3/
         cpp/include/
