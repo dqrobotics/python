@@ -5,4 +5,3 @@ sudo rm -r build
 cd ..
 python3 -m pip install --user ./python
 python3 -c "from dqrobotics import *"
-cd python
