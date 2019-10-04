@@ -19,6 +19,20 @@ matrix:
         - python3-setuptools
         - python3-wheel
         - python3-setuptools-git
+  - os: linux
+    dist: bionic
+    sudo: true
+    compiler: g++
+    addons:
+      apt:
+        packages:
+        - g++
+        - libeigen3-dev
+        - python3-pip
+        - python3-dev
+        - python3-setuptools
+        - python3-wheel
+        - python3-setuptools-git
 script:
 - chmod +x .build.sh
 - ./.build.sh
