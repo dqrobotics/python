@@ -20,6 +20,8 @@ if(UNIX)
         interfaces/cpp-interface-vrep/include/
         interfaces/cpp-interface-vrep/coppeliarobotics/include
         interfaces/cpp-interface-vrep/coppeliarobotics/remoteApi
+        interfaces/cpp-interface-json11/include/
+        interfaces/cpp-interface-json11/dropbox/json11/
         )
     add_subdirectory(pybind11)
     pybind11_add_module(dqrobotics
@@ -83,6 +85,11 @@ if(UNIX)
         interfaces/cpp-interface-vrep/src/LBR4pVrepRobot.cpp
         interfaces/cpp-interface-vrep/src/YouBotVrepRobot.cpp
         src/interfaces/vrep/DQ_VrepRobot_py.cpp
+
+        #interfaces/json11
+        interfaces/cpp-interface-json11/src/dqrobotics/interfaces/json11/DQ_JsonReader.cpp
+        src/interfaces/json11/DQ_JsonReader_py.cpp
+        interfaces/cpp-interface-json11/dropbox/json11/json11.cpp
         )
 endif()
 
