@@ -22,7 +22,7 @@ Contributors:
 
 #include "dqrobotics_module.h"
 
-PYBIND11_MODULE(dqrobotics, m) {
+PYBIND11_MODULE(_dqrobotics, m) {
 
     //DQ Class
     init_DQ_py(m);
@@ -31,7 +31,7 @@ PYBIND11_MODULE(dqrobotics, m) {
      *  Utils
      * **************************************************/
     //dqrobotics/utils/
-    py::module utils_py = m.def_submodule("utils","A submodule of dqrobotics");
+    py::module utils_py = m.def_submodule("_utils","A submodule of dqrobotics");
 
     //DQ_LinearAlgebra
     init_DQ_LinearAlgebra_py(utils_py);
@@ -42,7 +42,7 @@ PYBIND11_MODULE(dqrobotics, m) {
     /*****************************************************
      *  Robots Kinematic Models
      * **************************************************/
-    py::module robots_py = m.def_submodule("robots", "A submodule of dqrobotics");
+    py::module robots_py = m.def_submodule("_robots", "A submodule of dqrobotics");
 
     //#include <dqrobotics/robots/Ax18ManipulatorRobot.h>
     py::class_<Ax18ManipulatorRobot> ax18manipulatorrobot_py(robots_py, "Ax18ManipulatorRobot");
@@ -63,7 +63,7 @@ PYBIND11_MODULE(dqrobotics, m) {
     /*****************************************************
      *  Robot Modeling <dqrobotics/robot_modeling/...>
      * **************************************************/
-    py::module robot_modeling = m.def_submodule("robot_modeling", "The robot_modeling submodule of dqrobotics");
+    py::module robot_modeling = m.def_submodule("_robot_modeling", "The robot_modeling submodule of dqrobotics");
 
     //DQ_Kinematics
     init_DQ_Kinematics_py(robot_modeling);
@@ -89,7 +89,7 @@ PYBIND11_MODULE(dqrobotics, m) {
     /*****************************************************
      *  Solvers <dqrobotics/solvers/...>
      * **************************************************/
-    py::module solvers = m.def_submodule("solvers", "The solvers submodule of dqrobotics");
+    py::module solvers = m.def_submodule("_solvers", "The solvers submodule of dqrobotics");
 
     //DQ_QuadraticProgrammingSolver
     init_DQ_QuadraticProgrammingSolver_py(solvers);
@@ -97,7 +97,7 @@ PYBIND11_MODULE(dqrobotics, m) {
     /*****************************************************
      *  Robot Control <dqrobotics/robot_control/...>
      * **************************************************/
-    py::module robot_control = m.def_submodule("robot_control", "The robot_control submodule of dqrobotics");
+    py::module robot_control = m.def_submodule("_robot_control", "The robot_control submodule of dqrobotics");
 
     py::enum_<ControlObjective>(robot_control, "ControlObjective")
             .value("Line",           ControlObjective::Line)
@@ -127,12 +127,12 @@ PYBIND11_MODULE(dqrobotics, m) {
     /*****************************************************
      *  Interfaces Submodule
      * **************************************************/
-    py::module interfaces_py = m.def_submodule("interfaces", "A submodule of dqrobotics");
+    py::module interfaces_py = m.def_submodule("_interfaces", "A submodule of dqrobotics");
 
     /*****************************************************
      *  Vrep Submodule
      * **************************************************/
-    py::module vrep_py = interfaces_py.def_submodule("vrep", "A submodule of dqrobotics");
+    py::module vrep_py = interfaces_py.def_submodule("_vrep", "A submodule of dqrobotics");
     vrep_py.attr("VREP_OBJECTNAME_ABSOLUTE") = VREP_OBJECTNAME_ABSOLUTE;
 
     //DQ_VrepInterface
@@ -144,7 +144,7 @@ PYBIND11_MODULE(dqrobotics, m) {
     /*****************************************************
      *  Vrep Robots Submodule
      * **************************************************/
-    py::module vreprobots_py = vrep_py.def_submodule("robots", "A submodule of dqrobotics");
+    py::module vreprobots_py = vrep_py.def_submodule("_robots", "A submodule of dqrobotics");
 
     /*****************************************************
      *  LBR4pVrepRobot
@@ -169,7 +169,7 @@ PYBIND11_MODULE(dqrobotics, m) {
     /*****************************************************
      *  Json11 submodule
      * **************************************************/
-    py::module json11_py = interfaces_py.def_submodule("json11", "A submodule of dqrobotics");
+    py::module json11_py = interfaces_py.def_submodule("_json11", "A submodule of dqrobotics");
 
     //DQ_JsonReader
     init_DQ_JsonReader_py(json11_py);

@@ -24,7 +24,8 @@ if(UNIX)
         interfaces/cpp-interface-json11/dropbox/json11/
         )
     add_subdirectory(pybind11)
-    pybind11_add_module(dqrobotics
+    pybind11_add_module(_dqrobotics
+
         src/dqrobotics_module.cpp
 
         cpp/src/DQ.cpp
