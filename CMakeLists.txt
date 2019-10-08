@@ -76,15 +76,15 @@ if(UNIX)
         cpp/src/robots/KukaLw4Robot.cpp
 
         #interfaces/vrep
-        interfaces/cpp-interface-vrep/src/DQ_VrepInterface.cpp
-        interfaces/cpp-interface-vrep/src/DQ_VrepInterfaceMapElement.cpp
+        interfaces/cpp-interface-vrep/src/dqrobotics/interfaces/vrep/DQ_VrepInterface.cpp
+        interfaces/cpp-interface-vrep/src/dqrobotics/interfaces/vrep/DQ_VrepInterfaceMapElement.cpp
         interfaces/cpp-interface-vrep/coppeliarobotics/remoteApi/extApi.c
         interfaces/cpp-interface-vrep/coppeliarobotics/remoteApi/extApiPlatform.h
         interfaces/cpp-interface-vrep/coppeliarobotics/remoteApi/extApiPlatform.c
         src/interfaces/vrep/DQ_VrepInterface_py.cpp
-        interfaces/cpp-interface-vrep/src/DQ_VrepRobot.cpp
-        interfaces/cpp-interface-vrep/src/LBR4pVrepRobot.cpp
-        interfaces/cpp-interface-vrep/src/YouBotVrepRobot.cpp
+        interfaces/cpp-interface-vrep/src/dqrobotics/interfaces/vrep/DQ_VrepRobot.cpp
+        interfaces/cpp-interface-vrep/src/dqrobotics/interfaces/vrep/robots/LBR4pVrepRobot.cpp
+        interfaces/cpp-interface-vrep/src/dqrobotics/interfaces/vrep/robots/YouBotVrepRobot.cpp
         src/interfaces/vrep/DQ_VrepRobot_py.cpp
 
         #interfaces/json11
