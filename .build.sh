@@ -20,4 +20,5 @@ echo "Testing..."
 cd python
 cd tests
 echo "Testing DQ..."
-python3 DQ_test.py
+python3.6 -m pip install --user scipy
+python3.6 DQ_test.py
