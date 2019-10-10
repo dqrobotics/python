@@ -10,3 +10,6 @@
 [submodule "interfaces/cpp-interface-json11"]
 	path = interfaces/cpp-interface-json11
 	url = https://github.com/dqrobotics/cpp-interface-json11.git
+[submodule "tests"]
+	path = tests
+	url = https://github.com/dqrobotics/python-tests.git
