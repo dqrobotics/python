@@ -58,7 +58,9 @@ void init_DQ_py(py::module& m)
     dq.def("haminus4"            ,&DQ::haminus4,              "Retrieves the H- operator for the primary part of a DQ.");
     dq.def("hamiplus8"           ,&DQ::hamiplus8,             "Retrieves the H+ operator for a DQ.");
     dq.def("haminus8"            ,&DQ::haminus8,              "Retrieves the H- operator for a DQ.");
+    dq.def("vec3"                ,&DQ::vec3,                  "Retrieves the pure part of the primary part of a DQ as a vector.");
     dq.def("vec4"                ,&DQ::vec4,                  "Retrieves the primary part of a DQ as a vector.");
+    dq.def("vec6"                ,&DQ::vec6,                  "Retrieves the pure part of a DQ as a vector.");
     dq.def("vec8"                ,&DQ::vec8,                  "Retrieves the DQ as a vector.");
     dq.def("normalize"           ,&DQ::normalize,             "Returns a normalized DQ.");
     dq.def("__repr__"            ,&DQ::to_string);
@@ -111,7 +113,9 @@ void init_DQ_py(py::module& m)
     m.def("haminus4"            ,&DQ_robotics::haminus4,             "Retrieves the H- operator for the primary part of a DQ.");
     m.def("hamiplus8"           ,&DQ_robotics::hamiplus8,            "Retrieves the H+ operator for a DQ.");
     m.def("haminus8"            ,&DQ_robotics::haminus8,             "Retrieves the H- operator for a DQ.");
+    m.def("vec3"                ,&DQ_robotics::vec3,                 "Retrieves the pure part of the primary part of a DQ as a vector.");
     m.def("vec4"                ,&DQ_robotics::vec4,                 "Retrieves the primary part of a DQ as a vector.");
+    m.def("vec6"                ,&DQ_robotics::vec6,                 "Retrieves the pure part of a DQ as a vector.");
     m.def("vec8"                ,&DQ_robotics::vec8,                 "Retrieves the DQ as a vector.");
     m.def("normalize"           ,&DQ_robotics::normalize,            "Returns a normalized DQ.");
     m.def("generalized_jacobian",&DQ_robotics::generalized_jacobian, "Retrieves the generalized Jacobian of a DQ.");
