@@ -16,3 +16,8 @@ sudo rm -r build
 cd ..
 python3.6 -m pip install --user ./python
 python3.6 -c "from dqrobotics import *"
+echo "Testing..."
+cd python
+cd tests
+echo "Testing DQ..."
+python3 DQ_test.py
