@@ -60,6 +60,10 @@ PYBIND11_MODULE(_dqrobotics, m) {
     py::class_<KukaLw4Robot> kukalw4robot_py(robots_py, "KukaLw4Robot");
     kukalw4robot_py.def_static("kinematics",&KukaLw4Robot::kinematics,"Returns the kinematics of the KukaLw4Robot");
 
+    //#include <dqrobotics/robots/KukaYoubotRobot.h>
+    py::class_<KukaYoubotRobot> kukayoubotrobot_py(robots_py, "KukaYoubotRobot");
+    kukayoubotrobot_py.def_static("kinematics",&KukaYoubotRobot::kinematics,"Returns the kinematics of the KukaYoubotRobot");
+
     /*****************************************************
      *  Robot Modeling <dqrobotics/robot_modeling/...>
      * **************************************************/

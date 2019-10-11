@@ -54,6 +54,7 @@ namespace py = pybind11;
 #include <dqrobotics/robots/BarrettWamArmRobot.h>
 #include <dqrobotics/robots/ComauSmartSixRobot.h>
 #include <dqrobotics/robots/KukaLw4Robot.h>
+#include <dqrobotics/robots/KukaYoubotRobot.h>
 
 #include <dqrobotics/interfaces/vrep/DQ_VrepInterface.h>
 #include <dqrobotics/interfaces/vrep/DQ_VrepRobot.h>
