@@ -19,7 +19,9 @@ python3.6 -c "from dqrobotics import *"
 echo "Testing..."
 cd python
 cd tests
-echo "Testing DQ..."
 python3.6 -m pip install --user scipy
+echo "Testing DQ..."
 python3.6 DQ_test.py
+echo "Testing DQ_Kinematics..."
 python3.6 DQ_Kinematics_test.py
+echo "Testing ended."
