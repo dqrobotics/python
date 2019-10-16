@@ -15,6 +15,7 @@ sudo apt-get install python3.6 python3.6-dev -y
 curl https://bootstrap.pypa.io/get-pip.py | sudo -H python3.6
 python3.6 -m pip install --user setuptools wheel setuptools-git twine
 echo "Python 3.6 installed."
+cd ..
 python3.6 -m pip install --user ./python
 echo "Ubuntu 18.04 build ended."
 echo "Testing..."
