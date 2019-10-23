@@ -37,11 +37,11 @@ void init_DQ_SerialManipulator_py(py::module& m)
     dqserialmanipulator_py.def("alpha",                       &DQ_SerialManipulator::alpha,"Retrieves the vector of alphas.");
     dqserialmanipulator_py.def("get_dim_configuration_space", &DQ_SerialManipulator::get_dim_configuration_space,"Retrieves the number of links.");
     dqserialmanipulator_py.def("convention",                  &DQ_SerialManipulator::convention,"Retrieves the DH convention.");
-    dqserialmanipulator_py.def("base_frame",                  &DQ_SerialManipulator::base_frame,"Retrieves the base.");
-    dqserialmanipulator_py.def("reference_frame",             &DQ_SerialManipulator::reference_frame,"Retrieves the reference frame");
+    //dqserialmanipulator_py.def("base_frame",                  &DQ_SerialManipulator::get_base_frame,"Retrieves the base.");
+    //dqserialmanipulator_py.def("reference_frame",             &DQ_SerialManipulator::get_reference_frame,"Retrieves the reference frame");
     dqserialmanipulator_py.def("effector",                    &DQ_SerialManipulator::effector,"Retrieves the effector.");
-    dqserialmanipulator_py.def("set_base_frame",              &DQ_SerialManipulator::set_base_frame,"Sets the base.");
-    dqserialmanipulator_py.def("set_reference_frame",         &DQ_SerialManipulator::set_reference_frame,"Sets the reference frame");
+    //dqserialmanipulator_py.def("set_base_frame",              &DQ_SerialManipulator::set_base_frame,"Sets the base.");
+    //dqserialmanipulator_py.def("set_reference_frame",         &DQ_SerialManipulator::set_reference_frame,"Sets the reference frame");
     dqserialmanipulator_py.def("set_effector",                &DQ_SerialManipulator::set_effector,"Sets the effector.");
 
     dqserialmanipulator_py.def("raw_fkm",                     (DQ (DQ_SerialManipulator::*)(const VectorXd&) const)&DQ_SerialManipulator::raw_fkm,"Gets the raw fkm.");
