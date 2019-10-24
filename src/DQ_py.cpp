@@ -123,8 +123,17 @@ void init_DQ_py(py::module& m)
     m.def("crossmatrix4"        ,&DQ_robotics::crossmatrix4,         "Returns the crossmatrix4 operator.");
     m.def("Ad"                  ,&DQ_robotics::Ad,                   "Retrieves the adjoint transformation of a DQ.");
     m.def("Adsharp"             ,&DQ_robotics::Adsharp,              "Retrieves the adjoint sharp transformation of a DQ.");
-    m.def("cross"               ,&DQ_robotics::cross,                "Returns the result of the cross product between two DQ");
-    m.def("dot"                 ,&DQ_robotics::dot,                  "Returns the result of the dot product between two DQ");
+    m.def("cross"               ,&DQ_robotics::cross,                "Returns the result of the cross product between two DQ.");
+    m.def("dot"                 ,&DQ_robotics::dot,                  "Returns the result of the dot product between two DQ.");
+
+    m.def("is_unit"             ,&DQ_robotics::is_unit,              "Returns true if the DQ has unit norm, false otherwise.");
+    m.def("is_pure"             ,&DQ_robotics::is_pure,              "Returns true if the DQ is pure, false otherwise.");
+    m.def("is_real"             ,&DQ_robotics::is_real,              "Returns true if the DQ is a real dual number, false otherwise.");
+    m.def("is_real_number"      ,&DQ_robotics::is_real_number,       "Returns true if the DQ is a real number, false otherwise.");
+    m.def("is_quaternion"       ,&DQ_robotics::is_quaternion,        "Returns true if the DQ is a quaternion, false otherwise.");
+    m.def("is_pure_quaternion"  ,&DQ_robotics::is_pure_quaternion,   "Returns true if the DQ is a pure quaternion, false otherwise.");
+    m.def("is_line"             ,&DQ_robotics::is_line,              "Returns true if the DQ is a Plucker line, false otherwise.");
+    m.def("is_plane"            ,&DQ_robotics::is_plane,             "Returns true if the DQ is a plane, false otherwise.");
 
     ///Namespace readonly
     m.attr("DQ_threshold") = DQ_threshold;
