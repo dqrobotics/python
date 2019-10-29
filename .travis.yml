@@ -1,4 +1,6 @@
 language: cpp
+git:
+  depth: false
 env:
   global:
   - DEPS_DIR=${TRAVIS_BUILD_DIR}/deps
