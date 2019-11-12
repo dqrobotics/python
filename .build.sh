@@ -29,6 +29,7 @@ echo "Testing DQ..."
 python3.6 DQ_test.py
 echo "Testing DQ_Kinematics..."
 python3.6 DQ_Kinematics_test.py
+cd ..
 echo "Testing ended."
 
 echo "Building for 20.04 (Focal) ..."
