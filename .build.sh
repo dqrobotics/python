@@ -29,9 +29,9 @@ cd ..
 echo "Testing ended."
 
 echo "Building for 20.04 (Focal) ..."
-sudo apt-get install python3.8 python3.8-dev -y
+sudo apt-get install python3.8 python3.8-dev python3.8-distutils -y
 python3.8 -m pip install --user pip
-python3.8 -m pip install --user setuptools wheel setuptools-git twine
+python3.8 -m pip install --user setuptools wheel setuptools-git
 sudo rm -r build
 python3.8 setup.py bdist_wheel
 echo "20.04 build ended."
