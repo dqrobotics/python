@@ -109,6 +109,7 @@ PYBIND11_MODULE(_dqrobotics, m) {
             .value("Pose",           ControlObjective::Pose)
             .value("Plane",          ControlObjective::Plane)
             .value("Distance",       ControlObjective::Distance)
+            .value("DistanceToPlane",ControlObjective::DistanceToPlane)
             .value("Rotation",       ControlObjective::Rotation)
             .value("Translation",    ControlObjective::Translation)
             .export_values();

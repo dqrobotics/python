@@ -25,6 +25,8 @@ echo "Testing DQ..."
 python3.6 DQ_test.py
 echo "Testing DQ_Kinematics..."
 python3.6 DQ_Kinematics_test.py
+echo "Testing cpp_issues..."
+python3.6 cpp_issues.py
 cd ..
 echo "Testing ended."
 

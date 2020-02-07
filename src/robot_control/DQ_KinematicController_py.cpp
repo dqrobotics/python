@@ -33,10 +33,13 @@ void init_DQ_KinematicController_py(py::module& m)
     dqkinematiccontroller_py.def("get_last_error_signal"     ,&DQ_KinematicController::get_last_error_signal, "Gets the last error signal");
     dqkinematiccontroller_py.def("get_task_variable"         ,&DQ_KinematicController::get_task_variable, "Gets the task variable");
     dqkinematiccontroller_py.def("is_set"                    ,&DQ_KinematicController::is_set,"Checks if the controller's objective has been set");
-    dqkinematiccontroller_py.def("is_stable"                 ,&DQ_KinematicController::is_stable,"Checks if the controller has stabilized");
+    dqkinematiccontroller_py.def("is_stable"                 ,&DQ_KinematicController::reached_stable_region,"Checks if the controller has stabilized");
     dqkinematiccontroller_py.def("set_control_objective"     ,&DQ_KinematicController::set_control_objective,"Sets the control objective");
     dqkinematiccontroller_py.def("set_gain"                  ,&DQ_KinematicController::set_gain,"Sets the controller gain");
     dqkinematiccontroller_py.def("set_stability_threshold"   ,&DQ_KinematicController::set_stability_threshold,"Sets the stability threshold");
     dqkinematiccontroller_py.def("set_damping"               ,&DQ_KinematicController::set_damping, "Sets the damping.");
     dqkinematiccontroller_py.def("set_primitive_to_effector" ,&DQ_KinematicController::set_primitive_to_effector, "Sets the effector primitive");
+    dqkinematiccontroller_py.def("set_target_primitive",      &DQ_KinematicController::set_target_primitive, "Sets the target primitive");
+    dqkinematiccontroller_py.def("set_stability_counter_max", &DQ_KinematicController::set_stability_counter_max, "Sets the maximum of the stability counter");
+    dqkinematiccontroller_py.def("reset_stability_counter",   &DQ_KinematicController::reset_stability_counter, "Resets the stability counter");
 }
