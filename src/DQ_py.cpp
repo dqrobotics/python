@@ -77,17 +77,17 @@ void init_DQ_py(py::module& m)
     dq.def(py::self == py::self);
     dq.def(py::self != py::self);
     dq.def(- py::self);
-    //Float
-    dq.def(float()  * py::self);
-    dq.def(py::self * float());
-    dq.def(float()  + py::self);
-    dq.def(py::self + float());
-    dq.def(float()  - py::self);
-    dq.def(py::self - float());
-    dq.def(float()  == py::self);
-    dq.def(py::self == float());
-    dq.def(float()  != py::self);
-    dq.def(py::self != float());
+    //Double
+    dq.def(double()  * py::self);
+    dq.def(py::self * double());
+    dq.def(double()  + py::self);
+    dq.def(py::self + double());
+    dq.def(double()  - py::self);
+    dq.def(py::self - double());
+    dq.def(double()  == py::self);
+    dq.def(py::self == double());
+    dq.def(double()  != py::self);
+    dq.def(py::self != double());
 
     ///Namespace Functions
     m.def("C8"                  ,&DQ_robotics::C8,                   "Returns the C8 matrix.");
