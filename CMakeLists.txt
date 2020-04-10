@@ -44,6 +44,8 @@ if(UNIX)
         src/robot_modeling/DQ_Kinematics_py.cpp
         cpp/src/robot_modeling/DQ_SerialManipulator.cpp
         src/robot_modeling/DQ_SerialManipulator_py.cpp
+        cpp/src/robot_modeling/DQ_SerialManipulatorDH.cpp
+        src/robot_modeling/DQ_SerialManipulatorDH_py.cpp
         cpp/src/robot_modeling/DQ_MobileBase.cpp
         src/robot_modeling/DQ_MobileBase_py.cpp
         cpp/src/robot_modeling/DQ_HolonomicBase.cpp
