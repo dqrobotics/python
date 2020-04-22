@@ -3,8 +3,6 @@
 if [ "$TRAVIS_OS_NAME" = "osx" ]
 then
 
-    echo "Installing eigen3"
-    brew install eigen
     echo "Building for macOS"
     python3 setup.py bdist_wheel
     
