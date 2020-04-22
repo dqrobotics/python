@@ -9,8 +9,10 @@ add_definitions(-DMAX_EXT_API_CONNECTIONS=255)
 add_definitions(-DDO_NOT_USE_SHARED_MEMORY)
 
 if(APPLE)
-        FIND_PACKAGE(Eigen3 REQUIRED)
-        INCLUDE_DIRECTORIES(${EIGEN3_INCLUDE_DIR}) #Writing this way is more OS agnostic
+        include_directories(
+        /usr/local/include/
+	/usr/local/include/eigen3
+        )
 endif()
 
 if(UNIX)
