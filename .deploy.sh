@@ -5,6 +5,7 @@ then
     if [ "$TRAVIS_OS_NAME" = "osx" ]
     then
 
+        python3 -m pip install twine
         python3 -m twine upload dist/*
         
     else
