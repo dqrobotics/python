@@ -21,6 +21,7 @@ matrix:
         - python3-setuptools
         - python3-wheel
         - python3-setuptools-git
+  - os: osx
 script:
 - chmod +x .build.sh
 - ./.build.sh

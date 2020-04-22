@@ -1,5 +1,14 @@
 #!/bin/bash
 
+if [ "$TRAVIS_OS_NAME" = "osx" ]
+echo "Installing eigen3"
+brew install eigen
+echo "Building for macOS"
+python3 setup.py bdist_wheel
+then
+
+else
+
 echo "Building for 16.04 (Xenial)..."
 python3 setup.py bdist_wheel
 sudo rm -r build
@@ -37,3 +46,5 @@ python3.8 -m pip install --user setuptools wheel setuptools-git
 sudo rm -r build
 python3.8 setup.py bdist_wheel
 echo "20.04 build ended."
+
+fi
