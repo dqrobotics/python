@@ -10,7 +10,7 @@ else
 
     echo "Building for 16.04 (Xenial)..."
     python3 -m pip install pip
-    sudo python3 -m pip install --upgrade pip
+    sudo -H python3 -m pip install --upgrade pip
     python3 setup.py bdist_wheel
     sudo rm -r build
     echo "16.04 build ended."
