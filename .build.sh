@@ -15,12 +15,14 @@ else
     echo "[DQRobotics] Ubuntu build ended."
     
     echo "[DQRobotics] Installing..."
-    python3 -m pip install dist/*.whl
+    cd dist
+    python3 -m pip install *.whl
+    cd ..
     echo "[DQRobotics] Installed."
     
     echo "[DQRobotics] Testing..."
     python3 -c "from dqrobotics import *"
-    python3 -m pip install --user scipy quadprog
+    python3 -m pip install scipy quadprog
     echo "[DQRobotics] Testing DQ..."
     python3 tests/DQ_test.py
     echo "[DQRobotics] Testing DQ_Kinematics..."
