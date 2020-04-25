@@ -12,11 +12,11 @@ else
     python3 --version
     python3 -m pip install setuptools wheel setuptools-git twine
     python3 setup.py bdist_wheel
+    rm -rf build
     echo "[DQRobotics] Ubuntu wheel build ended."
     
     echo "[DQRobotics] Installing..."
     cd ..
-    rm -rf build
     python3 -m pip install ./python
     cd python
     echo "[DQRobotics] Installed."
