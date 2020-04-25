@@ -1,18 +1,24 @@
 language: python
 git:
   depth: false
-  
 jobs:
   include:
-    - name: "Python 3.8 on Ubuntu"
-      python: 3.8
+    - name: "Python 3.5 (Ubuntu 16.04)"
+      python: 3.5
       addons:
         apt:
           packages:
           - g++
           - libeigen3-dev
-    - name: "Python 3.5 on Ubuntu"
-      python: 3.5
+    - name: "Python 3.6 (Ubuntu 18.04)"
+      python: 3.6
+      addons:
+        apt:
+          packages:
+          - g++
+          - libeigen3-dev
+    - name: "Python 3.8 (Ubuntu 20.04)"
+      python: 3.8
       addons:
         apt:
           packages:
@@ -21,7 +27,6 @@ jobs:
     - name: "macOS"
       os: osx
       language: shell       
-      
 script:
 - chmod +x .build.sh
 - ./.build.sh
