@@ -9,6 +9,7 @@ then
 else
 
     echo "Building for 16.04 (Xenial)..."
+    python3 -m pip install pip
     python3 -m pip install --upgrade pip
     python3 setup.py bdist_wheel
     sudo rm -r build
