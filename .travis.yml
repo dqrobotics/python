@@ -1,22 +1,27 @@
 language: python
 git:
   depth: false
-matrix:
+  
+jobs:
   include:
-  - os: linux
-    dist: xenial
-    sudo: true
-    compiler: g++
-    python:
-    - "3.5"
-    - "3.8"
-    addons:
-      apt:
-        packages:
-        - g++
-        - libeigen3-dev
-  - os: osx
-  - language: shell
+    - name: "Python 3.8 on Ubuntu"
+      python: 3.8
+      addons:
+        apt:
+          packages:
+          - g++
+          - libeigen3-dev
+    - name: "Python 3.5 on Ubuntu"
+      python: 3.5
+      addons:
+        apt:
+          packages:
+          - g++
+          - libeigen3-dev
+    - name: "macOS"
+      os: osx
+      language: shell       
+      
 script:
 - chmod +x .build.sh
 - ./.build.sh
