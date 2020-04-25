@@ -9,8 +9,8 @@ then
 else
 
     echo "Building for Ubuntu"
-    python3 -m pip install --user pip
-    python3 -m pip install --user setuptools wheel setuptools-git twine
+    python3 --version
+    python3 -m pip install setuptools wheel setuptools-git twine
     python3 setup.py bdist_wheel
     echo "Ubuntu build ended."
     
