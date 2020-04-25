@@ -1,30 +1,22 @@
-language: cpp
+language: python
 git:
   depth: false
-env:
-  global:
-  - DEPS_DIR=${TRAVIS_BUILD_DIR}/deps
-  - CXX_FLAGS="-Wall -pedantic -Werror -Wno-variadic-macros -Wno-long-long -Wno-shadow"
 matrix:
   include:
   - os: linux
     dist: xenial
     sudo: true
     compiler: g++
+    python:
+    - "3.5"
+    - "3.8"
     addons:
       apt:
         packages:
         - g++
         - libeigen3-dev
-        - python3-pip
-        - python3-dev
-        - python3-setuptools
-        - python3-wheel
-        - python3-setuptools-git
   - os: osx
+  - language: shell
 script:
 - chmod +x .build.sh
 - ./.build.sh
-after_success:
-- chmod +x .deploy.sh
-- ./.deploy.sh
