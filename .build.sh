@@ -16,6 +16,7 @@ else
     
     echo "[DQRobotics] Installing..."
     cd ..
+    rm -rf build
     python3 -m pip install ./python
     cd python
     echo "[DQRobotics] Installed."
