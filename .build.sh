@@ -39,7 +39,9 @@ else
     echo "Testing ended."
 
     echo "Building for 20.04 (Focal) ..."
-    sudo apt-get install python3.8 python3.8-dev -y
+    sudo apt-get install python3.8 -y
+    sudo apt-get install python3.8-distutils -y
+    sudo apt-get install python3.8-dev -y
     python3.8 -m pip install --user pip
     python3.8 -m pip install --user setuptools wheel setuptools-git
     python3.8 -m pip install --upgrade pip setuptools wheel
