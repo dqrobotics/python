@@ -42,6 +42,7 @@ namespace py = pybind11;
 #include <dqrobotics/robot_modeling/DQ_HolonomicBase.h>
 #include <dqrobotics/robot_modeling/DQ_DifferentialDriveRobot.h>
 #include <dqrobotics/robot_modeling/DQ_WholeBody.h>
+#include <dqrobotics/robot_modeling/DQ_SerialWholeBody.h>
 
 #include <dqrobotics/robot_control/DQ_KinematicController.h>
 #include <dqrobotics/robot_control/DQ_KinematicConstrainedController.h>
@@ -83,6 +84,7 @@ void init_DQ_HolonomicBase_py(py::module& m);
 void init_DQ_DifferentialDriveRobot_py(py::module& m);
 void init_DQ_CooperativeDualTaskSpace_py(py::module& m);
 void init_DQ_WholeBody_py(py::module& m);
+void init_DQ_SerialWholeBody_py(py::module& m);
 
 //dqrobotics/robot_control
 void init_DQ_ClassicQPController_py(py::module& m);

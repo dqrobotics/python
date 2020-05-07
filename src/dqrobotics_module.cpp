@@ -93,6 +93,9 @@ PYBIND11_MODULE(_dqrobotics, m) {
     //DQ_WholeBody
     init_DQ_WholeBody_py(robot_modeling);
 
+    //DQ_SerialWholeBody
+    init_DQ_SerialWholeBody_py(robot_modeling);
+
     /*****************************************************
      *  Solvers <dqrobotics/solvers/...>
      * **************************************************/
