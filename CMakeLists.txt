@@ -1,5 +1,4 @@
 cmake_minimum_required(VERSION 2.8)
-#set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 project(dqroboticspython)
 
@@ -9,9 +8,10 @@ add_definitions(-DMAX_EXT_API_CONNECTIONS=255)
 add_definitions(-DDO_NOT_USE_SHARED_MEMORY)
 
 if(APPLE)
+        message("Building not supported on this platform.")
         include_directories(
         /usr/local/include/
-	/usr/local/include/eigen3
+        /usr/local/include/eigen3
         )
 endif()
 
@@ -46,6 +46,8 @@ if(UNIX)
         src/robot_modeling/DQ_Kinematics_py.cpp
         cpp/src/robot_modeling/DQ_SerialManipulator.cpp
         src/robot_modeling/DQ_SerialManipulator_py.cpp
+        cpp/src/robot_modeling/DQ_SerialManipulatorDH.cpp
+        src/robot_modeling/DQ_SerialManipulatorDH_py.cpp
         cpp/src/robot_modeling/DQ_MobileBase.cpp
         src/robot_modeling/DQ_MobileBase_py.cpp
         cpp/src/robot_modeling/DQ_HolonomicBase.cpp
@@ -54,6 +56,8 @@ if(UNIX)
         src/robot_modeling/DQ_DifferentialDriveRobot_py.cpp
         cpp/src/robot_modeling/DQ_WholeBody.cpp
         src/robot_modeling/DQ_WholeBody_py.cpp
+        cpp/src/robot_modeling/DQ_SerialWholeBody.cpp
+        src/robot_modeling/DQ_SerialWholeBody_py.cpp
 
         #robot_control
         cpp/src/robot_control/DQ_KinematicController.cpp
@@ -95,10 +99,6 @@ if(UNIX)
         src/interfaces/json11/DQ_JsonReader_py.cpp
         interfaces/cpp-interface-json11/dropbox/json11/json11.cpp
         )
-endif()
-
-if(APPLE)
-    message("Building not supported on this platform.")
 endif()
 
 if(WIN32)

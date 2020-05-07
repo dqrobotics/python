@@ -75,6 +75,9 @@ PYBIND11_MODULE(_dqrobotics, m) {
     //DQ_SerialManipulator
     init_DQ_SerialManipulator_py(robot_modeling);
 
+    //DQ_SerialManipulatorDH
+    init_DQ_SerialManipulatorDH_py(robot_modeling);
+
     //DQ_CooperativeDualTaskSpace
     init_DQ_CooperativeDualTaskSpace_py(robot_modeling);
 
@@ -89,6 +92,9 @@ PYBIND11_MODULE(_dqrobotics, m) {
 
     //DQ_WholeBody
     init_DQ_WholeBody_py(robot_modeling);
+
+    //DQ_SerialWholeBody
+    init_DQ_SerialWholeBody_py(robot_modeling);
 
     /*****************************************************
      *  Solvers <dqrobotics/solvers/...>
