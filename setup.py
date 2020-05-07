@@ -87,7 +87,7 @@ setup(
     classifiers=[
         "Programming Language :: Python :: 3",
         "Programming Language :: C++",
-        "Development Status :: 4 - Beta",
+        "Development Status :: 5 - Production/Stable",
         "Operating System :: POSIX :: Linux",
         "License :: OSI Approved :: GNU Lesser General Public License v3 or later (LGPLv3+)",        
     ],
