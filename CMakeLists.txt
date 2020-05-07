@@ -15,7 +15,14 @@ if(APPLE)
         )
 endif()
 
-if(UNIX)
+if(WIN32)
+    message("Building not supported on this platform.")
+    ADD_DEFINITIONS(-D_USE_MATH_DEFINES) 
+    FIND_PACKAGE(Eigen3 CONFIG REQUIRED) 
+    INCLUDE_DIRECTORIES(${EIGEN3_INCLUDE_DIR}) 
+endif()
+
+
     include_directories(
         /usr/include/eigen3/
         cpp/include/
@@ -99,8 +106,4 @@ if(UNIX)
         src/interfaces/json11/DQ_JsonReader_py.cpp
         interfaces/cpp-interface-json11/dropbox/json11/json11.cpp
         )
-endif()
 
-if(WIN32)
-    message("Building not supported on this platform.")
-endif()
