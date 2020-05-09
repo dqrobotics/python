@@ -10,86 +10,53 @@ environment:
 install:
 - ps: >-
     echo "Setting up vcpkg..."
-
     cd C:\Tools\vcpkg
-
     .\bootstrap-vcpkg.bat
-
     vcpkg integrate install
 
-
     echo "Installing eigen3..."
-
     .\vcpkg install eigen3:x64-windows
 build_script:
 - cmd: >-
     cd C:\projects\python
 
     echo "Getting git submodules..."
-
     git submodule update --init --recursive
 
-
     echo "Building wheel for Python35"
-
     C:\Python35-x64\Python.exe -m pip install --upgrade pip
-
     C:\Python35-x64\Python.exe -m pip install wheel
-
     C:\Python35-x64\Python.exe -m pip install setuptools setuptools-git
-
     C:\Python35-x64\Python.exe setup.py bdist_wheel
 
-
     echo "Building wheel for Python36"
-
     C:\Python36-x64\Python.exe -m pip install --upgrade pip
-
     C:\Python36-x64\Python.exe -m pip install wheel
-
     C:\Python36-x64\Python.exe -m pip install setuptools setuptools-git
-
     C:\Python36-x64\Python.exe setup.py bdist_wheel
 
-
     echo "Building wheel for Python37"
-
     C:\Python37-x64\Python.exe -m pip install --upgrade pip
-
     C:\Python37-x64\Python.exe -m pip install wheel
-
     C:\Python37-x64\Python.exe -m pip install setuptools setuptools-git
-
     C:\Python37-x64\Python.exe setup.py bdist_wheel
 
-
     echo "Building wheel for Python38"
-
     C:\Python38-x64\Python.exe -m pip install --upgrade pip
-
     C:\Python38-x64\Python.exe -m pip install wheel
-
     C:\Python38-x64\Python.exe -m pip install setuptools setuptools-git twine
-
     C:\Python38-x64\Python.exe setup.py bdist_wheel
 test_script:
 - cmd: >-
     cd C:\projects
-
     C:\Python38-x64\Python.exe -m pip install .\python\
 
-
     cd C:\projects\python\tests
-
     C:\Python38-x64\Python.exe -c "from dqrobotics import *"
-
     C:\Python38-x64\Python.exe -m pip install scipy quadprog
-
     C:\Python38-x64\Python.exe DQ_test.py
-
     C:\Python38-x64\Python.exe DQ_Kinematics_test.py
 deploy_script:
 - cmd: >-
     cd C:\projects\python
-
     C:\Python38-x64\Python.exe -m twine upload dist\*
