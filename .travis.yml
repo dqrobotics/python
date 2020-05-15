@@ -3,21 +3,28 @@ git:
   depth: false
 jobs:
   include:
-    - name: "Python 3.5 (Ubuntu 16.04)"
+    - name: "Python 3.5 (Native in Ubuntu 16.04)"
       python: 3.5
       addons:
         apt:
           packages:
           - g++
           - libeigen3-dev
-    - name: "Python 3.6 (Ubuntu 18.04)"
+    - name: "Python 3.6 (Native in Ubuntu 18.04)"
       python: 3.6
       addons:
         apt:
           packages:
           - g++
           - libeigen3-dev
-    - name: "Python 3.8 (Ubuntu 20.04)"
+    - name: "Python 3.7 (Not native in any Ubuntu LTS)"
+      python: 3.7
+      addons:
+        apt:
+          packages:
+          - g++
+          - libeigen3-dev
+    - name: "Python 3.8 (Native in Ubuntu 20.04)"
       python: 3.8
       addons:
         apt:
