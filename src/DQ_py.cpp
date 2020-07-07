@@ -63,7 +63,8 @@ void init_DQ_py(py::module& m)
     dq.def("vec6"                ,&DQ::vec6,                  "Retrieves the pure part of a DQ as a vector.");
     dq.def("vec8"                ,&DQ::vec8,                  "Retrieves the DQ as a vector.");
     dq.def("normalize"           ,&DQ::normalize,             "Returns a normalized DQ.");
-    dq.def("__repr__"            ,&DQ::to_string);
+    dq.def("__repr__"            ,&DQ::to_string,             "Used by python's print function.");
+    dq.def("to_string"           ,&DQ::to_string,             "Returns the DQ as a string.");
     dq.def("generalized_jacobian",&DQ::generalized_jacobian,  "Retrieves the generalized Jacobian of a DQ.");
     dq.def("sharp"               ,&DQ::sharp,                 "Retrieves the sharp of a DQ");
     dq.def("Ad"                  ,&DQ::Ad,                    "Retrieves the adjoint transformation of a DQ.");
