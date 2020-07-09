@@ -31,6 +31,8 @@ else
     python3 DQ_Kinematics_test.py
     echo "[DQRobotics] Testing cpp_issues..."
     python3 cpp_issues.py
+    echo "[DQRobotics] Testing python_issues..."
+    python3 python_issues.py
     cd ..
     echo "[DQRobotics] Tested."
     
