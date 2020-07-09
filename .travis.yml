@@ -25,6 +25,8 @@ jobs:
           - g++
           - libeigen3-dev
     - name: "Python 3.8 (Native in Ubuntu 20.04)"
+      os: linux
+      dist: bionic
       python: 3.8
       addons:
         apt:
@@ -37,5 +39,6 @@ jobs:
 script:
 - chmod +x .build.sh
 - ./.build.sh
+after_success:
 - chmod +x .deploy.sh
 - ./.deploy.sh
