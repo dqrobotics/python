@@ -45,6 +45,8 @@ endif()
         src/utils/DQ_LinearAlgebra_py.cpp
         cpp/src/utils/DQ_Geometry.cpp
         src/utils/DQ_Geometry_py.cpp
+        cpp/src/utils/DQ_Math.cpp
+        src/utils/DQ_Math_py.cpp
 
         #robot_modeling
         cpp/src/robot_modeling/DQ_CooperativeDualTaskSpace.cpp

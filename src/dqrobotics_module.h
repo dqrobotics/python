@@ -33,6 +33,7 @@ namespace py = pybind11;
 
 #include <dqrobotics/utils/DQ_LinearAlgebra.h>
 #include <dqrobotics/utils/DQ_Geometry.h>
+#include <dqrobotics/utils/DQ_Math.h>
 
 #include <dqrobotics/robot_modeling/DQ_CooperativeDualTaskSpace.h>
 #include <dqrobotics/robot_modeling/DQ_Kinematics.h>
