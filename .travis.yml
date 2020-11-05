@@ -21,6 +21,7 @@ jobs:
           packages:
           - g++
           - libeigen3-dev
+          - rename
     - name: "Python 3.7 (Not native in any Ubuntu LTS)"
       os: linux
       dist: bionic
@@ -30,6 +31,7 @@ jobs:
           packages:
           - g++
           - libeigen3-dev
+          - rename
     - name: "Python 3.8 (Native in Ubuntu 20.04)"
       os: linux
       dist: focal
@@ -39,6 +41,7 @@ jobs:
           packages:
           - g++
           - libeigen3-dev
+          - rename
     - name: "macOS"
       os: osx
       language: shell       
