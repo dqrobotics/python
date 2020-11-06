@@ -42,6 +42,16 @@ jobs:
           - g++
           - libeigen3-dev
           - rename
+    - name: "Python 3.9 (Not native in any Ubuntu LTS)"
+      os: linux
+      dist: focal
+      python: 3.9
+      addons:
+        apt:
+          packages:
+          - g++
+          - libeigen3-dev
+          - rename
     - name: "macOS"
       os: osx
       language: shell       
