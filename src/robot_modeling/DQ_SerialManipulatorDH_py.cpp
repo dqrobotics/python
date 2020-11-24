@@ -39,6 +39,6 @@ void init_DQ_SerialManipulatorDH_py(py::module& m)
     dqserialmanipulatordh_py.def("get_types",   &DQ_SerialManipulatorDH::get_types,  "Retrieves the vector of types.");
 
     //Overrides from DQ_SerialManipulator
-    dqserialmanipulatordh_py.def("raw_pose_jacobian",  &DQ_SerialManipulatorDH::raw_pose_jacobian, "Retrieves the raw pose Jacobian.");
-    dqserialmanipulatordh_py.def("raw_fkm",            &DQ_SerialManipulatorDH::raw_fkm,           "Retrieves the raw FKM.");
+    dqserialmanipulatordh_py.def("raw_pose_jacobian",  (MatrixXd (DQ_SerialManipulatorDH::*)(const VectorXd&, const int&) const)&DQ_SerialManipulatorDH::raw_pose_jacobian, "Retrieves the raw pose Jacobian.");
+    dqserialmanipulatordh_py.def("raw_fkm",            (DQ (DQ_SerialManipulatorDH::*)(const VectorXd&, const int&) const)&DQ_SerialManipulatorDH::raw_fkm,                 "Retrieves the raw FKM.");
 }
