@@ -32,18 +32,6 @@ void init_DQ_SerialManipulator_py(py::module& m)
 
     ///Methods
     //Concrete
-    dqserialmanipulator_py.def("get_lower_q_limit",           &DQ_SerialManipulator::get_lower_q_limit,"Retrieves the lower limit for the joint values.");
-    dqserialmanipulator_py.def("set_lower_q_limit",           &DQ_SerialManipulator::set_lower_q_limit,"Sets the lower limit for the joint values.");
-
-    dqserialmanipulator_py.def("get_lower_q_dot_limit",       &DQ_SerialManipulator::get_lower_q_dot_limit,"Retrieves the lower limit for the joint velocities.");
-    dqserialmanipulator_py.def("set_lower_q_dot_limit",       &DQ_SerialManipulator::set_lower_q_dot_limit,"Sets the lower limit for the joint velocities.");
-
-    dqserialmanipulator_py.def("get_upper_q_limit",           &DQ_SerialManipulator::get_upper_q_limit,"Retrieves the upper limit for the joint values.");
-    dqserialmanipulator_py.def("set_upper_q_limit",           &DQ_SerialManipulator::set_upper_q_limit,"Sets the upper limit for the joint values.");
-
-    dqserialmanipulator_py.def("get_upper_q_dot_limit",       &DQ_SerialManipulator::get_upper_q_dot_limit,"Retrieves the upper limit for the joint velocities.");
-    dqserialmanipulator_py.def("set_upper_q_dot_limit",       &DQ_SerialManipulator::set_upper_q_dot_limit,"Sets the upper limit for the joint velocities.");
-
     dqserialmanipulator_py.def("get_effector",                &DQ_SerialManipulator::get_effector,"Retrieves the effector.");
     dqserialmanipulator_py.def("set_effector",                &DQ_SerialManipulator::set_effector,"Sets the effector.");
 

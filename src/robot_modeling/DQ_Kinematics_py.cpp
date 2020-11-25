@@ -29,17 +29,24 @@ void init_DQ_Kinematics_py(py::module& m)
      * **************************************************/
     py::class_<DQ_Kinematics> dqkinematics_py(m, "DQ_Kinematics");
     //dqkinematics_py.def(py::init<>());
+    //dqkinematics_py.def("pose_jacobian",  (MatrixXd (DQ_Kinematics::*)(const VectorXd&) const)&DQ_Kinematics::pose_jacobian, "Returns the pose Jacobian");
 
-    dqkinematics_py.def("pose_jacobian",                           (MatrixXd (DQ_Kinematics::*)(const VectorXd&) const)&DQ_Kinematics::pose_jacobian, "Returns the pose Jacobian");
+    //Concrete
+    dqkinematics_py.def("get_dim_configuration_space", &DQ_Kinematics::get_dim_configuration_space, "Returns the dimension of the configuration space");
+    dqkinematics_py.def("get_reference_frame",         &DQ_Kinematics::get_reference_frame, "Returns the current reference frame");
+    dqkinematics_py.def("set_reference_frame",         &DQ_Kinematics::set_reference_frame, "Sets the reference frame");
+    dqkinematics_py.def("get_base_frame",              &DQ_Kinematics::get_base_frame, "Returns the current base frame");
+    dqkinematics_py.def("set_base_frame",              &DQ_Kinematics::set_base_frame, "Sets the base frame");
+    dqkinematics_py.def("get_lower_q_limit",           &DQ_Kinematics::get_lower_q_limit,"Retrieves the lower limit for the joint values.");
+    dqkinematics_py.def("set_lower_q_limit",           &DQ_Kinematics::set_lower_q_limit,"Sets the lower limit for the joint values.");
+    dqkinematics_py.def("get_lower_q_dot_limit",       &DQ_Kinematics::get_lower_q_dot_limit,"Retrieves the lower limit for the joint velocities.");
+    dqkinematics_py.def("set_lower_q_dot_limit",       &DQ_Kinematics::set_lower_q_dot_limit,"Sets the lower limit for the joint velocities.");
+    dqkinematics_py.def("get_upper_q_limit",           &DQ_Kinematics::get_upper_q_limit,"Retrieves the upper limit for the joint values.");
+    dqkinematics_py.def("set_upper_q_limit",           &DQ_Kinematics::set_upper_q_limit,"Sets the upper limit for the joint values.");
+    dqkinematics_py.def("get_upper_q_dot_limit",       &DQ_Kinematics::get_upper_q_dot_limit,"Retrieves the upper limit for the joint velocities.");
+    dqkinematics_py.def("set_upper_q_dot_limit",       &DQ_Kinematics::set_upper_q_dot_limit,"Sets the upper limit for the joint velocities.");
 
-    //Getter
-    dqkinematics_py.def("get_dim_configuration_space",             &DQ_Kinematics::get_dim_configuration_space, "Returns the dimension of the configuration space");
-    dqkinematics_py.def("get_reference_frame",                     &DQ_Kinematics::get_reference_frame, "Returns the current reference frame");
-    dqkinematics_py.def("get_base_frame",                          &DQ_Kinematics::get_base_frame, "Returns the current base frame");
-    //Setter
-    dqkinematics_py.def("set_reference_frame",                     &DQ_Kinematics::set_reference_frame, "Sets the reference frame");
-    dqkinematics_py.def("set_base_frame",                          &DQ_Kinematics::set_base_frame, "Sets the base frame");
-
+    //Static
     dqkinematics_py.def_static("distance_jacobian",                &DQ_Kinematics::distance_jacobian,     "Returns the distance Jacobian");
     dqkinematics_py.def_static("translation_jacobian",             &DQ_Kinematics::translation_jacobian,  "Returns the translation Jacobian");
     dqkinematics_py.def_static("rotation_jacobian",                &DQ_Kinematics::rotation_jacobian,     "Returns the rotation Jacobian");
