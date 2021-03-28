@@ -27,7 +27,7 @@ void init_DQ_SerialManipulatorDH_py(py::module& m)
     /***************************************************
     *  DQ SerialManipulatorDH
     * **************************************************/
-    py::class_<DQ_SerialManipulatorDH,DQ_SerialManipulator> dqserialmanipulatordh_py(m, "DQ_SerialManipulatorDH");
+    py::class_<DQ_SerialManipulatorDH,DQ_SerialManipulator,DQ_Kinematics> dqserialmanipulatordh_py(m, "DQ_SerialManipulatorDH");
     dqserialmanipulatordh_py.def(py::init<MatrixXd, std::string>());
 
     //dqserialmanipulatordh_py.def("type",                        &DQ_SerialManipulatorDH::type,"Retrieves the vector of types.");
