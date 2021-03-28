@@ -39,6 +39,9 @@ PYBIND11_MODULE(_dqrobotics, m) {
     //DQ_Geometry
     init_DQ_Geometry_py(utils_py);
 
+    //DQ_Math
+    init_DQ_Math_py(utils_py);
+
     /*****************************************************
      *  Robots Kinematic Models
      * **************************************************/

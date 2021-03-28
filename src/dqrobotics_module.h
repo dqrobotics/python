@@ -75,6 +75,7 @@ void init_DQ_py(py::module& m);
 //dqrobotics/utils
 void init_DQ_LinearAlgebra_py(py::module& m);
 void init_DQ_Geometry_py(py::module& m);
+void init_DQ_Math_py(py::module& m);
 
 //dqrobotics/robot_modeling
 void init_DQ_Kinematics_py(py::module& m);
