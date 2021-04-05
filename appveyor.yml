@@ -72,6 +72,17 @@ build_script:
     C:\Python38-x64\Python.exe -m pip install setuptools setuptools-git twine
 
     C:\Python38-x64\Python.exe setup.py bdist_wheel
+
+
+    echo "Building wheel for Python39"
+
+    C:\Python39-x64\Python.exe -m pip install --upgrade pip
+
+    C:\Python39-x64\Python.exe -m pip install wheel
+
+    C:\Python39-x64\Python.exe -m pip install setuptools setuptools-git twine
+
+    C:\Python39-x64\Python.exe setup.py bdist_wheel
 test_script:
 - cmd: >-
     cd C:\projects
