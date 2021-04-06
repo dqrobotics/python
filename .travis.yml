@@ -58,6 +58,10 @@ jobs:
       language: shell
     - name: "macOS (Python 3.8)"
       os: osx
+      osx_image: xcode12.1
+      language: shell  
+    - name: "macOS (Python 3.9)"
+      os: osx
       osx_image: xcode12.4
       language: shell       
 script:
