@@ -3,6 +3,8 @@ from dqrobotics._dqrobotics._solvers import *
 try:
     import quadprog
     import numpy as np
+
+
     class DQ_QuadprogSolver(DQ_QuadraticProgrammingSolver):
         def __init__(self):
             DQ_QuadraticProgrammingSolver.__init__(self)
@@ -11,14 +13,10 @@ try:
         def solve_quadratic_program(self, H, f, A, b, Aeq, beq):
             # Ignoring Aeq and beq because quadprog doesn't handle them directly
 
-            # Saving shape to remove the singleton dimension
-            (s1, s2) = np.shape(f)
-            (s3, s4) = np.shape(b)
-
-            (x, f, xu, iterations, lagrangian, iact) = quadprog.solve_qp(G=2*H,
-                                                                         a=-np.reshape(f, s1),
+            (x, f, xu, iterations, lagrangian, iact) = quadprog.solve_qp(G=2 * H,
+                                                                         a=-f,
                                                                          C=-np.transpose(A),
-                                                                         b=-np.reshape(b, s3))
+                                                                         b=-b)
             return x
 except:
     pass
@@ -26,6 +24,7 @@ except:
 try:
     import cplex
     import numpy as np
+
 
     # https://github.com/dqrobotics/python/issues/24
     class DQ_CPLEXSolver():
@@ -49,7 +48,7 @@ try:
 
             # Decide the range of variables
             for i in range(problem_size):
-                self.P.variables.set_lower_bounds(i, -1*cplex.infinity)
+                self.P.variables.set_lower_bounds(i, -1 * cplex.infinity)
                 self.P.variables.set_upper_bounds(i, cplex.infinity)
 
             # Set f'x
