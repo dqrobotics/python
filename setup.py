@@ -80,6 +80,8 @@ setup(
 'dqrobotics.robots',
 'dqrobotics.robot_modeling',
 'dqrobotics.utils',
+'dqrobotics.utils.DQ_Math',
+'dqrobotics.utils.DQ_LinearAlgebra',
 'dqrobotics.interfaces',
 'dqrobotics.interfaces.vrep',
 'dqrobotics.interfaces.vrep.robots',
