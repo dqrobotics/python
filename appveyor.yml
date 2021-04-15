@@ -30,17 +30,6 @@ build_script:
     git submodule update --init --recursive
 
 
-    echo "Building wheel for Python35"
-
-    C:\Python35-x64\Python.exe -m pip install --upgrade pip
-
-    C:\Python35-x64\Python.exe -m pip install wheel
-
-    C:\Python35-x64\Python.exe -m pip install setuptools setuptools-git
-
-    C:\Python35-x64\Python.exe setup.py bdist_wheel
-
-
     echo "Building wheel for Python36"
 
     C:\Python36-x64\Python.exe -m pip install --upgrade pip
