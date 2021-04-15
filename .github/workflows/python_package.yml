@@ -1,4 +1,4 @@
-name: Python package [Ubuntu]
+name: Python Package
 
 on: [push]
 
