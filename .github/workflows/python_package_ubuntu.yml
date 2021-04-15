@@ -41,11 +41,13 @@ jobs:
         python cpp_issues.py
         python python_issues.py
         cd ..
-    - name: Publish
+    - name: Publish to PyPi
       env:
         TWINE_USERNAME: ${{ secrets.TWINE_USERNAME }}
         TWINE_PASSWORD: ${{ secrets.TWINE_PASSWORD }}
+      if: github.ref == 'refs/heads/master'
       run: |
+        python -m pip install twine
         cd dist
         rename 's/linux/manylinux1/' *
         cd ..
