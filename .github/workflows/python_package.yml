@@ -22,7 +22,6 @@ jobs:
         pip install setuptools wheel setuptools-git twine
     - name: Compile
       run: |
-        cd python
         python setup.py bdist_wheel
         rm -rf build
     - name: Install & Test 
