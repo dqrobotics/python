@@ -22,7 +22,7 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install compilation dependencies [C++]
       run: |
-        sudo apt install libeigen3-dev
+        sudo apt install libeigen3-dev rename
     - name: Install compilation dependencies [Python]
       run: |
         python -m pip install --upgrade pip
@@ -40,3 +40,13 @@ jobs:
         python DQ_Kinematics_test.py
         python cpp_issues.py
         python python_issues.py
+        cd ..
+    - name: Publish
+      env:
+        TWINE_USERNAME: ${{ secrets.TWINE_USERNAME }}
+        TWINE_PASSWORD: ${{ secrets.TWINE_PASSWORD }}
+      run: |
+        cd dist
+        rename 's/linux/manylinux1/' *
+        cd ..
+        twine upload dist/*
