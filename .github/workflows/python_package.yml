@@ -39,6 +39,7 @@ jobs:
         rm -rf build
     - name: Install & Test 
       run: |
+        python print_platform_info.py
         python -m pip install dist/*.whl
         cd tests
         python -m pip install scipy quadprog
