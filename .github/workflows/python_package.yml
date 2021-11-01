@@ -39,7 +39,7 @@ jobs:
       run: |
         sudo apt install libeigen3-dev
     - name: Install compilation dependencies [MacOS/C++]
-      if: matrix.os == 'macos-latest' or matrix.os == 'macos-11'
+      if: matrix.os == 'macos-latest' || matrix.os == 'macos-11'
       run: |
         brew install eigen
     - name: Install compilation dependencies [Python]
