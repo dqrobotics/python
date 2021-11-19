@@ -27,5 +27,6 @@ void init_DQ_JsonReader_py(py::module& m)
     py::class_<DQ_JsonReader> jsonreader_py(m,"DQ_JsonReader");
     jsonreader_py.def(py::init<>());
 
-    jsonreader_py.def_static("get_from_json",&DQ_JsonReader::get_from_json<DQ_SerialManipulatorDH>,"Gets a DQ_Kinematics instance from a .json file");
+    jsonreader_py.def_static("get_from_json",&DQ_JsonReader::get_from_json<DQ_SerialManipulatorDH>,"Gets a DQ_KinematicsDH instance from a .json file");
+    //This might be relevant in the future https://github.com/pybind/pybind11/issues/199
 }
