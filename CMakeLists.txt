@@ -12,6 +12,8 @@ if(APPLE)
         include_directories(
         /usr/local/include/
         /usr/local/include/eigen3
+        /opt/homebrew/include
+        /opt/homebrew/include/eigen3
         )
 endif()
 
