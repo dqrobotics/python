@@ -3,11 +3,7 @@ pipeline {
   stages {
     stage('error') {
       steps {
-        sh '''# To allow us to use brew binaries
-PATH=$PATH:/usr/local/bin
-ls -la
-
-python3 -m venv venv
+        sh '''python3 -m venv venv
 source venv/bin/activate
 python3 -m pip install --upgrade pip
 python3 -m pip install wheel setuptools setuptools-git
