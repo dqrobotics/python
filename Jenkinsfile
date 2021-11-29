@@ -39,7 +39,7 @@ cd .. #tests'''
 
     stage('Deploy') {
       steps {
-        sh '''if [ $BRANCH_NAME == \'master\' ] || [ $BRANCH_NAME == \'release\']; then
+        sh '''if [[ $BRANCH_NAME == \'master\' ]] || [[ $BRANCH_NAME == \'release\']]; then
 
 # Set up deployment environment
 source venv/bin/activate
