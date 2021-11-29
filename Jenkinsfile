@@ -1,28 +1,18 @@
 pipeline {
   agent any
   stages {
-    stage('Setting PATH') {
+    stage('Build') {
       steps {
         sh '''# Set environment to use homebrew
 PATH=$PATH:/opt/homebrew/bin
 
-'''
-      }
-    }
-
-    stage('Configure Python VENV') {
-      steps {
-        sh '''python3 -m venv venv
+# Set up build enviroment
+python3 -m venv venv
 source venv/bin/activate
 python3 -m pip install --upgrade pip
 python3 -m pip install wheel setuptools setuptools-git
-'''
-      }
-    }
 
-    stage('Build') {
-      steps {
-        sh '''echo $PATH
+# Build
 python setup.py bdist_wheel
 rm -rf build
 python -m pip install dist/*.whl
@@ -32,7 +22,12 @@ python -m pip install dist/*.whl
 
     stage('Test') {
       steps {
-        sh '''cd tests
+        sh '''# Set up test environment
+source venv/bin/activate
+
+
+# Run tests
+cd tests
 python -m pip install scipy quadprog
 python DQ_test.py
 python DQ_Kinematics_test.py
