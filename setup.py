@@ -11,7 +11,8 @@ from distutils.version import LooseVersion
 # Automatic name branching
 def format_branch_name(name):
     if name == "master":
-        return "dev"
+        # The master branch is considered an Alpha release
+        return "a"
     elif name == "release":
         return ""
     else:
@@ -72,10 +73,12 @@ class CMakeBuild(build_ext):
 setup(
     name='dqrobotics',
     version_config={
+        "template": "{tag}.{branch}{ccount}",
+        "dev_template": "{tag}.{branch}{ccount}",
+        "dirty_template": "{tag}.{branch}{ccount}",
         "branch_formatter": format_branch_name,
       },
-    version_format='{tag}.{branch}{commitcount}',
-    setup_requires=['setuptools-git-version'],
+    setup_requires=['setuptools-git-versioning'],
     author='Murilo Marinho',
     author_email='murilo@g.ecc.u-tokyo.ac.jp',
     description='DQRobotics python',
@@ -105,6 +108,6 @@ setup(
         "Programming Language :: C++",
         "Development Status :: 5 - Production/Stable",
         "Operating System :: POSIX :: Linux",
-        "License :: OSI Approved :: GNU Lesser General Public License v3 or later (LGPLv3+)",        
+        "License :: OSI Approved :: GNU Lesser General Public License v3 or later (LGPLv3+)",
     ],
 )
