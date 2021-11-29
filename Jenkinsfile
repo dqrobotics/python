@@ -3,7 +3,6 @@ pipeline {
   stages {
     stage('error') {
       steps {
-        cmakeBuild(installation: '3.22.0-autoinstall')
         sh '''python3 -m venv venv
 source venv/bin/activate
 python3 -m pip install --upgrade pip
@@ -26,6 +25,7 @@ cd .. #tests
 
 
 cd .. #python'''
+        cmake(installation: '3.22.0-autoinstall')
       }
     }
 
