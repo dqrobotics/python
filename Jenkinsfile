@@ -10,8 +10,6 @@ source venv/bin/activate
 python3 -m pip install --upgrade pip
 python3 -m pip install wheel setuptools setuptools-git
 
-cd tmp
-cd python
 git checkout master
 python setup.py bdist_wheel
 rm -rf build
@@ -24,9 +22,7 @@ python DQ_Kinematics_test.py
 python cpp_issues.py
 python python_issues.py
 cd .. #tests
-
-
-cd .. #python'''
+'''
       }
     }
 
