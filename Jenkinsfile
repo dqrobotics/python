@@ -3,7 +3,9 @@ pipeline {
   stages {
     stage('error') {
       steps {
-        sh '''ls -la
+        sh '''# To allow us to use brew binaries
+PATH=$PATH:/usr/local/bin
+ls -la
 
 python3 -m venv venv
 source venv/bin/activate
