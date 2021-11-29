@@ -39,14 +39,23 @@ cd .. #tests'''
 
     stage('Deploy') {
       steps {
-        sh '''if [[ $BRANCH_NAME == \'master\' ]] || [[ $BRANCH_NAME == \'release\']]
+        sh '''if [[ $BRANCH_NAME == "master" ]] || [[ $BRANCH_NAME == "release" ]]
 then
+
+
+
 
 # Set up deployment environment
 source venv/bin/activate
 
+
+
+
 python -m pip install twine
 twine upload dist/*
+
+
+
 
 fi
 '''
