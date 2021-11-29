@@ -22,7 +22,8 @@ python3 -m pip install wheel setuptools setuptools-git
 
     stage('Build') {
       steps {
-        sh '''python setup.py bdist_wheel
+        sh '''echo $PATH
+python setup.py bdist_wheel
 rm -rf build
 python -m pip install dist/*.whl
 '''
