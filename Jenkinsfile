@@ -25,6 +25,7 @@ cd .. #tests
 
 
 cd .. #python'''
+        cmakeBuild(installation: '3.2.2-autoinstall')
       }
     }
 
