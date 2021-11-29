@@ -8,6 +8,15 @@ from setuptools import setup, Extension
 from setuptools.command.build_ext import build_ext
 from distutils.version import LooseVersion
 
+# Automatic name branching
+def format_branch_name(name):
+    if name == "master":
+        return "dev"
+    elif name == "release":
+        return ""
+    else:
+        return name
+
 # read the contents of your README file
 with open("README.md", "r") as fh:
     long_description = fh.read()
@@ -62,10 +71,13 @@ class CMakeBuild(build_ext):
 
 setup(
     name='dqrobotics',
-    version_format='{tag}.{commitcount}',
+    version_config={
+        "branch_formatter": format_branch_name,
+      },
+    version_format='{tag}.{branch}{commitcount}',
     setup_requires=['setuptools-git-version'],
     author='Murilo Marinho',
-    author_email='murilo@nml.t.u-tokyo.ac.jp',
+    author_email='murilo@g.ecc.u-tokyo.ac.jp',
     description='DQRobotics python',
     long_description=long_description,
     long_description_content_type='text/markdown',
