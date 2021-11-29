@@ -3,8 +3,9 @@ pipeline {
   stages {
     stage('error') {
       steps {
-        cmake(installation: '3.22.0-autoinstall')
-        sh '''python3 -m venv venv
+        sh '''PATH=$PATH:/opt/homebrew/bin
+
+python3 -m venv venv
 source venv/bin/activate
 python3 -m pip install --upgrade pip
 python3 -m pip install wheel setuptools setuptools-git
