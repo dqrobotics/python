@@ -85,10 +85,10 @@ jobs:
         python -m pip install dist/*.whl
     - name: Install (Windows)
       if: matrix.os == 'windows-latest'
+      shell: pwsh
       run: |
         python tests/print_platform_info.py
         python -m pip install dist/*.whl
-      shell: powershell
     - name: Test
         cd tests
         python -m pip install scipy quadprog
