@@ -50,6 +50,14 @@ jobs:
       run: |
         python setup.py bdist_wheel
         rm -rf build
+    - name: Rename wheel (MacOS only)
+      if: matrix.os == 'macos-latest'
+      run: |
+        brew install rename
+        cd dist
+        sw_vers
+        rename 's/11_0/10_14/' *
+        cd ..
     - name: Install & Test 
       run: |
         python tests/print_platform_info.py
@@ -67,14 +75,6 @@ jobs:
         sudo apt install rename
         cd dist
         rename 's/linux/manylinux1/' *
-        cd ..
-    - name: Rename wheel (MacOS only)
-      if: matrix.os == 'macos-latest'
-      run: |
-        brew install rename
-        cd dist
-        sw_vers
-        rename 's/11_0/10_14/' *
         cd ..
     - name: Publish to PyPi
       env:
