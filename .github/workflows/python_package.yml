@@ -11,7 +11,7 @@ jobs:
       fail-fast: false
       matrix:
         python-version: [3.6, 3.7, 3.8, 3.9]
-        os: ['ubuntu-latest', 'macos-latest']
+        os: ['ubuntu-latest', 'macos-latest', 'windows-latest']
         experimental: [false]
 #        include:
 #        - os: 'macos-11'
@@ -42,6 +42,17 @@ jobs:
       if: matrix.os == 'macos-latest' || matrix.os == 'macos-11'
       run: |
         brew install eigen
+    - name: Install compilation dependencies [Windows/C++]
+      if: matrix.os == 'windows-latest'
+      run: |
+        pwd
+        echo "Setting up vcpkg..."
+        cd C:\vcpkg
+        .\bootstrap-vcpkg.bat
+        vcpkg integrate install
+        echo "Installing eigen3..."
+        .\vcpkg install eigen3:x64-windows
+        cd ~
     - name: Install compilation dependencies [Python]
       run: |
         python -m pip install --upgrade pip
