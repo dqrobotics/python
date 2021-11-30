@@ -90,6 +90,7 @@ jobs:
         python tests/print_platform_info.py
         python -m pip install dist/*.whl
     - name: Test
+      run: |
         cd tests
         python -m pip install scipy quadprog
         python DQ_test.py
