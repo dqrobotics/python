@@ -11,7 +11,7 @@ jobs:
       fail-fast: false
       matrix:
         python-version: [3.6, 3.7, 3.8, 3.9]
-        os: ['ubuntu-latest', 'macos-latest']
+        os: ['ubuntu-latest', 'macos-latest', 'windows-latest']
         experimental: [false]
 #        include:
 #        - os: 'macos-11'
@@ -42,6 +42,19 @@ jobs:
       if: matrix.os == 'macos-latest' || matrix.os == 'macos-11'
       run: |
         brew install eigen
+    - name: Install compilation dependencies [Windows/C++]
+      if: matrix.os == 'windows-latest'
+      run: |
+        pwd
+        echo "Setting up vcpkg..."
+        cd C:\vcpkg
+        .\bootstrap-vcpkg.bat
+        vcpkg integrate install
+        echo "Installing eigen3..."
+        .\vcpkg install eigen3:x64-windows
+        echo "Adding symlink to vcpkg..."
+        cmd /c mklink /d c:\Tools\vcpkg c:\vcpkg
+        cd ~
     - name: Install compilation dependencies [Python]
       run: |
         python -m pip install --upgrade pip
@@ -49,7 +62,14 @@ jobs:
     - name: Compile
       run: |
         python setup.py bdist_wheel
+    - name: Remove build folder (Ubuntu & MacOS)
+      if: matrix.os == 'ubuntu-latest' || matrix.os == 'macos-latest'
+      run: |
         rm -rf build
+    - name: Remove build folder (Windows only)
+      if: matrix.os == 'windows-latest'
+      run: |
+        rm -r -fo build
     - name: Rename wheel (MacOS only)
       if: matrix.os == 'macos-latest'
       run: |
@@ -58,10 +78,18 @@ jobs:
         sw_vers
         rename 's/11_0/10_14/' *
         cd ..
-    - name: Install & Test 
+    - name: Install (Ubuntu and MacOS)
+      if: matrix.os == 'ubuntu-latest' || matrix.os == 'macos-latest'
       run: |
         python tests/print_platform_info.py
         python -m pip install dist/*.whl
+    - name: Install (Windows)
+      if: matrix.os == 'windows-latest'
+      run: |
+        python tests/print_platform_info.py
+        python -m pip install @(join-path "dist" (get-childitem -path dist -name *.whl))
+    - name: Test
+      run: |
         cd tests
         python -m pip install scipy quadprog
         python DQ_test.py
