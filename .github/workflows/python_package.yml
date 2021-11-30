@@ -60,7 +60,14 @@ jobs:
     - name: Compile
       run: |
         python setup.py bdist_wheel
+    - name: Remove build folder (Ubuntu & MacOS)
+      if: matrix.os == 'ubuntu-latest' || matrix.os == 'macos-latest'
+      run: |
         rm -rf build
+    - name: Remove build folder (Windows only)
+      if: matrix.os == 'windows-latest'
+      run: |
+        rm -r -fo build
     - name: Rename wheel (MacOS only)
       if: matrix.os == 'macos-latest'
       run: |
