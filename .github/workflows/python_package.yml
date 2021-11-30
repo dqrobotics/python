@@ -52,6 +52,8 @@ jobs:
         vcpkg integrate install
         echo "Installing eigen3..."
         .\vcpkg install eigen3:x64-windows
+        echo "Adding symlink to vcpkg..."
+        cmd /c mklink /d c:\vcpkg c:\Tools\vcpkg
         cd ~
     - name: Install compilation dependencies [Python]
       run: |
