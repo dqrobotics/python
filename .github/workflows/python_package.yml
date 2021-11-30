@@ -87,7 +87,7 @@ jobs:
       if: matrix.os == 'windows-latest'
       run: |
         python tests/print_platform_info.py
-        python -m pip install  @(get-childitem -path dist -name *.whl)
+        python -m pip install @(join-path "dist" (get-childitem -path dist -name *.whl))
     - name: Test
       run: |
         cd tests
