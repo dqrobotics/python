@@ -12,7 +12,7 @@ jobs:
       matrix:
         python-version: [3.6, 3.7, 3.8, 3.9]
         os: ['self-hosted']
-        experimental: [false]
+        experimental: [true]
 
     steps:
     - uses: actions/checkout@v2
@@ -29,7 +29,7 @@ jobs:
       if: matrix.os == 'self-hosted'
       run: |
         python${{ matrix.python-version }} -m venv venv${{ matrix.python-version }}
-        echo "PYTHONPATH=venv${{ matrix.python-version }}/bin" >> $GITHUB_PATH
+        echo "{{ matrix.python-version }}/bin" >> $GITHUB_PATH
     - name: Install compilation dependencies [Ubuntu/C++]
       if: matrix.os == 'ubuntu-latest'
       run: |
