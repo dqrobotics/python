@@ -52,6 +52,7 @@ class CMakeBuild(build_ext):
         cfg = 'Debug' if self.debug else 'Release'
         build_args = ['--config', cfg]
         
+        # Without this, the results of some calculations will differ from the MATLAB version and cause the tests to fail.
         if platform.machine() == "aarch64":
             cmake_args += ['-DCMAKE_CXX_FLAGS="-ffp-contract=off"']
             # https://stackoverflow.com/questions/64036879/differing-floating-point-calculation-results-between-x86-64-and-armv8-2-a
