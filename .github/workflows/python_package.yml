@@ -58,8 +58,8 @@ jobs:
     - name: Compile
       run: |
         python setup.py bdist_wheel
-    - name: Remove build folder (Ubuntu & MacOS)
-      if: matrix.os == 'ubuntu-latest' || matrix.os == 'macos-latest'
+    - name: Remove build folder (Ubuntu, MacOS, Self Hosted)
+      if: matrix.os == 'ubuntu-latest' || matrix.os == 'macos-latest' || matrix.os == 'self-hosted'
       run: |
         rm -rf build
     - name: Remove build folder (Windows only)
@@ -74,8 +74,8 @@ jobs:
         sw_vers
         rename 's/11_0/10_14/' *
         cd ..
-    - name: Install (Ubuntu and MacOS)
-      if: matrix.os == 'ubuntu-latest' || matrix.os == 'macos-latest'
+    - name: Install (Ubuntu, MacOS, Self Hosted)
+      if: matrix.os == 'ubuntu-latest' || matrix.os == 'macos-latest' || matrix.os == 'self-hosted'
       run: |
         python tests/print_platform_info.py
         python -m pip install dist/*.whl
@@ -93,8 +93,8 @@ jobs:
         python cpp_issues.py
         python python_issues.py
         cd ..
-    - name: Rename wheel (Ubuntu only)
-      if: matrix.os == 'ubuntu-latest'
+    - name: Rename wheel (Ubuntu, Self Hosted)
+      if: matrix.os == 'ubuntu-latest' || matrix.os == 'self-hosted'
       run: |
         sudo apt install rename
         cd dist
