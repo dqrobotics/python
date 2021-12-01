@@ -93,10 +93,16 @@ jobs:
         python cpp_issues.py
         python python_issues.py
         cd ..
-    - name: Rename wheel (Ubuntu, Self Hosted)
-      if: matrix.os == 'ubuntu-latest' || matrix.os == 'self-hosted'
+    - name: Rename wheel (Ubuntu Only)
+      if: matrix.os == 'ubuntu-latest'
       run: |
         sudo apt install rename
+        cd dist
+        rename 's/linux/manylinux1/' *
+        cd ..
+    - name: Rename wheel (Self Hosted Only)
+      if: matrix.os == 'self-hosted'
+      run: |
         cd dist
         rename 's/linux/manylinux1/' *
         cd ..
