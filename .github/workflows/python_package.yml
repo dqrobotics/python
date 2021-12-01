@@ -29,8 +29,7 @@ jobs:
       if: matrix.os == 'self-hosted'
       run: |
         python${{ matrix.python-version }} -m venv venv${{ matrix.python-version }}
-        echo "$GITHUB_WORKSPACE/venv{{ matrix.python-version }}/bin" >> $GITHUB_PATH
-        echo $GITHUB_PATH
+        echo "${{github.workspace}}/venv{{ matrix.python-version }}/bin/" >> $GITHUB_PATH
     - name: Install compilation dependencies [Ubuntu/C++]
       if: matrix.os == 'ubuntu-latest'
       run: |
