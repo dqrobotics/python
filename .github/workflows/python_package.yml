@@ -104,7 +104,7 @@ jobs:
       if: matrix.os == 'self-hosted'
       run: |
         cd dist
-        rename 's/linux/manylinux1/' *
+        rename 's/linux/manylinux2014/' *
         cd ..
     - name: Publish to PyPi
       env:
