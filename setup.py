@@ -12,6 +12,7 @@ from distutils.version import LooseVersion
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
+
 class CMakeExtension(Extension):
     def __init__(self, name, sourcedir=''):
         Extension.__init__(self, name, sources=[])
@@ -45,7 +46,7 @@ class CMakeBuild(build_ext):
         if platform.system() == "Windows":
             cmake_args += ['-DCMAKE_LIBRARY_OUTPUT_DIRECTORY_{}={}'.format(cfg.upper(), extdir)]
             cmake_args += ['-DCMAKE_TOOLCHAIN_FILE=C:/Tools/vcpkg/scripts/buildsystems/vcpkg.cmake']
-            if sys.maxsize > 2**32:
+            if sys.maxsize > 2 ** 32:
                 cmake_args += ['-A', 'x64']
             build_args += ['--', '/m']
         else:
@@ -60,6 +61,7 @@ class CMakeBuild(build_ext):
         subprocess.check_call(['cmake', ext.sourcedir] + cmake_args, cwd=self.build_temp, env=env)
         subprocess.check_call(['cmake', '--build', '.'] + build_args, cwd=self.build_temp)
 
+
 setup(
     name='dqrobotics',
     version_format='{tag}.{commitcount}',
@@ -73,25 +75,25 @@ setup(
     ext_modules=[CMakeExtension('dqrobotics._dqrobotics')],
     cmdclass=dict(build_ext=CMakeBuild),
     install_requires=[
-       'numpy',
+        'numpy',
     ],
     zip_safe=False,
     packages=['dqrobotics',
-'dqrobotics.robots',
-'dqrobotics.robot_modeling',
-'dqrobotics.utils',
-'dqrobotics.utils.DQ_Math',
-'dqrobotics.utils.DQ_LinearAlgebra',
-'dqrobotics.interfaces',
-'dqrobotics.interfaces.vrep',
-'dqrobotics.interfaces.vrep.robots',
-'dqrobotics.robot_control',
-'dqrobotics.solvers'],
+              'dqrobotics.robots',
+              'dqrobotics.robot_modeling',
+              'dqrobotics.utils',
+              'dqrobotics.utils.DQ_Math',
+              'dqrobotics.utils.DQ_LinearAlgebra',
+              'dqrobotics.interfaces',
+              'dqrobotics.interfaces.vrep',
+              'dqrobotics.interfaces.vrep.robots',
+              'dqrobotics.robot_control',
+              'dqrobotics.solvers'],
     classifiers=[
         "Programming Language :: Python :: 3",
         "Programming Language :: C++",
         "Development Status :: 5 - Production/Stable",
         "Operating System :: POSIX :: Linux",
-        "License :: OSI Approved :: GNU Lesser General Public License v3 or later (LGPLv3+)",        
+        "License :: OSI Approved :: GNU Lesser General Public License v3 or later (LGPLv3+)",
     ],
 )
