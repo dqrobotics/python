@@ -12,6 +12,8 @@ if(APPLE)
         include_directories(
         /usr/local/include/
         /usr/local/include/eigen3
+        /opt/homebrew/include
+        /opt/homebrew/include/eigen3
         )
 endif()
 
@@ -57,6 +59,8 @@ endif()
         src/robot_modeling/DQ_SerialManipulator_py.cpp
         cpp/src/robot_modeling/DQ_SerialManipulatorDH.cpp
         src/robot_modeling/DQ_SerialManipulatorDH_py.cpp
+        cpp/src/robot_modeling/DQ_SerialManipulatorDenso.cpp
+        src/robot_modeling/DQ_SerialManipulatorDenso_py.cpp
         cpp/src/robot_modeling/DQ_MobileBase.cpp
         src/robot_modeling/DQ_MobileBase_py.cpp
         cpp/src/robot_modeling/DQ_HolonomicBase.cpp

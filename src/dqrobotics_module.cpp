@@ -81,6 +81,9 @@ PYBIND11_MODULE(_dqrobotics, m) {
     //DQ_SerialManipulatorDH
     init_DQ_SerialManipulatorDH_py(robot_modeling);
 
+    //DQ_SerialManipulatorDenso
+    init_DQ_SerialManipulatorDenso_py(robot_modeling);
+
     //DQ_CooperativeDualTaskSpace
     init_DQ_CooperativeDualTaskSpace_py(robot_modeling);
 

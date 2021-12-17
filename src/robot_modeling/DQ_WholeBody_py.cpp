@@ -34,7 +34,7 @@ void init_DQ_WholeBody_py(py::module& m)
     dqwholebody_py.def("fkm",(DQ (DQ_WholeBody::*)(const VectorXd&,const int&) const)&DQ_WholeBody::fkm,"Gets the fkm.");
     dqwholebody_py.def("get_dim_configuration_space",&DQ_WholeBody::get_dim_configuration_space,"Gets the dimention of the configuration space");
     dqwholebody_py.def("get_chain",&DQ_WholeBody::get_chain, "Returns the DQ_Kinematics at a given index of the chain");
-    dqwholebody_py.def("get_chain_as_serial_manipulator",&DQ_WholeBody::get_chain_as_serial_manipulator, "Returns the DQ_SerialManipulator at a given index of the chain");
+    dqwholebody_py.def("get_chain_as_serial_manipulator_dh",&DQ_WholeBody::get_chain_as_serial_manipulator_dh, "Returns the DQ_SerialManipulatorDH at a given index of the chain");
     dqwholebody_py.def("get_chain_as_holonomic_base",&DQ_WholeBody::get_chain_as_holonomic_base, "Returns the DQ_HolonomicBase at a given index of the chain");
     dqwholebody_py.def("pose_jacobian",(MatrixXd (DQ_WholeBody::*)(const VectorXd&, const int&) const)&DQ_WholeBody::pose_jacobian,"Returns the pose Jacobian");
     dqwholebody_py.def("pose_jacobian",(MatrixXd (DQ_WholeBody::*)(const VectorXd&) const)&DQ_WholeBody::pose_jacobian,"Returns the pose Jacobian");
