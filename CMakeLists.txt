@@ -59,6 +59,8 @@ endif()
         src/robot_modeling/DQ_SerialManipulator_py.cpp
         cpp/src/robot_modeling/DQ_SerialManipulatorDH.cpp
         src/robot_modeling/DQ_SerialManipulatorDH_py.cpp
+        cpp/src/robot_modeling/DQ_SerialManipulatorMDH.cpp
+        src/robot_modeling/DQ_SerialManipulatorMDH_py.cpp
         cpp/src/robot_modeling/DQ_SerialManipulatorDenso.cpp
         src/robot_modeling/DQ_SerialManipulatorDenso_py.cpp
         cpp/src/robot_modeling/DQ_MobileBase.cpp
