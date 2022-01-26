@@ -39,6 +39,7 @@ namespace py = pybind11;
 #include <dqrobotics/robot_modeling/DQ_Kinematics.h>
 #include <dqrobotics/robot_modeling/DQ_SerialManipulator.h>
 #include <dqrobotics/robot_modeling/DQ_SerialManipulatorDH.h>
+#include <dqrobotics/robot_modeling/DQ_SerialManipulatorMDH.h>
 #include <dqrobotics/robot_modeling/DQ_SerialManipulatorDenso.h>
 #include <dqrobotics/robot_modeling/DQ_MobileBase.h>
 #include <dqrobotics/robot_modeling/DQ_HolonomicBase.h>
@@ -82,6 +83,7 @@ void init_DQ_Math_py(py::module& m);
 void init_DQ_Kinematics_py(py::module& m);
 void init_DQ_SerialManipulator_py(py::module& m);
 void init_DQ_SerialManipulatorDH_py(py::module& m);
+void init_DQ_SerialManipulatorMDH_py(py::module& m);
 void init_DQ_SerialManipulatorDenso_py(py::module& m);
 void init_DQ_MobileBase_py(py::module& m);
 void init_DQ_HolonomicBase_py(py::module& m);
