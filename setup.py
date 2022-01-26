@@ -99,18 +99,6 @@ setup(
     ],
     zip_safe=False,
     packages=['dqrobotics',
-<<<<<<< HEAD
-              'dqrobotics.robots',
-              'dqrobotics.robot_modeling',
-              'dqrobotics.utils',
-              'dqrobotics.utils.DQ_Math',
-              'dqrobotics.utils.DQ_LinearAlgebra',
-              'dqrobotics.interfaces',
-              'dqrobotics.interfaces.vrep',
-              'dqrobotics.interfaces.vrep.robots',
-              'dqrobotics.robot_control',
-              'dqrobotics.solvers'],
-=======
 'dqrobotics.robots',
 'dqrobotics.robot_modeling',
 'dqrobotics.utils',
@@ -122,7 +110,6 @@ setup(
 'dqrobotics.interfaces.json11',
 'dqrobotics.robot_control',
 'dqrobotics.solvers'],
->>>>>>> b5c24e5acbd6b36fb4c2a04609c0b6e4b889b46d
     classifiers=[
         "Programming Language :: Python :: 3",
         "Programming Language :: C++",

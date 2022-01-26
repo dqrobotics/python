@@ -90,6 +90,7 @@ jobs:
         python -m pip install scipy quadprog
         python DQ_test.py
         python DQ_Kinematics_test.py
+        python DQ_SerialManipulatorMDH_test.py
         python cpp_issues.py
         python python_issues.py
         cd ..
