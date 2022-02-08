@@ -14,7 +14,7 @@ try:
             """ 
              Solves the following quadratic program
                 min(x)  0.5*x'Hx + f'x
-                s.t.    Ax < b
+                s.t.    Ax <= b
                         Aeqx = beq.
              Method signature is compatible with MATLAB's 'quadprog'.
              :param H: the n x n matrix of the quadratic coeficitients of the decision variables.
