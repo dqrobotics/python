@@ -11,9 +11,23 @@ try:
             pass
 
         def solve_quadratic_program(self, H, f, A, b, Aeq, beq):
-            # Ignoring Aeq and beq because quadprog doesn't handle them directly
+            """ 
+             Solves the following quadratic program
+                min(x)  0.5*x'Hx + f'x
+                s.t.    Ax < b
+                        Aeqx = beq.
+             Method signature is compatible with MATLAB's 'quadprog'.
+             :param H: the n x n matrix of the quadratic coeficitients of the decision variables.
+             :param f: the n x 1 vector of the linear coeficients of the decision variables.
+             :param A: the m x n matrix of inequality constraints.
+             :param b: the m x 1 value for the inequality constraints.
+             :param Aeq: the m x n matrix of equality constraints.
+             :param beq: the m x 1 value for the inequality constraints.
+             :return: the optimal x
+            """
+            #TODO Handle equality constraints
 
-            (x, f, xu, iterations, lagrangian, iact) = quadprog.solve_qp(G=2 * H,
+            (x, f, xu, iterations, lagrangian, iact) = quadprog.solve_qp(G= H,
                                                                          a=-f,
                                                                          C=-np.transpose(A),
                                                                          b=-b)
