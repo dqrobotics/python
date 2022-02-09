@@ -10,8 +10,11 @@ try:
             DQ_QuadraticProgrammingSolver.__init__(self)
             pass
 
+        def set_equality_constrain_tolarence(self, err):
+            self.eq_error = err
+
         def solve_quadratic_program(self, H, f, A, b, Aeq, beq):
-            """ 
+            """
              Solves the following quadratic program
                 min(x)  0.5*x'Hx + f'x
                 s.t.    Ax <= b
@@ -25,7 +28,9 @@ try:
              :param beq: the m x 1 value for the inequality constraints.
              :return: the optimal x
             """
-            #TODO Handle equality constraints
+            A = np.vstack([A, Aeq, -Aeq])
+            b = np.vstack([b, beq+self.eq_error, -beq-self.eq_error])
+
 
             (x, f, xu, iterations, lagrangian, iact) = quadprog.solve_qp(G= H,
                                                                          a=-f,
