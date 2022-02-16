@@ -8,10 +8,14 @@ try:
     class DQ_QuadprogSolver(DQ_QuadraticProgrammingSolver):
         def __init__(self):
             DQ_QuadraticProgrammingSolver.__init__(self)
+            self.equality_constraints_tolarence = np.finfo(np.float64).eps
             pass
 
-        def set_equality_constrain_tolarence(self, err):
-            self.eq_error = err
+        def set_equality_constraints_tolarence(self, tolarence):
+            self.equality_constraints_tolarence = tolarence
+
+        def get_equality_constraints_tolarence(self):
+            return self.equality_constraints_tolarence
 
         def solve_quadratic_program(self, H, f, A, b, Aeq, beq):
             """
@@ -29,7 +33,8 @@ try:
              :return: the optimal x
             """
             A = np.vstack([A, Aeq, -Aeq])
-            b = np.vstack([b, beq+self.eq_error, -beq-self.eq_error])
+            beq = beq.reshape(-1)
+            b = np.concatenate([b.reshape(-1), beq+self.equality_constraints_tolarence, -beq-self.equality_constraints_tolarence])
 
 
             (x, f, xu, iterations, lagrangian, iact) = quadprog.solve_qp(G= H,
