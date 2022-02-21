@@ -178,4 +178,21 @@ void init_DQ_VrepInterface_py(py::module& m)
                            "Get joint positions",
                            py::arg("jointnames")=std::vector<std::string>(),
                            py::arg("opmode")=DQ_VrepInterface::OP_AUTOMATIC);
+
+
+    //set_joint_target_velocity(const std::string& jointname, const double& angle_dot_rad, const OP_MODES& opmode=OP_ONESHOT);
+    dqvrepinterface_py.def("set_joint_target_velocity",
+                           (void (DQ_VrepInterface::*) (const std::string&, const double&, const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::set_joint_target_velocity,
+                           "Set joint velocity",
+                           py::arg("jointname")=std::string(""),
+                           py::arg("angle_dot_rad")=0.0,
+                           py::arg("opmode")=DQ_VrepInterface::OP_ONESHOT);
+
+    //set_joint_target_velocities(const std::vector<std::string>& jointnames, const VectorXd& angles_dot_rad, const OP_MODES& opmode=OP_ONESHOT);
+    dqvrepinterface_py.def("set_joint_target_velocities",
+                           (void (DQ_VrepInterface::*) (const std::vector<std::string>&, const VectorXd&, const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::set_joint_target_velocities,
+                           "Set joint positions",
+                           py::arg("jointnames")=std::vector<std::string>(),
+                           py::arg("angles_dot_rad")=VectorXd::Zero(1),
+                           py::arg("opmode")=DQ_VrepInterface::OP_ONESHOT);
 }
