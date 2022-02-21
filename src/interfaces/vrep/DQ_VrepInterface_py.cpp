@@ -246,4 +246,13 @@ void init_DQ_VrepInterface_py(py::module& m)
                            "Get joint torques",
                            py::arg("jointnames")=std::vector<std::string>(),
                            py::arg("opmode")=DQ_VrepInterface::OP_AUTOMATIC);
+
+    //double get_mass(const std::string& link_name, const std::string& function_name = "get_mass", const std::string& obj_name= "DQRoboticsApiCommandServer");
+    dqvrepinterface_py.def("get_mass",
+                           (double (DQ_VrepInterface::*) (const std::string&, const std::string&, const std::string&))&DQ_VrepInterface::get_mass,
+                           "Get the mass of an object from CoppeliaSim",
+                           py::arg("linkname")=std::string(""),
+                           py::arg("function_name")=std::string("get_mass"),
+                           py::arg("obj_name")=std::string("DQRoboticsApiCommandServer"));
+
 }
