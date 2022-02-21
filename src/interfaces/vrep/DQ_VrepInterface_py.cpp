@@ -255,4 +255,30 @@ void init_DQ_VrepInterface_py(py::module& m)
                            py::arg("function_name")=std::string("get_mass"),
                            py::arg("obj_name")=std::string("DQRoboticsApiCommandServer"));
 
+    //VectorXd get_center_of_mass(const std::string& link_name,
+    //                            const REFERENCE_FRAMES& reference_frame=BODY_FRAME,
+    //                            const std::string& function_name = "get_center_of_mass",
+    //                            const std::string& obj_name= "DQRoboticsApiCommandServer");
+    dqvrepinterface_py.def("get_center_of_mass",
+                           (VectorXd (DQ_VrepInterface::*) (const std::string&, const DQ_VrepInterface::REFERENCE_FRAMES&,
+                                                            const std::string&, const std::string&))&DQ_VrepInterface::get_center_of_mass,
+                           "Get the center of mass of an object from CoppeliaSim",
+                           py::arg("linkname")=std::string(""),
+                           py::arg("reference_frame")=DQ_VrepInterface::BODY_FRAME,
+                           py::arg("function_name")=std::string("get_center_of_mass"),
+                           py::arg("obj_name")=std::string("DQRoboticsApiCommandServer"));
+
+    //MatrixXd get_inertia_matrix(const std::string& link_name,
+    //                            const REFERENCE_FRAMES& reference_frame=BODY_FRAME,
+    //                            const std::string& function_name = "get_inertia",
+    //                            const std::string& obj_name= "DQRoboticsApiCommandServer");
+    dqvrepinterface_py.def("get_inertia_matrix",
+                           (MatrixXd (DQ_VrepInterface::*) (const std::string&, const DQ_VrepInterface::REFERENCE_FRAMES&,
+                                                            const std::string&, const std::string&))&DQ_VrepInterface::get_inertia_matrix,
+                           "Get the inertia matrix of an object from CoppeliaSim",
+                           py::arg("linkname")=std::string(""),
+                           py::arg("reference_frame")=DQ_VrepInterface::BODY_FRAME,
+                           py::arg("function_name")=std::string("get_inertia"),
+                           py::arg("obj_name")=std::string("DQRoboticsApiCommandServer"));
+
 }
