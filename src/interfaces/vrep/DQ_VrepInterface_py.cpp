@@ -42,6 +42,12 @@ void init_DQ_VrepInterface_py(py::module& m)
             .value("OP_AUTOMATIC", DQ_VrepInterface::OP_MODES::OP_AUTOMATIC)
             .export_values();
 
+    py::enum_<DQ_VrepInterface::SCRIPT_TYPES>(dqvrepinterface_py, "SCRIPT_TYPES")
+            .value("ST_CHILD",          DQ_VrepInterface::SCRIPT_TYPES::ST_CHILD)
+            .value("ST_MAIN",           DQ_VrepInterface::SCRIPT_TYPES::ST_MAIN)
+            .value("ST_CUSTOMIZATION",  DQ_VrepInterface::SCRIPT_TYPES::ST_CUSTOMIZATION)
+            .export_values();
+
     dqvrepinterface_py.def("connect",(bool (DQ_VrepInterface::*) (const int&, const int&, const int&))&DQ_VrepInterface::connect,"Connects to V-REP in local machine.");
     dqvrepinterface_py.def("connect",(bool (DQ_VrepInterface::*) (const std::string&, const int&, const int&, const int&))&DQ_VrepInterface::connect,"Connects to V-REP with a given ip.");
 
