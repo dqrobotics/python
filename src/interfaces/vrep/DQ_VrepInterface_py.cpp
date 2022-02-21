@@ -64,6 +64,12 @@ void init_DQ_VrepInterface_py(py::module& m)
 
     dqvrepinterface_py.def("is_simulation_running",&DQ_VrepInterface::is_simulation_running,"Checks whether the simulation is running or not");
 
+    //    void set_synchronous(const bool& flag);
+    dqvrepinterface_py.def("set_synchronous", (void (DQ_VrepInterface::*) (const bool&))&DQ_VrepInterface::set_synchronous, "Sets synchronous mode");
+
+    //void trigger_next_simulation_step();
+    dqvrepinterface_py.def("trigger_next_simulation_step", &DQ_VrepInterface::trigger_next_simulation_step, "Sends a synchronization trigger signal to the server.");
+
     //dqvrepinterface_py.def("get_object_handle", &DQ_VrepInterface::get_object_handle,"Gets an object handle");
     //dqvrepinterface_py.def("get_object_handles",&DQ_VrepInterface::get_object_handles,"Get object handles");
 
