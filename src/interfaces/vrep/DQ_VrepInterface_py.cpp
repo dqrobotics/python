@@ -48,6 +48,11 @@ void init_DQ_VrepInterface_py(py::module& m)
             .value("ST_CUSTOMIZATION",  DQ_VrepInterface::SCRIPT_TYPES::ST_CUSTOMIZATION)
             .export_values();
 
+    py::enum_<DQ_VrepInterface::REFERENCE_FRAMES>(dqvrepinterface_py, "REFERENCE_FRAMES")
+            .value("BODY_FRAME",          DQ_VrepInterface::REFERENCE_FRAMES::BODY_FRAME)
+            .value("ABSOLUTE_FRAME",      DQ_VrepInterface::REFERENCE_FRAMES::ABSOLUTE_FRAME)
+            .export_values();
+
     dqvrepinterface_py.def("connect",(bool (DQ_VrepInterface::*) (const int&, const int&, const int&))&DQ_VrepInterface::connect,"Connects to V-REP in local machine.");
     dqvrepinterface_py.def("connect",(bool (DQ_VrepInterface::*) (const std::string&, const int&, const int&, const int&))&DQ_VrepInterface::connect,"Connects to V-REP with a given ip.");
 
