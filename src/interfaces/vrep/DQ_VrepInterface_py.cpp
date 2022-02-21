@@ -209,4 +209,35 @@ void init_DQ_VrepInterface_py(py::module& m)
                            "Get joint velocities",
                            py::arg("jointnames")=std::vector<std::string>(),
                            py::arg("opmode")=DQ_VrepInterface::OP_AUTOMATIC);
+
+
+    //void     set_joint_torque(const std::string& jointname, const double& torque, const OP_MODES& opmode=OP_ONESHOT);
+    dqvrepinterface_py.def("set_joint_torque",
+                           (void (DQ_VrepInterface::*) (const std::string&, const double&, const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::set_joint_torque,
+                           "Set joint torque",
+                           py::arg("jointname")=std::string(""),
+                           py::arg("torque")=0.0,
+                           py::arg("opmode")=DQ_VrepInterface::OP_ONESHOT);
+
+    //void     set_joint_torques(const std::vector<std::string>& jointnames, const VectorXd& torques, const OP_MODES& opmode=OP_ONESHOT);
+    dqvrepinterface_py.def("set_joint_torques",
+                           (void (DQ_VrepInterface::*) (const std::vector<std::string>&, const VectorXd&, const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::set_joint_torques,
+                           "Set joint torques",
+                           py::arg("jointnames")=std::vector<std::string>(),
+                           py::arg("torques")=VectorXd::Zero(1),
+                           py::arg("opmode")=DQ_VrepInterface::OP_ONESHOT);
+
+    //double   get_joint_torque(const std::string& jointname, const OP_MODES& opmode=OP_AUTOMATIC);
+    dqvrepinterface_py.def("get_joint_torque",
+                           (double (DQ_VrepInterface::*) (const std::string&, const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::get_joint_torque,
+                           "Get joint torque",
+                           py::arg("jointname")=std::string(""),
+                           py::arg("opmode")=DQ_VrepInterface::OP_AUTOMATIC);
+
+    //VectorXd get_joint_torques(const std::vector<std::string>& jointnames, const OP_MODES& opmode=OP_AUTOMATIC);
+    dqvrepinterface_py.def("get_joint_torques",
+                           (VectorXd (DQ_VrepInterface::*) (const std::vector<std::string>&, const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::get_joint_torques,
+                           "Get joint torques",
+                           py::arg("jointnames")=std::vector<std::string>(),
+                           py::arg("opmode")=DQ_VrepInterface::OP_AUTOMATIC);
 }
