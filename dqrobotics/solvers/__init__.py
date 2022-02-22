@@ -8,22 +8,22 @@ try:
     class DQ_QuadprogSolver(DQ_QuadraticProgrammingSolver):
         def __init__(self):
             DQ_QuadraticProgrammingSolver.__init__(self)
-            self.equality_constraints_tolarence = np.finfo(np.float64).eps
+            self.equality_constraints_tolerance = np.finfo(np.float64).eps
             pass
 
-        def set_equality_constraints_tolarence(self, tolarence):
+        def set_equality_constraints_tolerance(self, tolerance):
             """
-            Set allowed tolarence for the equality constraints
-            :param tolarence: Tolarence allowed for equality constraints
+            Set allowed tolerance for the equality constraints
+            :param tolerance: Tolerance allowed for equality constraints
             """
-            self.equality_constraints_tolarence = tolarence
+            self.equality_constraints_tolerance = tolerance
 
-        def get_equality_constraints_tolarence(self):
+        def get_equality_constraints_tolerance(self):
             """
-            Get allowed tolarence for the equality constraints
-            :return: Current tolarence
+            Get allowed tolerance for the equality constraints
+            :return: Current tolerance
             """
-            return self.equality_constraints_tolarence
+            return self.equality_constraints_tolerance
 
         def solve_quadratic_program(self, H, f, A, b, Aeq, beq):
             """
@@ -43,7 +43,7 @@ try:
             if Aeq is not None and beq is not None:
                 A = np.vstack([A, Aeq, -Aeq])
                 beq = beq.reshape(-1)
-                b = np.concatenate([b.reshape(-1), beq+self.equality_constraints_tolarence, -beq-self.equality_constraints_tolarence])
+                b = np.concatenate([b.reshape(-1), beq+self.equality_constraints_tolerance, -beq-self.equality_constraints_tolerance])
 
             (x, f, xu, iterations, lagrangian, iact) = quadprog.solve_qp(G= H,
                                                                          a=-f,
