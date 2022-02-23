@@ -8,10 +8,25 @@ try:
     class DQ_QuadprogSolver(DQ_QuadraticProgrammingSolver):
         def __init__(self):
             DQ_QuadraticProgrammingSolver.__init__(self)
+            self.equality_constraints_tolerance = np.finfo(np.float64).eps
             pass
 
+        def set_equality_constraints_tolerance(self, tolerance):
+            """
+            Set allowed tolerance for the equality constraints
+            :param tolerance: Tolerance allowed for equality constraints
+            """
+            self.equality_constraints_tolerance = tolerance
+
+        def get_equality_constraints_tolerance(self):
+            """
+            Get allowed tolerance for the equality constraints
+            :return: Current tolerance
+            """
+            return self.equality_constraints_tolerance
+
         def solve_quadratic_program(self, H, f, A, b, Aeq, beq):
-            """ 
+            """
              Solves the following quadratic program
                 min(x)  0.5*x'Hx + f'x
                 s.t.    Ax <= b
@@ -25,7 +40,10 @@ try:
              :param beq: the m x 1 value for the inequality constraints.
              :return: the optimal x
             """
-            #TODO Handle equality constraints
+            if Aeq is not None and beq is not None:
+                A = np.vstack([A, Aeq, -Aeq])
+                beq = beq.reshape(-1)
+                b = np.concatenate([b.reshape(-1), beq+self.equality_constraints_tolerance, -beq-self.equality_constraints_tolerance])
 
             (x, f, xu, iterations, lagrangian, iact) = quadprog.solve_qp(G= H,
                                                                          a=-f,
