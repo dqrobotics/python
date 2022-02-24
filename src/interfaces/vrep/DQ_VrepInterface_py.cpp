@@ -255,12 +255,12 @@ void init_DQ_VrepInterface_py(py::module& m)
                            py::arg("function_name")=std::string("get_mass"),
                            py::arg("obj_name")=std::string("DQRoboticsApiCommandServer"));
 
-    //VectorXd get_center_of_mass(const std::string& link_name,
+    //DQ get_center_of_mass(const std::string& link_name,
     //                            const REFERENCE_FRAMES& reference_frame=BODY_FRAME,
     //                            const std::string& function_name = "get_center_of_mass",
     //                            const std::string& obj_name= "DQRoboticsApiCommandServer");
     dqvrepinterface_py.def("get_center_of_mass",
-                           (VectorXd (DQ_VrepInterface::*) (const std::string&, const DQ_VrepInterface::REFERENCE_FRAMES&,
+                           (DQ (DQ_VrepInterface::*) (const std::string&, const DQ_VrepInterface::REFERENCE_FRAMES&,
                                                             const std::string&, const std::string&))&DQ_VrepInterface::get_center_of_mass,
                            "Get the center of mass of an object from CoppeliaSim",
                            py::arg("linkname")=std::string(""),
