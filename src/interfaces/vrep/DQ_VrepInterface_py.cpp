@@ -42,6 +42,17 @@ void init_DQ_VrepInterface_py(py::module& m)
             .value("OP_AUTOMATIC", DQ_VrepInterface::OP_MODES::OP_AUTOMATIC)
             .export_values();
 
+    py::enum_<DQ_VrepInterface::SCRIPT_TYPES>(dqvrepinterface_py, "SCRIPT_TYPES")
+            .value("ST_CHILD",          DQ_VrepInterface::SCRIPT_TYPES::ST_CHILD)
+            .value("ST_MAIN",           DQ_VrepInterface::SCRIPT_TYPES::ST_MAIN)
+            .value("ST_CUSTOMIZATION",  DQ_VrepInterface::SCRIPT_TYPES::ST_CUSTOMIZATION)
+            .export_values();
+
+    py::enum_<DQ_VrepInterface::REFERENCE_FRAMES>(dqvrepinterface_py, "REFERENCE_FRAMES")
+            .value("BODY_FRAME",          DQ_VrepInterface::REFERENCE_FRAMES::BODY_FRAME)
+            .value("ABSOLUTE_FRAME",      DQ_VrepInterface::REFERENCE_FRAMES::ABSOLUTE_FRAME)
+            .export_values();
+
     dqvrepinterface_py.def("connect",(bool (DQ_VrepInterface::*) (const int&, const int&, const int&))&DQ_VrepInterface::connect,"Connects to V-REP in local machine.");
     dqvrepinterface_py.def("connect",(bool (DQ_VrepInterface::*) (const std::string&, const int&, const int&, const int&))&DQ_VrepInterface::connect,"Connects to V-REP with a given ip.");
 
@@ -52,6 +63,12 @@ void init_DQ_VrepInterface_py(py::module& m)
     dqvrepinterface_py.def("stop_simulation", &DQ_VrepInterface::stop_simulation,"Stops simulation");
 
     dqvrepinterface_py.def("is_simulation_running",&DQ_VrepInterface::is_simulation_running,"Checks whether the simulation is running or not");
+
+    //    void set_synchronous(const bool& flag);
+    dqvrepinterface_py.def("set_synchronous", (void (DQ_VrepInterface::*) (const bool&))&DQ_VrepInterface::set_synchronous, "Sets synchronous mode");
+
+    //void trigger_next_simulation_step();
+    dqvrepinterface_py.def("trigger_next_simulation_step", &DQ_VrepInterface::trigger_next_simulation_step, "Sends a synchronization trigger signal to the server.");
 
     //dqvrepinterface_py.def("get_object_handle", &DQ_VrepInterface::get_object_handle,"Gets an object handle");
     //dqvrepinterface_py.def("get_object_handles",&DQ_VrepInterface::get_object_handles,"Get object handles");
@@ -167,4 +184,101 @@ void init_DQ_VrepInterface_py(py::module& m)
                            "Get joint positions",
                            py::arg("jointnames")=std::vector<std::string>(),
                            py::arg("opmode")=DQ_VrepInterface::OP_AUTOMATIC);
+
+
+    //void set_joint_target_velocity(const std::string& jointname, const double& angle_dot_rad, const OP_MODES& opmode=OP_ONESHOT);
+    dqvrepinterface_py.def("set_joint_target_velocity",
+                           (void (DQ_VrepInterface::*) (const std::string&, const double&, const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::set_joint_target_velocity,
+                           "Set joint velocity",
+                           py::arg("jointname")=std::string(""),
+                           py::arg("angle_dot_rad")=0.0,
+                           py::arg("opmode")=DQ_VrepInterface::OP_ONESHOT);
+
+    //void set_joint_target_velocities(const std::vector<std::string>& jointnames, const VectorXd& angles_dot_rad, const OP_MODES& opmode=OP_ONESHOT);
+    dqvrepinterface_py.def("set_joint_target_velocities",
+                           (void (DQ_VrepInterface::*) (const std::vector<std::string>&, const VectorXd&, const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::set_joint_target_velocities,
+                           "Set joint velcoties",
+                           py::arg("jointnames")=std::vector<std::string>(),
+                           py::arg("angles_dot_rad")=VectorXd::Zero(1),
+                           py::arg("opmode")=DQ_VrepInterface::OP_ONESHOT);
+
+    //double   get_joint_velocity(const std::string& jointname, const OP_MODES& opmode=OP_AUTOMATIC);
+    dqvrepinterface_py.def("get_joint_velocity",
+                           (double (DQ_VrepInterface::*) (const std::string&, const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::get_joint_velocity,
+                           "Get joint velocity",
+                           py::arg("jointname")=std::string(""),
+                           py::arg("opmode")=DQ_VrepInterface::OP_AUTOMATIC);
+
+    //VectorXd get_joint_velocities(const std::vector<std::string>& jointnames, const OP_MODES& opmode=OP_AUTOMATIC);
+    dqvrepinterface_py.def("get_joint_velocities",
+                           (VectorXd (DQ_VrepInterface::*) (const std::vector<std::string>&, const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::get_joint_velocities,
+                           "Get joint velocities",
+                           py::arg("jointnames")=std::vector<std::string>(),
+                           py::arg("opmode")=DQ_VrepInterface::OP_AUTOMATIC);
+
+
+    //void     set_joint_torque(const std::string& jointname, const double& torque, const OP_MODES& opmode=OP_ONESHOT);
+    dqvrepinterface_py.def("set_joint_torque",
+                           (void (DQ_VrepInterface::*) (const std::string&, const double&, const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::set_joint_torque,
+                           "Set joint torque",
+                           py::arg("jointname")=std::string(""),
+                           py::arg("torque")=0.0,
+                           py::arg("opmode")=DQ_VrepInterface::OP_ONESHOT);
+
+    //void     set_joint_torques(const std::vector<std::string>& jointnames, const VectorXd& torques, const OP_MODES& opmode=OP_ONESHOT);
+    dqvrepinterface_py.def("set_joint_torques",
+                           (void (DQ_VrepInterface::*) (const std::vector<std::string>&, const VectorXd&, const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::set_joint_torques,
+                           "Set joint torques",
+                           py::arg("jointnames")=std::vector<std::string>(),
+                           py::arg("torques")=VectorXd::Zero(1),
+                           py::arg("opmode")=DQ_VrepInterface::OP_ONESHOT);
+
+    //double   get_joint_torque(const std::string& jointname, const OP_MODES& opmode=OP_AUTOMATIC);
+    dqvrepinterface_py.def("get_joint_torque",
+                           (double (DQ_VrepInterface::*) (const std::string&, const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::get_joint_torque,
+                           "Get joint torque",
+                           py::arg("jointname")=std::string(""),
+                           py::arg("opmode")=DQ_VrepInterface::OP_AUTOMATIC);
+
+    //VectorXd get_joint_torques(const std::vector<std::string>& jointnames, const OP_MODES& opmode=OP_AUTOMATIC);
+    dqvrepinterface_py.def("get_joint_torques",
+                           (VectorXd (DQ_VrepInterface::*) (const std::vector<std::string>&, const DQ_VrepInterface::OP_MODES&))&DQ_VrepInterface::get_joint_torques,
+                           "Get joint torques",
+                           py::arg("jointnames")=std::vector<std::string>(),
+                           py::arg("opmode")=DQ_VrepInterface::OP_AUTOMATIC);
+
+    //double get_mass(const std::string& link_name, const std::string& function_name = "get_mass", const std::string& obj_name= "DQRoboticsApiCommandServer");
+    dqvrepinterface_py.def("get_mass",
+                           (double (DQ_VrepInterface::*) (const std::string&, const std::string&, const std::string&))&DQ_VrepInterface::get_mass,
+                           "Get the mass of an object from CoppeliaSim",
+                           py::arg("linkname")=std::string(""),
+                           py::arg("function_name")=std::string("get_mass"),
+                           py::arg("obj_name")=std::string("DQRoboticsApiCommandServer"));
+
+    //DQ get_center_of_mass(const std::string& link_name,
+    //                            const REFERENCE_FRAMES& reference_frame=BODY_FRAME,
+    //                            const std::string& function_name = "get_center_of_mass",
+    //                            const std::string& obj_name= "DQRoboticsApiCommandServer");
+    dqvrepinterface_py.def("get_center_of_mass",
+                           (DQ (DQ_VrepInterface::*) (const std::string&, const DQ_VrepInterface::REFERENCE_FRAMES&,
+                                                            const std::string&, const std::string&))&DQ_VrepInterface::get_center_of_mass,
+                           "Get the center of mass of an object from CoppeliaSim",
+                           py::arg("linkname")=std::string(""),
+                           py::arg("reference_frame")=DQ_VrepInterface::BODY_FRAME,
+                           py::arg("function_name")=std::string("get_center_of_mass"),
+                           py::arg("obj_name")=std::string("DQRoboticsApiCommandServer"));
+
+    //MatrixXd get_inertia_matrix(const std::string& link_name,
+    //                            const REFERENCE_FRAMES& reference_frame=BODY_FRAME,
+    //                            const std::string& function_name = "get_inertia",
+    //                            const std::string& obj_name= "DQRoboticsApiCommandServer");
+    dqvrepinterface_py.def("get_inertia_matrix",
+                           (MatrixXd (DQ_VrepInterface::*) (const std::string&, const DQ_VrepInterface::REFERENCE_FRAMES&,
+                                                            const std::string&, const std::string&))&DQ_VrepInterface::get_inertia_matrix,
+                           "Get the inertia matrix of an object from CoppeliaSim",
+                           py::arg("linkname")=std::string(""),
+                           py::arg("reference_frame")=DQ_VrepInterface::BODY_FRAME,
+                           py::arg("function_name")=std::string("get_inertia"),
+                           py::arg("obj_name")=std::string("DQRoboticsApiCommandServer"));
+
 }
