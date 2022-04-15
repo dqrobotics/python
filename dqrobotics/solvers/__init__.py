@@ -43,7 +43,7 @@ try:
             if Aeq is not None and beq is not None:
                 A = np.vstack([A, Aeq, -Aeq])
                 beq = beq.reshape(-1)
-                b = np.concatenate([b.reshape(-1), beq+self.equality_constraints_tolerance, -beq-self.equality_constraints_tolerance])
+                b = np.concatenate([b.reshape(-1), beq+self.equality_constraints_tolerance, -beq+self.equality_constraints_tolerance])
 
             (x, f, xu, iterations, lagrangian, iact) = quadprog.solve_qp(G= H,
                                                                          a=-f,
