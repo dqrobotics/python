@@ -8,7 +8,7 @@ try:
     class DQ_QuadprogSolver(DQ_QuadraticProgrammingSolver):
         def __init__(self):
             DQ_QuadraticProgrammingSolver.__init__(self)
-            self.equality_constraints_tolerance = np.finfo(np.float64).eps
+            self.equality_constraints_tolerance = 0 # default of np.finfo(np.float64).eps is already included in the solver
             pass
 
         def set_equality_constraints_tolerance(self, tolerance):
