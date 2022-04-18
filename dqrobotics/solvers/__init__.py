@@ -8,7 +8,7 @@ try:
     class DQ_QuadprogSolver(DQ_QuadraticProgrammingSolver):
         def __init__(self):
             DQ_QuadraticProgrammingSolver.__init__(self)
-            self.equality_constraints_tolerance = np.finfo(np.float64).eps
+            self.equality_constraints_tolerance = 0 # default of np.finfo(np.float64).eps is already included in the solver
             pass
 
         def set_equality_constraints_tolerance(self, tolerance):
@@ -43,7 +43,7 @@ try:
             if Aeq is not None and beq is not None:
                 A = np.vstack([A, Aeq, -Aeq])
                 beq = beq.reshape(-1)
-                b = np.concatenate([b.reshape(-1), beq+self.equality_constraints_tolerance, -beq-self.equality_constraints_tolerance])
+                b = np.concatenate([b.reshape(-1), beq+self.equality_constraints_tolerance, -beq+self.equality_constraints_tolerance])
 
             (x, f, xu, iterations, lagrangian, iact) = quadprog.solve_qp(G= H,
                                                                          a=-f,
