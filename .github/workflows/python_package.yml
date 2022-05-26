@@ -11,7 +11,7 @@ jobs:
       fail-fast: false
       matrix:
         python-version: [3.7, 3.8, 3.9, '3.10']
-        os: ['ubuntu-latest', 'macos-latest', 'windows-latest', 'linux-arm64']
+        os: ['ubuntu-latest', 'macos-latest', 'windows-latest', 'linux-arm64', 'macos-arm64']
         experimental: [false]
 
     steps:
@@ -21,12 +21,12 @@ jobs:
         git submodule update --init --recursive
         git fetch --prune --unshallow
     - name: Set up Python ${{ matrix.python-version }} (Github Hosted VMs)
-      if: matrix.os != 'linux-arm64'
+      if: matrix.os != 'linux-arm64' && matrix.os != 'macos-arm64'
       uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
     - name: Set up Python ${{ matrix.python-version }} (Self Hosted Vms)
-      if: matrix.os == 'linux-arm64'
+      if: matrix.os == 'linux-arm64' || matrix.os == 'macos-arm64'
       run: |
         python${{ matrix.python-version }} -m venv venv${{ matrix.python-version }}
         echo "${{github.workspace}}/venv${{matrix.python-version}}/bin/" >> $GITHUB_PATH
@@ -35,7 +35,7 @@ jobs:
       run: |
         sudo apt install libeigen3-dev
     - name: Install compilation dependencies [MacOS/C++]
-      if: matrix.os == 'macos-latest' || matrix.os == 'macos-11'
+      if: matrix.os == 'macos-latest'
       run: |
         brew install eigen
     - name: Install compilation dependencies [Windows/C++]
@@ -58,8 +58,8 @@ jobs:
     - name: Compile
       run: |
         python setup.py bdist_wheel
-    - name: Remove build folder (Ubuntu, MacOS, Self Hosted [linux-arm64])
-      if: matrix.os == 'ubuntu-latest' || matrix.os == 'macos-latest' || matrix.os == 'linux-arm64'
+    - name: Remove build folder for not Windows (Ubuntu, MacOS, Self Hosted [linux-arm64, macos-arm64])
+      if: matrix.os != 'windows-latest'
       run: |
         rm -rf build
     - name: Remove build folder (Windows only)
@@ -74,8 +74,8 @@ jobs:
         sw_vers
         rename 's/11_0/10_14/' *
         cd ..
-    - name: Install (Ubuntu, MacOS, Self Hosted [linux-arm64])
-      if: matrix.os == 'ubuntu-latest' || matrix.os == 'macos-latest' || matrix.os == 'linux-arm64'
+    - name: Install for not Windows (Ubuntu, MacOS, Self Hosted [linux-arm64, macos-arm64])
+      if: matrix.os != 'windows-latest'
       run: |
         python tests/print_platform_info.py
         python -m pip install dist/*.whl
