@@ -13,6 +13,10 @@ jobs:
         python-version: [3.7, 3.8, 3.9, '3.10']
         os: ['ubuntu-latest', 'macos-latest', 'windows-latest', 'linux-arm64', 'macos-arm64']
         experimental: [false]
+        exclude:
+        # excludes python-version 3.7 on macOS-arm64 (Not available via brew)
+        - os: macos-arm64
+          python-version: 3.7
 
     steps:
     - uses: actions/checkout@v2
