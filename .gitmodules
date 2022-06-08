@@ -3,7 +3,7 @@
 	url = https://github.com/pybind/pybind11
 [submodule "cpp"]
 	path = cpp
-	url = git@github.com:dqrobotics/cpp
+	url =  https://github.com/dqrobotics/cpp
 	branch = master
 [submodule "interfaces/cpp-interface-vrep"]
 	path = interfaces/cpp-interface-vrep
