@@ -57,4 +57,5 @@ void init_DQ_Kinematics_py(py::module& m)
     dqkinematics_py.def_static("plane_to_point_distance_jacobian", &DQ_Kinematics::plane_to_point_distance_jacobian,"Returns the robot plane to point distance Jacobian");
     dqkinematics_py.def_static("plane_to_point_residual",          &DQ_Kinematics::plane_to_point_residual,"Returns the robot plane to point residual");
     dqkinematics_py.def_static("line_to_line_angle_jacobian",      &DQ_Kinematics::line_to_line_angle_jacobian,"Returns the line to line angle Jacobian");
+    dqkinematics_py.def_static("line_segment_to_line_segment_distance_jacobian", &DQ_Kinematics::line_segment_to_line_segment_distance_jacobian, "Returns the line segment to line segment distance Jacobian");
 }
