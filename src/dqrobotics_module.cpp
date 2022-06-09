@@ -173,6 +173,7 @@ PYBIND11_MODULE(_dqrobotics, m) {
     lbr4pvreprobot_py.def(py::init<const std::string&, DQ_VrepInterface*>());
 
     lbr4pvreprobot_py.def("send_q_to_vrep", &LBR4pVrepRobot::send_q_to_vrep, "Send joint values to vrep.");
+    lbr4pvreprobot_py.def("send_q_target_to_vrep", &LBR4pVrepRobot::send_q_target_to_vrep, "Send target joint values to vrep.");
     lbr4pvreprobot_py.def("get_q_from_vrep", &LBR4pVrepRobot::get_q_from_vrep, "Get joint values from vrep.");
     lbr4pvreprobot_py.def("kinematics", &LBR4pVrepRobot::kinematics, "Get kinematics model.");
 
