@@ -1,4 +1,8 @@
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.1)
+
+if(WIN32)
+    set(CMAKE_TOOLCHAIN_FILE C:/vcpkg/scripts/buildsystems/vcpkg.cmake)
+endif()
 
 project(dqroboticspython)
 
@@ -19,6 +23,7 @@ endif()
 
 if(WIN32)
     message("Building not supported on this platform.")
+
     ADD_DEFINITIONS(-D_USE_MATH_DEFINES) 
     FIND_PACKAGE(Eigen3 CONFIG REQUIRED) 
     INCLUDE_DIRECTORIES(${EIGEN3_INCLUDE_DIR}) 

@@ -29,13 +29,23 @@ void init_DQ_Geometry_py(py::module& m)
      * **************************************************/
     //#include<dqrobotics/utils/DQ_Geometry.h>
     py::class_<DQ_Geometry> geometry_py(m, "DQ_Geometry");
-    geometry_py.def_static("point_to_point_squared_distance",  &DQ_Geometry::point_to_point_squared_distance, "Returns the squared distance between two points");
-    geometry_py.def_static("point_to_line_squared_distance",   &DQ_Geometry::point_to_line_squared_distance,  "Returns the squared distance between a point and a line");
-    geometry_py.def_static("point_to_plane_distance",          &DQ_Geometry::point_to_plane_distance,         "Returns the distance between a point and a plane");
-    geometry_py.def_static("line_to_line_squared_distance",    &DQ_Geometry::line_to_line_squared_distance,   "Returns the squared distance between two lines");
-    geometry_py.def_static("line_to_line_angle",               &DQ_Geometry::line_to_line_angle,              "Returns the angle between two lines");
-    geometry_py.def_static("point_projected_in_line",          &DQ_Geometry::point_projected_in_line,         "Returns the point projected in a line.");
-    geometry_py.def_static("closest_points_between_lines",     &DQ_Geometry::closest_points_between_lines,    "Returns the closest points between lines");
+    geometry_py.def_static("point_to_point_squared_distance",               &DQ_Geometry::point_to_point_squared_distance, "Returns the squared distance between two points");
+    geometry_py.def_static("point_to_line_squared_distance",                &DQ_Geometry::point_to_line_squared_distance,  "Returns the squared distance between a point and a line");
+    geometry_py.def_static("point_to_plane_distance",                       &DQ_Geometry::point_to_plane_distance,         "Returns the distance between a point and a plane");
+    geometry_py.def_static("line_to_line_squared_distance",                 &DQ_Geometry::line_to_line_squared_distance,   "Returns the squared distance between two lines");
+    geometry_py.def_static("line_to_line_angle",                            &DQ_Geometry::line_to_line_angle,              "Returns the angle between two lines");
+    geometry_py.def_static("point_projected_in_line",                       &DQ_Geometry::point_projected_in_line,         "Returns the point projected in a line.");
+    geometry_py.def_static("closest_points_between_lines",                  &DQ_Geometry::closest_points_between_lines,    "Returns the closest points between lines");
+    geometry_py.def_static("closest_points_between_line_segments",          &DQ_Geometry::closest_points_between_line_segments, "Returns the closes points between line segments");
     geometry_py.def_static("line_segment_to_line_segment_squared_distance", &DQ_Geometry::line_segment_to_line_segment_squared_distance, "Returns the squared distance between two line segments.");
+
+    geometry_py.def_static("is_line_segment",&DQ_Geometry::is_line_segment,"Verifies if the inputs constitute a valid line segment.");
+    //Overload with the default threshold
+    geometry_py.def_static("is_line_segment",
+                           [](const DQ& a1, const DQ& a2, const DQ& a3)
+    {
+        return DQ_Geometry::is_line_segment(a1,a2,a3);
+    },
+    "Verifies if the inputs constitute a valid line segment.");
 }
 
