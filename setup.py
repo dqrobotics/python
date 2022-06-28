@@ -8,6 +8,7 @@ from setuptools import setup, Extension
 from setuptools.command.build_ext import build_ext
 from distutils.version import LooseVersion
 
+
 # Automatic name branching
 def format_branch_name(name):
     if name == "master":
@@ -17,6 +18,7 @@ def format_branch_name(name):
         return ""
     else:
         return name
+
 
 # read the contents of your README file
 with open("README.md", "r") as fh:
@@ -52,8 +54,9 @@ class CMakeBuild(build_ext):
 
         cfg = 'Debug' if self.debug else 'Release'
         build_args = ['--config', cfg]
-        
-        # Without this, the results of some calculations will differ from the MATLAB version and cause the tests to fail.
+
+        # Without this, the results of some calculations will differ from the MATLAB version and cause the tests to
+        # fail.
         if platform.machine() == "aarch64":
             cmake_args += ['-DCMAKE_CXX_FLAGS="-ffp-contract=off"']
             # https://stackoverflow.com/questions/64036879/differing-floating-point-calculation-results-between-x86-64-and-armv8-2-a
@@ -84,11 +87,11 @@ setup(
         "dev_template": "{tag}.{branch}{ccount}",
         "dirty_template": "{tag}.{branch}{ccount}",
         "branch_formatter": format_branch_name,
-      },
+    },
     setup_requires=['setuptools-git-versioning'],
-    author='Murilo Marinho',
+    author='Murilo Marques Marinho',
     author_email='murilo@g.ecc.u-tokyo.ac.jp',
-    description='DQRobotics python',
+    description='DQRobotics Python',
     long_description=long_description,
     long_description_content_type='text/markdown',
     url="https://github.com/dqrobotics/python",
@@ -99,17 +102,17 @@ setup(
     ],
     zip_safe=False,
     packages=['dqrobotics',
-'dqrobotics.robots',
-'dqrobotics.robot_modeling',
-'dqrobotics.utils',
-'dqrobotics.utils.DQ_Math',
-'dqrobotics.utils.DQ_LinearAlgebra',
-'dqrobotics.interfaces',
-'dqrobotics.interfaces.vrep',
-'dqrobotics.interfaces.vrep.robots',
-'dqrobotics.interfaces.json11',
-'dqrobotics.robot_control',
-'dqrobotics.solvers'],
+              'dqrobotics.robots',
+              'dqrobotics.robot_modeling',
+              'dqrobotics.utils',
+              'dqrobotics.utils.DQ_Math',
+              'dqrobotics.utils.DQ_LinearAlgebra',
+              'dqrobotics.interfaces',
+              'dqrobotics.interfaces.vrep',
+              'dqrobotics.interfaces.vrep.robots',
+              'dqrobotics.interfaces.json11',
+              'dqrobotics.robot_control',
+              'dqrobotics.solvers'],
     classifiers=[
         "Programming Language :: Python :: 3",
         "Programming Language :: C++",

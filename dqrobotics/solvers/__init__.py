@@ -8,7 +8,7 @@ try:
     class DQ_QuadprogSolver(DQ_QuadraticProgrammingSolver):
         def __init__(self):
             DQ_QuadraticProgrammingSolver.__init__(self)
-            self.equality_constraints_tolerance = 0 # default of np.finfo(np.float64).eps is already included in the solver
+            self.equality_constraints_tolerance = 0  # default of np.finfo(np.float64).eps is already included in the solver
             pass
 
         def set_equality_constraints_tolerance(self, tolerance):
@@ -40,15 +40,22 @@ try:
              :param beq: the m x 1 value for the inequality constraints.
              :return: the optimal x
             """
+            A_internal = A
+            b_internal = b
             if Aeq is not None and beq is not None:
-                A = np.vstack([A, Aeq, -Aeq])
+                A_internal = np.vstack([A, Aeq, -Aeq])
                 beq = beq.reshape(-1)
-                b = np.concatenate([b.reshape(-1), beq+self.equality_constraints_tolerance, -beq+self.equality_constraints_tolerance])
+                b_internal = np.concatenate([b.reshape(-1), beq + self.equality_constraints_tolerance,
+                                             -beq + self.equality_constraints_tolerance])
+            if A.shape == (0, 0) or b.shape == 0:
+                # Calls from DQRobotics CPP will trigger this condition
+                A_internal = np.zeros((1, H.shape[0]))
+                b_internal = np.zeros(1)
 
-            (x, f, xu, iterations, lagrangian, iact) = quadprog.solve_qp(G= H,
+            (x, f, xu, iterations, lagrangian, iact) = quadprog.solve_qp(G=H,
                                                                          a=-f,
-                                                                         C=-np.transpose(A),
-                                                                         b=-b)
+                                                                         C=-np.transpose(A_internal),
+                                                                         b=-b_internal)
             return x
 except:
     pass
