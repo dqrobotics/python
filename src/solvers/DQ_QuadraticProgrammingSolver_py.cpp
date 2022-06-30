@@ -31,7 +31,8 @@ protected:
     using DQ_QuadraticProgrammingSolver::DQ_QuadraticProgrammingSolver;
 public:
     /* Trampoline (need one for each virtual function) */
-    VectorXd solve_quadratic_program(const MatrixXd &H, const VectorXd &f, const MatrixXd A, const VectorXd &b, const MatrixXd &Aeq, const VectorXd &beq) override{
+    VectorXd solve_quadratic_program(const MatrixXd &H, const VectorXd &f, const MatrixXd& A, const VectorXd &b, const MatrixXd &Aeq, const VectorXd &beq) override
+    {
         PYBIND11_OVERLOAD_PURE(
                     VectorXd,                       /* Return type */
                     DQ_QuadraticProgrammingSolver,  /* Parent class */
