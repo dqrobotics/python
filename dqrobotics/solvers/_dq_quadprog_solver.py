@@ -65,11 +65,14 @@ class DQ_QuadprogSolver(DQ_QuadraticProgrammingSolver):
         A_internal = A
         b_internal = b
         if Aeq is not None and beq is not None:
-            A_internal = np.vstack([A, Aeq, -Aeq])
-            beq = beq.reshape(-1)
-            b_internal = np.concatenate([b.reshape(-1), beq + self.equality_constraints_tolerance,
-                                         -beq + self.equality_constraints_tolerance])
-        if A.shape == (0, 0) or b.shape == 0:
+            if Aeq.shape == (0, 0) or beq.shape == 0:
+                pass
+            else:
+                A_internal = np.vstack([A, Aeq, -Aeq])
+                beq = beq.reshape(-1)
+                b_internal = np.concatenate([b.reshape(-1), beq + self.equality_constraints_tolerance,
+                                             -beq + self.equality_constraints_tolerance])
+        if A_internal.shape == (0, 0) or b_internal.shape == 0:
             # Calls from DQRobotics CPP will trigger this condition
             A_internal = np.zeros((1, H.shape[0]))
             b_internal = np.zeros(1)
