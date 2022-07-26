@@ -47,6 +47,9 @@ endif()
         cpp/src/DQ.cpp
         src/DQ_py.cpp
 
+        #Internal
+        cpp/src/internal/_dq_linesegment.cpp
+
         #Utils
         cpp/src/utils/DQ_LinearAlgebra.cpp
         src/utils/DQ_LinearAlgebra_py.cpp
