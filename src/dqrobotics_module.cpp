@@ -135,6 +135,9 @@ PYBIND11_MODULE(_dqrobotics, m) {
     //DQ_TaskSpacePseudoInverseController
     init_DQ_PseudoinverseController_py(robot_control);
 
+    //DQ_NumericalFilteredPseudoinverseController
+    init_DQ_NumericalFilteredPseudoInverseController_py(robot_control);
+
     //DQ_KinematicConstrainedController
     init_DQ_KinematicConstrainedController_py(robot_control);
 

@@ -50,6 +50,7 @@ namespace py = pybind11;
 #include <dqrobotics/robot_control/DQ_KinematicController.h>
 #include <dqrobotics/robot_control/DQ_KinematicConstrainedController.h>
 #include <dqrobotics/robot_control/DQ_PseudoinverseController.h>
+#include <dqrobotics/robot_control/DQ_NumericalFilteredPseudoInverseController.h>
 #include <dqrobotics/robot_control/DQ_QuadraticProgrammingController.h>
 #include <dqrobotics/robot_control/DQ_ClassicQPController.h>
 
@@ -97,6 +98,7 @@ void init_DQ_ClassicQPController_py(py::module& m);
 void init_DQ_KinematicConstrainedController_py(py::module& m);
 void init_DQ_KinematicController_py(py::module& m);
 void init_DQ_PseudoinverseController_py(py::module& m);
+void init_DQ_NumericalFilteredPseudoInverseController_py(py::module& m);
 void init_DQ_QuadraticProgrammingController_py(py::module& m);
 
 //dqrobotics/solvers

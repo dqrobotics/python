@@ -87,6 +87,8 @@ endif()
         src/robot_control/DQ_KinematicController_py.cpp
         cpp/src/robot_control/DQ_PseudoinverseController.cpp
         src/robot_control/DQ_PseudoinverseController_py.cpp
+        cpp/src/robot_control/DQ_NumericalFilteredPseudoInverseController.cpp
+        src/robot_control/DQ_NumericalFilteredPseudoInverseController_py.cpp
         cpp/src/robot_control/DQ_KinematicConstrainedController.cpp
         src/robot_control/DQ_KinematicConstrainedController_py.cpp
         cpp/src/robot_control/DQ_QuadraticProgrammingController.cpp
