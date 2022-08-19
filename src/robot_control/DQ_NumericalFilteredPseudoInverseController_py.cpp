@@ -28,7 +28,9 @@ void init_DQ_NumericalFilteredPseudoInverseController_py(py::module& m)
      *  DQ TaskSpacePseudoInverseController
      * **************************************************/
     py::class_<DQ_NumericalFilteredPseudoinverseController, DQ_PseudoinverseController> nfpic(m,"DQ_NumericalFilteredPseudoInverseController");
-    nfpic.def(py::init<DQ_Kinematics*>());
+    nfpic.def(py::init<
+              const std::shared_ptr<DQ_Kinematics>&
+              >());
     nfpic.def("compute_setpoint_control_signal",&DQ_NumericalFilteredPseudoinverseController::compute_setpoint_control_signal,"Computes the setpoint control signal.");
     nfpic.def("compute_tracking_control_signal",&DQ_NumericalFilteredPseudoinverseController::compute_tracking_control_signal,"Computes the tracking control signal.");
     nfpic.def("set_maximum_numerical_filtered_damping",&DQ_NumericalFilteredPseudoinverseController::set_maximum_numerical_filtered_damping,"Sets the maximum numerical filtered damping.");

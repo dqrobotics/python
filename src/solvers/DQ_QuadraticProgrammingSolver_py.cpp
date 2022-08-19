@@ -47,7 +47,11 @@ void init_DQ_QuadraticProgrammingSolver_py(py::module& m)
     /*****************************************************
      *  DQ_QuadraticProgrammingSolver
      * **************************************************/
-    py::class_<DQ_QuadraticProgrammingSolver, DQ_QuadraticProgrammingSolverPy> dqquadraticprogrammingsolver_py(m,"DQ_QuadraticProgrammingSolver");
+    py::class_<
+            DQ_QuadraticProgrammingSolver,
+            std::shared_ptr<DQ_QuadraticProgrammingSolver>,
+            DQ_QuadraticProgrammingSolverPy
+            > dqquadraticprogrammingsolver_py(m,"DQ_QuadraticProgrammingSolver");
     dqquadraticprogrammingsolver_py.def(py::init<>());
     dqquadraticprogrammingsolver_py.def("solve_quadratic_program", &DQ_QuadraticProgrammingSolver::solve_quadratic_program, "Solves a quadratic program");
 }

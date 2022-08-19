@@ -27,7 +27,9 @@ void init_DQ_CooperativeDualTaskSpace_py(py::module& m)
     /*****************************************************
      *  DQ CooperativeDualTaskSpace
      * **************************************************/
-    py::class_<DQ_CooperativeDualTaskSpace> dqcooperativedualtaskspace(m, "DQ_CooperativeDualTaskSpace");
+    py::class_<
+            DQ_CooperativeDualTaskSpace
+            > dqcooperativedualtaskspace(m, "DQ_CooperativeDualTaskSpace");
     dqcooperativedualtaskspace.def(py::init<DQ_Kinematics*, DQ_Kinematics*>());
     dqcooperativedualtaskspace.def("pose1",                  &DQ_CooperativeDualTaskSpace::pose1, "Returns the first robot's pose");
     dqcooperativedualtaskspace.def("pose2",                  &DQ_CooperativeDualTaskSpace::pose2,"Returns the second robot's pose");

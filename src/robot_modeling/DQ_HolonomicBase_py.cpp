@@ -27,7 +27,11 @@ void init_DQ_HolonomicBase_py(py::module& m)
     /*****************************************************
      *  DQ HolonomicBase
      * **************************************************/
-    py::class_<DQ_HolonomicBase,DQ_MobileBase> dqholonomicbase_py(m,"DQ_HolonomicBase");
+    py::class_<
+            DQ_HolonomicBase,
+            std::shared_ptr<DQ_HolonomicBase>,
+            DQ_MobileBase
+            > dqholonomicbase_py(m,"DQ_HolonomicBase");
     dqholonomicbase_py.def(py::init());
     dqholonomicbase_py.def("fkm",(DQ (DQ_HolonomicBase::*)(const VectorXd&) const)&DQ_HolonomicBase::fkm,"Gets the fkm.");
     dqholonomicbase_py.def("fkm",(DQ (DQ_HolonomicBase::*)(const VectorXd&,const int&) const)&DQ_HolonomicBase::fkm,"Gets the fkm.");

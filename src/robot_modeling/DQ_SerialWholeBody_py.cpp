@@ -27,7 +27,11 @@ void init_DQ_SerialWholeBody_py(py::module& m)
     /*****************************************************
      *  DQ WholeBody
      * **************************************************/
-    py::class_<DQ_SerialWholeBody,DQ_Kinematics> dqserialwholebody_py(m,"DQ_SerialWholeBody");
+    py::class_<
+            DQ_SerialWholeBody,
+            std::shared_ptr<DQ_SerialWholeBody>,
+            DQ_Kinematics
+            > dqserialwholebody_py(m,"DQ_SerialWholeBody");
     dqserialwholebody_py.def(py::init<std::shared_ptr<DQ_Kinematics>>());
     dqserialwholebody_py.def("add",&DQ_SerialWholeBody::add,"Adds a DQ_Kinematics pointer to the kinematic chain.");
     dqserialwholebody_py.def("fkm",(DQ (DQ_SerialWholeBody::*)(const VectorXd&) const)&DQ_SerialWholeBody::fkm,"Gets the fkm.");

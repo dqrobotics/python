@@ -27,7 +27,11 @@ void init_DQ_SerialManipulator_py(py::module& m)
     /***************************************************
     *  DQ SerialManipulator
     * **************************************************/
-    py::class_<DQ_SerialManipulator,DQ_Kinematics> dqserialmanipulator_py(m, "DQ_SerialManipulator");
+    py::class_<
+            DQ_SerialManipulator,
+            std::shared_ptr<DQ_SerialManipulator>,
+            DQ_Kinematics
+            > dqserialmanipulator_py(m, "DQ_SerialManipulator");
     //dqserialmanipulator_py.def(py::init<int>());
 
     ///Methods

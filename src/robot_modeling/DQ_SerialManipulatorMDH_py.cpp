@@ -27,7 +27,11 @@ void init_DQ_SerialManipulatorMDH_py(py::module& m)
     /***************************************************
     *  DQ SerialManipulatorMDH
     * **************************************************/
-    py::class_<DQ_SerialManipulatorMDH,DQ_SerialManipulator> dqserialmanipulatormdh_py(m, "DQ_SerialManipulatorMDH");
+    py::class_<
+            DQ_SerialManipulatorMDH,
+            std::shared_ptr<DQ_SerialManipulatorMDH>,
+            DQ_SerialManipulator
+            > dqserialmanipulatormdh_py(m, "DQ_SerialManipulatorMDH");
     dqserialmanipulatormdh_py.def(py::init<MatrixXd>());
 
     ///Methods

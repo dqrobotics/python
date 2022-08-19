@@ -27,7 +27,10 @@ void init_DQ_Kinematics_py(py::module& m)
     /*****************************************************
      *  DQ Kinematics
      * **************************************************/
-    py::class_<DQ_Kinematics> dqkinematics_py(m, "DQ_Kinematics");
+    py::class_<
+            DQ_Kinematics,
+            std::shared_ptr<DQ_Kinematics>
+            > dqkinematics_py(m, "DQ_Kinematics");
     //dqkinematics_py.def(py::init<>());
     //dqkinematics_py.def("pose_jacobian",  (MatrixXd (DQ_Kinematics::*)(const VectorXd&) const)&DQ_Kinematics::pose_jacobian, "Returns the pose Jacobian");
 
