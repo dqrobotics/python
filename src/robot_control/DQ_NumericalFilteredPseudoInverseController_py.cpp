@@ -22,12 +22,50 @@ Contributors:
 
 #include "../dqrobotics_module.h"
 
+class DQ_NumericalFilteredPseudoinverseControllerPy : public DQ_NumericalFilteredPseudoinverseController
+{
+public:
+    using DQ_NumericalFilteredPseudoinverseController::DQ_NumericalFilteredPseudoinverseController;
+    DQ_NumericalFilteredPseudoinverseControllerPy()=delete;
+    DQ_NumericalFilteredPseudoinverseControllerPy(const std::shared_ptr<DQ_Kinematics>& r):
+        DQ_NumericalFilteredPseudoinverseController(r)
+    {
+
+    }
+
+    /* Trampoline (need one for each virtual function) */
+    VectorXd compute_setpoint_control_signal(const VectorXd &q, const VectorXd &task_reference) override
+    {
+        PYBIND11_OVERRIDE(
+                    VectorXd,                       /* Return type */
+                    DQ_NumericalFilteredPseudoinverseController,  /* Parent class */
+                    compute_setpoint_control_signal,        /* Name of function in C++ (must match Python name) */
+                    q,task_reference          /* Argument(s) */
+                    );
+    }
+
+    VectorXd compute_tracking_control_signal(const VectorXd &q, const VectorXd &task_reference, const VectorXd &feed_forward) override
+    {
+        PYBIND11_OVERRIDE(
+                    VectorXd,                       /* Return type */
+                    DQ_NumericalFilteredPseudoinverseController,  /* Parent class */
+                    compute_tracking_control_signal,        /* Name of function in C++ (must match Python name) */
+                    q,task_reference,feed_forward           /* Argument(s) */
+                    );
+    }
+};
+
+
 void init_DQ_NumericalFilteredPseudoInverseController_py(py::module& m)
 {
     /*****************************************************
      *  DQ TaskSpacePseudoInverseController
      * **************************************************/
-    py::class_<DQ_NumericalFilteredPseudoinverseController, DQ_PseudoinverseController> nfpic(m,"DQ_NumericalFilteredPseudoInverseController");
+    py::class_<
+            DQ_NumericalFilteredPseudoinverseController,
+            DQ_NumericalFilteredPseudoinverseControllerPy,
+            DQ_PseudoinverseController
+            > nfpic(m,"DQ_NumericalFilteredPseudoinverseController");
     nfpic.def(py::init<
               const std::shared_ptr<DQ_Kinematics>&
               >());
