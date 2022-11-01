@@ -99,7 +99,7 @@ jobs:
       run: |
         cd tests
         python -m pip install scipy
-        git checkout https://github.com/quadprog/quadprog.git
+        git clone https://github.com/quadprog/quadprog.git
         cd quadprog
         pip install -r requirements_develop.txt && python -m cython quadprog/quadprog.pyx
         cd ..
