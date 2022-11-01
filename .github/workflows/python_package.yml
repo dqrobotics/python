@@ -88,10 +88,26 @@ jobs:
       run: |
         python tests/print_platform_info.py
         python -m pip install @(join-path "dist" (get-childitem -path dist -name *.whl))
-    - name: Test
+    - name: Install Test Pre-requisites (Python=!3.11)
+      if: matrix.python-version != '3.11'
       run: |
         cd tests
         python -m pip install scipy quadprog
+        cd ..
+    - name: Install Test Pre-requisites (Python==3.11)
+      if: matrix.python-version == '3.11'
+      run: |
+        cd tests
+        python -m pip install scipy
+        git checkout https://github.com/quadprog/quadprog.git
+        cd quadprog
+        pip install -r requirements_develop.txt && python -m cython quadprog/quadprog.pyx
+        cd ..
+        python -m pip install ./quadprog
+        cd ..
+    - name: Test
+      run: |
+        cd tests
         python DQ_test.py
         python DQ_Kinematics_test.py
         python DQ_SerialManipulatorMDH_test.py
