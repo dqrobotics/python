@@ -100,6 +100,7 @@ jobs:
         cd tests
         python -m pip install scipy
         python -m pip uninstall quadprog -y
+        rm -rf quadprog
         git clone https://github.com/quadprog/quadprog.git
         cd quadprog
         pip install -r requirements_develop.txt && python -m cython quadprog/quadprog.pyx
