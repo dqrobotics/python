@@ -42,4 +42,6 @@ void init_DQ_WholeBody_py(py::module& m)
     dqwholebody_py.def("get_chain_as_holonomic_base",&DQ_WholeBody::get_chain_as_holonomic_base, "Returns the DQ_HolonomicBase at a given index of the chain");
     dqwholebody_py.def("pose_jacobian",(MatrixXd (DQ_WholeBody::*)(const VectorXd&, const int&) const)&DQ_WholeBody::pose_jacobian,"Returns the pose Jacobian");
     dqwholebody_py.def("pose_jacobian",(MatrixXd (DQ_WholeBody::*)(const VectorXd&) const)&DQ_WholeBody::pose_jacobian,"Returns the pose Jacobian");
+    dqwholebody_py.def("pose_jacobian_derivative",(MatrixXd (DQ_WholeBody::*)(const VectorXd&, const VectorXd&, const int&) const)&DQ_WholeBody::pose_jacobian_derivative,"Returns the pose Jacobian derivative");
+    dqwholebody_py.def("pose_jacobian_derivative",(MatrixXd (DQ_WholeBody::*)(const VectorXd&, const VectorXd&) const)&DQ_WholeBody::pose_jacobian_derivative,"Returns the pose Jacobian derivative");
 }
