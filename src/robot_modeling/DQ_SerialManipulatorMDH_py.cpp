@@ -48,4 +48,6 @@ void init_DQ_SerialManipulatorMDH_py(py::module& m)
     //Overrides from DQ_SerialManipulator
     dqserialmanipulatormdh_py.def("raw_pose_jacobian",  (MatrixXd (DQ_SerialManipulatorMDH::*)(const VectorXd&, const int&) const)&DQ_SerialManipulatorMDH::raw_pose_jacobian, "Retrieves the raw pose Jacobian.");
     dqserialmanipulatormdh_py.def("raw_fkm",            (DQ (DQ_SerialManipulatorMDH::*)(const VectorXd&, const int&) const)&DQ_SerialManipulatorMDH::raw_fkm,                 "Retrieves the raw FKM.");
+    dqserialmanipulatormdh_py.def("raw_pose_jacobian_derivative",(MatrixXd (DQ_SerialManipulatorMDH::*)(const VectorXd&, const VectorXd&, const int&) const)
+                                                                &DQ_SerialManipulatorMDH::raw_pose_jacobian_derivative, "Retrieves the raw pose Jacobian derivative.");
 }
