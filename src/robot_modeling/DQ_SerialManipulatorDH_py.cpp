@@ -42,9 +42,6 @@ void init_DQ_SerialManipulatorDH_py(py::module& m)
     dqserialmanipulatordh_py.def("get_alphas",  &DQ_SerialManipulatorDH::get_alphas, "Retrieves the vector of alphas.");
     dqserialmanipulatordh_py.def("get_types",   &DQ_SerialManipulatorDH::get_types,  "Retrieves the vector of types.");
 
-    //dqserialmanipulatordh_py.def("pose_jacobian_derivative", (MatrixXd (DQ_SerialManipulatorDH::*)(const VectorXd&, const VectorXd&, const int&) const)&DQ_SerialManipulatorDH::pose_jacobian_derivative, "Returns the pose Jacobian derivative");
-    //dqserialmanipulatordh_py.def("pose_jacobian_derivative", (MatrixXd (DQ_SerialManipulatorDH::*)(const VectorXd&, const VectorXd&) const)&DQ_SerialManipulatorDH::pose_jacobian_derivative,             "Returns the pose Jacobian derivative");
-
     //Overrides from DQ_SerialManipulator
     dqserialmanipulatordh_py.def("raw_pose_jacobian",  (MatrixXd (DQ_SerialManipulatorDH::*)(const VectorXd&, const int&) const)&DQ_SerialManipulatorDH::raw_pose_jacobian, "Retrieves the raw pose Jacobian.");
     dqserialmanipulatordh_py.def("raw_fkm",            (DQ (DQ_SerialManipulatorDH::*)(const VectorXd&, const int&) const)&DQ_SerialManipulatorDH::raw_fkm,                 "Retrieves the raw FKM.");
