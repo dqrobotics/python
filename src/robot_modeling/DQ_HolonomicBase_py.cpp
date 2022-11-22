@@ -37,7 +37,12 @@ void init_DQ_HolonomicBase_py(py::module& m)
     dqholonomicbase_py.def("fkm",(DQ (DQ_HolonomicBase::*)(const VectorXd&,const int&) const)&DQ_HolonomicBase::fkm,"Gets the fkm.");
     dqholonomicbase_py.def("pose_jacobian",               (MatrixXd (DQ_HolonomicBase::*)(const VectorXd&, const int&) const)&DQ_HolonomicBase::pose_jacobian,"Returns the pose Jacobian");
     dqholonomicbase_py.def("pose_jacobian",               (MatrixXd (DQ_HolonomicBase::*)(const VectorXd&) const)&DQ_HolonomicBase::pose_jacobian,"Returns the pose Jacobian");
+    dqholonomicbase_py.def("pose_jacobian_derivative",    (MatrixXd (DQ_HolonomicBase::*)(const VectorXd&, const VectorXd&) const)&DQ_HolonomicBase::pose_jacobian_derivative,
+                                                           "Returns the pose Jacobian derivative");
+    dqholonomicbase_py.def("pose_jacobian_derivative",    (MatrixXd (DQ_HolonomicBase::*)(const VectorXd&, const VectorXd&, const int&) const)&DQ_HolonomicBase::pose_jacobian_derivative,
+                                                           "Returns the pose Jacobian derivative");
     dqholonomicbase_py.def("get_dim_configuration_space",&DQ_HolonomicBase::get_dim_configuration_space,"Returns the size of the configuration space");
     dqholonomicbase_py.def("raw_fkm",                    &DQ_HolonomicBase::raw_fkm,"Returns the raw fkm");
-    dqholonomicbase_py.def("raw_pose_jacobian",          &DQ_HolonomicBase::raw_pose_jacobian,"Return the raw ose Jacobian");
+    dqholonomicbase_py.def("raw_pose_jacobian",          &DQ_HolonomicBase::raw_pose_jacobian,"Return the raw pose Jacobian");
+    dqholonomicbase_py.def("raw_pose_jacobian_derivative", &DQ_HolonomicBase::raw_pose_jacobian_derivative,"Return the raw pose Jacobian derivative");
 }

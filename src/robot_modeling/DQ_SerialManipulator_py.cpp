@@ -50,6 +50,9 @@ void init_DQ_SerialManipulator_py(py::module& m)
     //Virtual
     dqserialmanipulator_py.def("raw_fkm",                     (DQ (DQ_SerialManipulator::*)(const VectorXd&) const)&DQ_SerialManipulator::raw_fkm,"Gets the raw fkm.");
     dqserialmanipulator_py.def("raw_pose_jacobian",           (MatrixXd (DQ_SerialManipulator::*)(const VectorXd&) const)&DQ_SerialManipulator::raw_pose_jacobian,"Returns the pose Jacobian without base or effector transformation");
+    dqserialmanipulator_py.def("raw_pose_jacobian_derivative",(MatrixXd (DQ_SerialManipulator::*)(const VectorXd&, const VectorXd&) const)
+                                                               &DQ_SerialManipulator::raw_pose_jacobian_derivative,
+                                                               "Returns the pose Jacobian derivative without base or effector transformation");
 
     //Overrides from DQ_Kinematics
     dqserialmanipulator_py.def("fkm",                         (DQ (DQ_SerialManipulator::*)(const VectorXd&) const)&DQ_SerialManipulator::fkm,"Gets the fkm.");
@@ -59,4 +62,8 @@ void init_DQ_SerialManipulator_py(py::module& m)
 
     dqserialmanipulator_py.def("pose_jacobian",               (MatrixXd (DQ_SerialManipulator::*)(const VectorXd&, const int&) const)&DQ_SerialManipulator::pose_jacobian,"Returns the pose Jacobian");
     dqserialmanipulator_py.def("pose_jacobian",               (MatrixXd (DQ_SerialManipulator::*)(const VectorXd&) const)&DQ_SerialManipulator::pose_jacobian,"Returns the pose Jacobian");
+    dqserialmanipulator_py.def("pose_jacobian_derivative",    (MatrixXd (DQ_SerialManipulator::*)(const VectorXd&, const VectorXd&, const int&) const)
+                                                               &DQ_SerialManipulator::pose_jacobian_derivative,"Returns the pose Jacobian derivative");
+    dqserialmanipulator_py.def("pose_jacobian_derivative",    (MatrixXd (DQ_SerialManipulator::*)(const VectorXd&, const VectorXd&) const)
+                                                               &DQ_SerialManipulator::pose_jacobian_derivative,"Returns the pose Jacobian derivative");
 }

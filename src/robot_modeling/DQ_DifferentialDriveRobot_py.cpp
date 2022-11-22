@@ -36,4 +36,8 @@ void init_DQ_DifferentialDriveRobot_py(py::module& m)
     dqdifferentialdriverobot_py.def("constraint_jacobian", &DQ_DifferentialDriveRobot::constraint_jacobian, "Returns the constraint Jacobian");
     dqdifferentialdriverobot_py.def("pose_jacobian",               (MatrixXd (DQ_DifferentialDriveRobot::*)(const VectorXd&, const int&) const)&DQ_DifferentialDriveRobot::pose_jacobian,"Returns the pose Jacobian");
     dqdifferentialdriverobot_py.def("pose_jacobian",               (MatrixXd (DQ_DifferentialDriveRobot::*)(const VectorXd&) const)&DQ_DifferentialDriveRobot::pose_jacobian,"Returns the pose Jacobian");
+    dqdifferentialdriverobot_py.def("pose_jacobian_derivative",    (MatrixXd (DQ_DifferentialDriveRobot::*)(const VectorXd&, const VectorXd&, const int&) const)&DQ_DifferentialDriveRobot::pose_jacobian_derivative,
+                                                                   "Returns the pose Jacobian derivative");
+    dqdifferentialdriverobot_py.def("pose_jacobian_derivative",    (MatrixXd (DQ_DifferentialDriveRobot::*)(const VectorXd&, const VectorXd&) const)&DQ_DifferentialDriveRobot::pose_jacobian_derivative,
+                                                                   "Returns the pose Jacobian derivative");
 }

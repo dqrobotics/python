@@ -106,6 +106,7 @@ endif()
         cpp/src/robots/ComauSmartSixRobot.cpp
         cpp/src/robots/KukaLw4Robot.cpp
         cpp/src/robots/KukaYoubotRobot.cpp
+        cpp/src/robots/FrankaEmikaPandaRobot.cpp
 
         #interfaces/vrep
         interfaces/cpp-interface-vrep/src/dqrobotics/interfaces/vrep/DQ_VrepInterface.cpp
