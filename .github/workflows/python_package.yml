@@ -34,6 +34,7 @@ jobs:
       run: |
         python${{ matrix.python-version }} -m venv venv${{ matrix.python-version }}
         echo "${{github.workspace}}/venv${{matrix.python-version}}/bin/" >> $GITHUB_PATH
+        sed -i'' -e 's/-j2/-j8/g' setup.py
     - name: Install compilation dependencies [Ubuntu/C++]
       if: matrix.os == 'ubuntu-latest'
       run: |
