@@ -52,7 +52,6 @@ void init_DQ_Kinematics_py(py::module& m)
     dqkinematics_py.def_static("rotation_jacobian_derivative",     &DQ_Kinematics::rotation_jacobian_derivative,    "Returns the rotation Jacobian derivative");
     dqkinematics_py.def_static("line_jacobian_derivative",         &DQ_Kinematics::line_jacobian_derivative,        "Returns the line Jacobian derivative");
     dqkinematics_py.def_static("plane_jacobian_derivative",        &DQ_Kinematics::plane_jacobian_derivative,       "Returns the plane Jacobian derivative");
-
     dqkinematics_py.def_static("point_to_point_distance_jacobian", &DQ_Kinematics::point_to_point_distance_jacobian,"Returns the robot point to point distance Jacobian");
     dqkinematics_py.def_static("point_to_point_residual",          &DQ_Kinematics::point_to_point_residual,"Returns the robot point to point residual");
     dqkinematics_py.def_static("point_to_line_distance_jacobian",  &DQ_Kinematics::point_to_line_distance_jacobian,"Returns the robot point to line distance Jacobian");
