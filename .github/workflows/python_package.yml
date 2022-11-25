@@ -123,6 +123,7 @@ jobs:
         python cpp_issues.py
         python python_issues.py
         python DQ_Kinematics_pose_jacobian_derivative_tests.py
+        python DQ_Kinematics_static_jacobian_derivative_tests.py
         cd ..
     - name: Rename wheel (Ubuntu Only)
       if: matrix.os == 'ubuntu-latest'
