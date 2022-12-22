@@ -6,10 +6,35 @@ Refer to the [docs](https://dqroboticsgithubio.readthedocs.io/en/latest/installa
 
 ## Dev Stuff
 
-### Setting up the self-hosted enviroment for Apple silicon
+With the initial settings described below for each system, the `actions_runner` will pick up the correct version of Python and run the CI accordingly. 
+
+### Setting up the self-hosted CI enviroment for Apple silicon
 
 1. Install `brew`
-2. Install the Python versions currently supported by DQRobotics e.g. `brew install python@3.XX`
-3. Add an alias for each Python version in your `.zshrc`, e.g. `alias python3.XX='/opt/homebrew/bin/python3.XX'`
+2. Install the Python versions currently supported by DQRobotics e.g. 
+```
+brew install python@3.XX
+```
+4. Add an alias for each Python version in your `.zshrc`, e.g. `alias python3.XX='/opt/homebrew/bin/python3.XX'`
 
-With these settings, the `actions_runner` will pick up the correct version of Python and run the CI accordingly. 
+
+### Setting up the self-hosted CI enviroment for Ubuntu arm64
+
+0. Make sure you have the basic compilation enviroment
+```
+sudo apt update && sudo apt upgrade -y
+sudo apt install git g++ cmake
+```
+
+1. Add the deadsnakes PPA
+```
+sudo add-apt-repository ppa:deadsnakes/ppa
+```
+2. Run 
+```
+sudo apt update
+```
+3. Install, for each Python version, the following 
+```
+sudo apt install python3.XX-dev python3.XX-venv python3.XX-distutils
+```
