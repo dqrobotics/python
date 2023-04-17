@@ -67,6 +67,7 @@ namespace py = pybind11;
 #include <dqrobotics/interfaces/vrep/DQ_VrepRobot.h>
 #include <dqrobotics/interfaces/vrep/robots/LBR4pVrepRobot.h>
 #include <dqrobotics/interfaces/vrep/robots/YouBotVrepRobot.h>
+#include <dqrobotics/interfaces/vrep/robots/FrankaEmikaPandaVrepRobot.h>
 
 #include <dqrobotics/interfaces/json11/DQ_JsonReader.h>
 

@@ -118,6 +118,7 @@ endif()
         interfaces/cpp-interface-vrep/src/dqrobotics/interfaces/vrep/DQ_VrepRobot.cpp
         interfaces/cpp-interface-vrep/src/dqrobotics/interfaces/vrep/robots/LBR4pVrepRobot.cpp
         interfaces/cpp-interface-vrep/src/dqrobotics/interfaces/vrep/robots/YouBotVrepRobot.cpp
+        interfaces/cpp-interface-vrep/src/dqrobotics/interfaces/vrep/robots/FrankaEmikaPandaVrepRobot.cpp
         src/interfaces/vrep/DQ_VrepRobot_py.cpp
 
         #interfaces/json11
