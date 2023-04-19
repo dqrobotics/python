@@ -30,7 +30,10 @@ void init_DQ_VrepInterface_py(py::module& m)
     /*****************************************************
      *  VrepInterface
      * **************************************************/
-    py::class_<DQ_VrepInterface> dqvrepinterface_py(m,"DQ_VrepInterface");
+    py::class_<
+            DQ_VrepInterface,
+            std::shared_ptr<DQ_VrepInterface>
+            > dqvrepinterface_py(m,"DQ_VrepInterface");
     dqvrepinterface_py.def(py::init<>());
     dqvrepinterface_py.def(py::init<std::atomic_bool*>());
 
