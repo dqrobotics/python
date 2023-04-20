@@ -34,4 +34,5 @@ void init_DQ_SerialVrepRobot_py(py::module& m)
             > dqsv_robot(m,"DQ_SerialVrepRobot");
 
     dqsv_robot.def("send_q_target_to_vrep", &DQ_SerialVrepRobot::send_q_target_to_vrep, "Send target joint values to CoppeliaSim.");
+    dqsv_robot.def("get_joint_names", &DQ_SerialVrepRobot::get_joint_names, "Gets the joint names used in CoppeliaSim.");
 }
