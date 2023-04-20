@@ -1,5 +1,5 @@
 /**
-(C) Copyright 2019 DQ Robotics Developers
+(C) Copyright 2023 DQ Robotics Developers
 
 This file is part of DQ Robotics.
 
@@ -22,16 +22,16 @@ Contributors:
 
 #include "../../dqrobotics_module.h"
 
-void init_DQ_VrepRobot_py(py::module& m)
+void init_DQ_SerialVrepRobot_py(py::module& m)
 {
     /*****************************************************
-     *  VrepRobot
+     *  SerialVrepRobot
      * **************************************************/
     py::class_<
-            DQ_VrepRobot,
-            std::shared_ptr<DQ_VrepRobot>
-            > dqvreprobot_py(m,"DQ_VrepRobot");
+            DQ_SerialVrepRobot,
+            std::shared_ptr<DQ_SerialVrepRobot>,
+            DQ_VrepRobot
+            > dqsv_robot(m,"DQ_SerialVrepRobot");
 
-    dqvreprobot_py.def("send_q_to_vrep", &DQ_VrepRobot::send_q_to_vrep, "Get joint values from vrep.");
-    dqvreprobot_py.def("get_q_from_vrep", &DQ_VrepRobot::get_q_from_vrep, "Send joint values to vrep.");
+    dqsv_robot.def("send_q_target_to_vrep", &DQ_SerialVrepRobot::send_q_target_to_vrep, "Send target joint values to CoppeliaSim.");
 }

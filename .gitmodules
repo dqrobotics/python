@@ -7,11 +7,11 @@
 	branch = master
 [submodule "interfaces/cpp-interface-vrep"]
 	path = interfaces/cpp-interface-vrep
-	url = https://github.com/dqrobotics/cpp-interface-vrep.git
+	url = git@github.com:dqrobotics/cpp-interface-vrep.git
 	branch = master
 [submodule "interfaces/cpp-interface-json11"]
 	path = interfaces/cpp-interface-json11
-	url = https://github.com/dqrobotics/cpp-interface-json11.git
+	url = git@github.com:dqrobotics/cpp-interface-json11.git
 	branch = master
 [submodule "tests"]
 	path = tests

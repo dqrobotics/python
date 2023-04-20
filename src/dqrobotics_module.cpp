@@ -1,5 +1,5 @@
 /**
-(C) Copyright 2019 DQ Robotics Developers
+(C) Copyright 2019-2023 DQ Robotics Developers
 
 This file is part of DQ Robotics.
 
@@ -168,6 +168,9 @@ PYBIND11_MODULE(_dqrobotics, m) {
     //DQ_VrepRobot
     init_DQ_VrepRobot_py(vrep_py);
 
+    //DQ_SerialVrepRobot
+    init_DQ_SerialVrepRobot_py(vrep_py);
+
     /*****************************************************
      *  Vrep Robots Submodule
      * **************************************************/
@@ -176,18 +179,15 @@ PYBIND11_MODULE(_dqrobotics, m) {
     /*****************************************************
      *  LBR4pVrepRobot
      * **************************************************/
-    py::class_<LBR4pVrepRobot,DQ_VrepRobot> lbr4pvreprobot_py(vreprobots_py,"LBR4pVrepRobot");
+    py::class_<LBR4pVrepRobot,std::shared_ptr<LBR4pVrepRobot>,DQ_SerialVrepRobot> lbr4pvreprobot_py(vreprobots_py,"LBR4pVrepRobot");
     lbr4pvreprobot_py.def(py::init<const std::string&, DQ_VrepInterface*>());
 
-    lbr4pvreprobot_py.def("send_q_to_vrep", &LBR4pVrepRobot::send_q_to_vrep, "Send joint values to vrep.");
-    lbr4pvreprobot_py.def("send_q_target_to_vrep", &LBR4pVrepRobot::send_q_target_to_vrep, "Send target joint values to vrep.");
-    lbr4pvreprobot_py.def("get_q_from_vrep", &LBR4pVrepRobot::get_q_from_vrep, "Get joint values from vrep.");
     lbr4pvreprobot_py.def("kinematics", &LBR4pVrepRobot::kinematics, "Get kinematics model.");
 
     /*****************************************************
      *  YouBotVrepRobot
      * **************************************************/
-    py::class_<YouBotVrepRobot,DQ_VrepRobot> youbotvreprobot_py(vreprobots_py,"YouBotVrepRobot");
+    py::class_<YouBotVrepRobot,std::shared_ptr<YouBotVrepRobot>,DQ_VrepRobot> youbotvreprobot_py(vreprobots_py,"YouBotVrepRobot");
     youbotvreprobot_py.def(py::init<const std::string&, DQ_VrepInterface*>());
 
     youbotvreprobot_py.def("send_q_to_vrep", &YouBotVrepRobot::send_q_to_vrep, "Send joint values to vrep.");
@@ -197,12 +197,9 @@ PYBIND11_MODULE(_dqrobotics, m) {
     /*****************************************************
      *  FrankaEmikaVrepRobot
      * **************************************************/
-    py::class_<FrankaEmikaPandaVrepRobot,DQ_VrepRobot> frankaemikavreprobot_py(vreprobots_py,"FrankaEmikaPandaVrepRobot");
+    py::class_<FrankaEmikaPandaVrepRobot,std::shared_ptr<FrankaEmikaPandaVrepRobot>,DQ_SerialVrepRobot> frankaemikavreprobot_py(vreprobots_py,"FrankaEmikaPandaVrepRobot");
     frankaemikavreprobot_py.def(py::init<const std::string&, const std::shared_ptr<DQ_VrepInterface>&>());
 
-    frankaemikavreprobot_py.def("send_q_to_vrep", &FrankaEmikaPandaVrepRobot::send_q_to_vrep, "Send joint values to vrep.");
-    frankaemikavreprobot_py.def("send_q_target_to_vrep", &FrankaEmikaPandaVrepRobot::send_q_target_to_vrep, "Send target joint values to vrep.");
-    frankaemikavreprobot_py.def("get_q_from_vrep", &FrankaEmikaPandaVrepRobot::get_q_from_vrep, "Get joint values from vrep.");
     frankaemikavreprobot_py.def("kinematics", &FrankaEmikaPandaVrepRobot::kinematics, "Get kinematics model.");
 
     /*****************************************************
