@@ -33,6 +33,17 @@ void init_DQ_SerialVrepRobot_py(py::module& m)
             DQ_VrepRobot
             > dqsv_robot(m,"DQ_SerialVrepRobot");
 
-    dqsv_robot.def("send_q_target_to_vrep", &DQ_SerialVrepRobot::send_q_target_to_vrep, "Send target joint values to CoppeliaSim.");
+
     dqsv_robot.def("get_joint_names", &DQ_SerialVrepRobot::get_joint_names, "Gets the joint names used in CoppeliaSim.");
+
+    dqsv_robot.def("set_target_configuration_space_positions", &DQ_SerialVrepRobot::set_target_configuration_space_positions, "Sets the target configuration space positions in CoppeliaSim.");
+
+    dqsv_robot.def("get_configuration_space_velocities", &DQ_SerialVrepRobot::get_configuration_space_velocities, "Sets the target configuration space velocities in CoppeliaSim.");
+    dqsv_robot.def("set_target_configuration_space_velocities", &DQ_SerialVrepRobot::set_target_configuration_space_velocities, "Gets the configuration space velocities in CoppeliaSim.");
+
+    dqsv_robot.def("set_configuration_space_torques", &DQ_SerialVrepRobot::set_configuration_space_torques, "Sets the configuration space torques in CoppeliaSim.");
+    dqsv_robot.def("get_configuration_space_torques", &DQ_SerialVrepRobot::get_configuration_space_torques, "Gets the configuration space torques in CoppeliaSim.");
+
+    //Deprecated
+    dqsv_robot.def("send_q_target_to_vrep", &DQ_SerialVrepRobot::send_q_target_to_vrep, "Send target joint values to CoppeliaSim.");
 }
