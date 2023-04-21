@@ -116,9 +116,12 @@ endif()
         interfaces/cpp-interface-vrep/coppeliarobotics/remoteApi/extApiPlatform.c
         src/interfaces/vrep/DQ_VrepInterface_py.cpp
         interfaces/cpp-interface-vrep/src/dqrobotics/interfaces/vrep/DQ_VrepRobot.cpp
+        interfaces/cpp-interface-vrep/src/dqrobotics/interfaces/vrep/DQ_SerialVrepRobot.cpp
         interfaces/cpp-interface-vrep/src/dqrobotics/interfaces/vrep/robots/LBR4pVrepRobot.cpp
         interfaces/cpp-interface-vrep/src/dqrobotics/interfaces/vrep/robots/YouBotVrepRobot.cpp
+        interfaces/cpp-interface-vrep/src/dqrobotics/interfaces/vrep/robots/FrankaEmikaPandaVrepRobot.cpp
         src/interfaces/vrep/DQ_VrepRobot_py.cpp
+        src/interfaces/vrep/DQ_SerialVrepRobot_py.cpp
 
         #interfaces/json11
         interfaces/cpp-interface-json11/src/dqrobotics/interfaces/json11/DQ_JsonReader.cpp
