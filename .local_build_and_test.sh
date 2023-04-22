@@ -2,6 +2,7 @@
 set -e
 sed -i'' -e 's/-j2/-j8/g' setup.py
 source venv/bin/activate
+python3 -m pip install wheel scipy quadprog
 cd ..
 python -m pip uninstall dqrobotics -y
 python -m pip install ./python
