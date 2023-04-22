@@ -69,6 +69,8 @@ void init_DQ_py(py::module& m)
     dq.def("sharp"               ,&DQ::sharp,                 "Retrieves the sharp of a DQ");
     dq.def("Ad"                  ,&DQ::Ad,                    "Retrieves the adjoint transformation of a DQ.");
     dq.def("Adsharp"             ,&DQ::Adsharp,               "Retrieves the adjoint sharp transformation of a DQ.");
+    dq.def("Q4"                  ,&DQ::Q4,                    "Retrieves the partial derivative of a unit quaternion with respect to its logarithm.");
+    dq.def("Q8"                  ,&DQ::Q8,                    "Retrieves the partial derivative of a unit DQ with respect to its logarithm.");
 
     ///Operators
     //Self
@@ -126,6 +128,8 @@ void init_DQ_py(py::module& m)
     m.def("Adsharp"             ,&DQ_robotics::Adsharp,              "Retrieves the adjoint sharp transformation of a DQ.");
     m.def("cross"               ,&DQ_robotics::cross,                "Returns the result of the cross product between two DQ.");
     m.def("dot"                 ,&DQ_robotics::dot,                  "Returns the result of the dot product between two DQ.");
+    m.def("Q4"                  ,&DQ_robotics::Q4,                   "Retrieves the partial derivative of a unit quaternion with respect to its logarithm.");
+    m.def("Q8"                  ,&DQ_robotics::Q8,                   "Retrieves the partial derivative of a unit DQ with respect to its logarithm.");
 
     m.def("is_unit"             ,&DQ_robotics::is_unit,              "Returns true if the DQ has unit norm, false otherwise.");
     m.def("is_pure"             ,&DQ_robotics::is_pure,              "Returns true if the DQ is pure, false otherwise.");
