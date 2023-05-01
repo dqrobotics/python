@@ -90,7 +90,7 @@ setup(
     },
     setup_requires=['setuptools-git-versioning'],
     author='Murilo Marques Marinho',
-    author_email='murilo@g.ecc.u-tokyo.ac.jp',
+    author_email='murilomarinho@ieee.org',
     description='DQRobotics Python',
     long_description=long_description,
     long_description_content_type='text/markdown',
