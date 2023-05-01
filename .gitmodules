@@ -3,17 +3,17 @@
 	url = https://github.com/pybind/pybind11
 [submodule "cpp"]
 	path = cpp
-	url =  git@github.com:dqrobotics/cpp
+	url =  https://github.com/dqrobotics/cpp
 	branch = master
 [submodule "interfaces/cpp-interface-vrep"]
 	path = interfaces/cpp-interface-vrep
-	url = git@github.com:dqrobotics/cpp-interface-vrep.git
+	url = https://github.com/dqrobotics/cpp-interface-vrep.git
 	branch = master
 [submodule "interfaces/cpp-interface-json11"]
 	path = interfaces/cpp-interface-json11
-	url = git@github.com:dqrobotics/cpp-interface-json11.git
+	url = https://github.com/dqrobotics/cpp-interface-json11.git
 	branch = master
 [submodule "tests"]
 	path = tests
-	url = git@github.com:dqrobotics/python-tests.git
+	url = https://github.com/dqrobotics/python-tests.git
 	branch = master
