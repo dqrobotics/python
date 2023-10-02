@@ -1,5 +1,5 @@
 /**
-(C) Copyright 2019 DQ Robotics Developers
+(C) Copyright 2019-2023 DQ Robotics Developers
 
 This file is part of DQ Robotics.
 
@@ -17,7 +17,11 @@ This file is part of DQ Robotics.
     along with DQ Robotics.  If not, see <http://www.gnu.org/licenses/>.
 
 Contributors:
-- Murilo M. Marinho (murilomarinho@ieee.org)
+1.  Murilo M. Marinho        (murilomarinho@ieee.org)
+        - Initial implementation.
+
+2.  Juan Jose Quiroz Omana   (juanjqo@g.ecc.u-tokyo.ac.jp)
+        -Added the method wait_for_simulation_step_to_end()
 */
 
 #include "../../dqrobotics_module.h"
@@ -72,6 +76,9 @@ void init_DQ_VrepInterface_py(py::module& m)
 
     //void trigger_next_simulation_step();
     dqvrepinterface_py.def("trigger_next_simulation_step", &DQ_VrepInterface::trigger_next_simulation_step, "Sends a synchronization trigger signal to the server.");
+
+    //void wait_for_simulation_step_to_end(); 
+    dqvrepinterface_py.def("wait_for_simulation_step_to_end", &DQ_VrepInterface::wait_for_simulation_step_to_end, "Returns the time needed for a command to be sent to the server, executed, and sent back.");
 
     //dqvrepinterface_py.def("get_object_handle", &DQ_VrepInterface::get_object_handle,"Gets an object handle");
     //dqvrepinterface_py.def("get_object_handles",&DQ_VrepInterface::get_object_handles,"Get object handles");
