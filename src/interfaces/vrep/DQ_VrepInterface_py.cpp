@@ -78,7 +78,7 @@ void init_DQ_VrepInterface_py(py::module& m)
     dqvrepinterface_py.def("trigger_next_simulation_step", &DQ_VrepInterface::trigger_next_simulation_step, "Sends a synchronization trigger signal to the server.");
 
     //void wait_for_simulation_step_to_end(); 
-    dqvrepinterface_py.def("wait_for_simulation_step_to_end", &DQ_VrepInterface::wait_for_simulation_step_to_end, "Returns the time needed for a command to be sent to the server, executed, and sent back.");
+    dqvrepinterface_py.def("wait_for_simulation_step_to_end", &DQ_VrepInterface::wait_for_simulation_step_to_end, "Waits until the simulation step is finished.");
 
     //dqvrepinterface_py.def("get_object_handle", &DQ_VrepInterface::get_object_handle,"Gets an object handle");
     //dqvrepinterface_py.def("get_object_handles",&DQ_VrepInterface::get_object_handles,"Get object handles");
