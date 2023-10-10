@@ -10,13 +10,13 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: [3.7, 3.8, 3.9, '3.10', '3.11']
+        python-version: [3.8, 3.9, '3.10', '3.11', '3.12']
         os: ['ubuntu-20.04', 'macos-latest', 'windows-latest', 'linux-arm64', 'macos-arm64']
         experimental: [false]
-        exclude:
+        # exclude:
         # excludes python-version 3.7 on macOS-arm64 (Not available via brew)
-        - os: macos-arm64
-          python-version: 3.7
+        # - os: macos-arm64
+        #   python-version: 3.7
 
     steps:
     - uses: actions/checkout@v2
@@ -63,7 +63,7 @@ jobs:
     - name: Compile
       run: |
         python setup.py bdist_wheel
-    - name: Remove build folder for not Windows (Ubuntu, MacOS, Self Hosted [linux-arm64, macos-arm64])
+    - name: Remove build folder for (not Windows)
       if: matrix.os != 'windows-latest'
       run: |
         rm -rf build
@@ -80,7 +80,7 @@ jobs:
         rename 's/11_0/10_14/' *
         rename 's/12_0/10_15/' *
         cd ..
-    - name: Install for not Windows (Ubuntu, MacOS, Self Hosted [linux-arm64, macos-arm64])
+    - name: Install (not Windows)
       if: matrix.os != 'windows-latest'
       run: |
         python tests/print_platform_info.py
@@ -90,21 +90,14 @@ jobs:
       run: |
         python tests/print_platform_info.py
         python -m pip install @(join-path "dist" (get-childitem -path dist -name *.whl))
-    - name: Install Test Pre-requisites (Python=!3.11)
-      if: matrix.python-version != '3.11'
-      run: |
-        cd tests
-        python -m pip install scipy quadprog
-        cd ..
-    - name: Remove old quadprog (Python==3.11 and self-hosted)
-      if: matrix.python-version == '3.11' && (matrix.os == 'linux-arm64' || matrix.os == 'macos-arm64')
+    - name: Remove old quadprog folder (self-hosted)
+      if: matrix.os == 'linux-arm64' || matrix.os == 'macos-arm64'
       run: |
         cd tests
         python -m pip uninstall quadprog -y
         rm -rf quadprog
         cd ..
-    - name: Install Test Pre-requisites (Python==3.11)
-      if: matrix.python-version == '3.11'
+    - name: Install Test Pre-requisites (quadprog always manual)
       run: |
         cd tests
         python -m pip install scipy
