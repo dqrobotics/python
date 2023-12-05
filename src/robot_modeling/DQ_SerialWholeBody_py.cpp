@@ -1,5 +1,5 @@
 /**
-(C) Copyright 2020 DQ Robotics Developers
+(C) Copyright 2023 DQ Robotics Developers
 
 This file is part of DQ Robotics.
 
@@ -17,7 +17,11 @@ This file is part of DQ Robotics.
     along with DQ Robotics.  If not, see <http://www.gnu.org/licenses/>.
 
 Contributors:
-- Murilo M. Marinho (murilomarinho@ieee.org)
+1. Murilo M. Marinho (murilomarinho@ieee.org)
+   - Responsible for the original implementation.
+
+2. Juan Jose Quiroz Omana (juanjqogm@gmail.com)
+   - Added the two raw_fkm methods to fix issue 54 (https://github.com/dqrobotics/python/issues/54)
 */
 
 #include "../dqrobotics_module.h"
@@ -36,6 +40,8 @@ void init_DQ_SerialWholeBody_py(py::module& m)
     dqserialwholebody_py.def("add",&DQ_SerialWholeBody::add,"Adds a DQ_Kinematics pointer to the kinematic chain.");
     dqserialwholebody_py.def("fkm",(DQ (DQ_SerialWholeBody::*)(const VectorXd&) const)&DQ_SerialWholeBody::fkm,"Gets the fkm.");
     dqserialwholebody_py.def("fkm",(DQ (DQ_SerialWholeBody::*)(const VectorXd&,const int&) const)&DQ_SerialWholeBody::fkm,"Gets the fkm.");
+    dqserialwholebody_py.def("raw_fkm",(DQ (DQ_SerialWholeBody::*)(const VectorXd&) const)&DQ_SerialWholeBody::raw_fkm,"Gets the fkm but without considering base and end-effector changes.");
+    dqserialwholebody_py.def("raw_fkm",(DQ (DQ_SerialWholeBody::*)(const VectorXd&, const int&) const)&DQ_SerialWholeBody::raw_fkm,"Gets the fkm but without considering base and end-effector changes.");
     dqserialwholebody_py.def("get_dim_configuration_space",&DQ_SerialWholeBody::get_dim_configuration_space,"Gets the dimention of the configuration space");
     dqserialwholebody_py.def("get_chain",&DQ_SerialWholeBody::get_chain, "Returns the DQ_Kinematics at a given index of the chain");
     dqserialwholebody_py.def("get_chain_as_serial_manipulator_dh",&DQ_SerialWholeBody::get_chain_as_serial_manipulator_dh, "Returns the DQ_SerialManipulatorDH at a given index of the chain");
