@@ -82,6 +82,7 @@ jobs:
         sw_vers
         rename 's/11_0/10_14/' *
         rename 's/12_0/10_15/' *
+        rename 's/universal2/x86_64/' *
         cd ..
     - name: Install (not Windows)
       if: matrix.os != 'windows-latest'
