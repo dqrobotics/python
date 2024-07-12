@@ -10,6 +10,8 @@ With the initial settings described below for each system, the `actions_runner` 
 
 ### Setting up the self-hosted CI enviroment for Apple silicon
 
+_From [363627c](https://github.com/dqrobotics/python/commit/363627cdbd3d9207cd22a9ad618f57af29f26bd0), a self hosted machine for `arm64` MacOS is no longer needed. The Github-hosted image is currently `arm64` by default._
+
 1. Install `brew`
 2. Install the Python versions currently supported by DQRobotics e.g. 
 ```
