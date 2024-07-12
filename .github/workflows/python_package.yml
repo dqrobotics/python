@@ -14,7 +14,7 @@ jobs:
       fail-fast: false
       matrix:
         python-version: [3.8, 3.9, '3.10', '3.11', '3.12']
-        os: ['ubuntu-20.04', 'macos-latest', 'windows-latest', 'linux-arm64', 'macos-arm64']
+        os: ['ubuntu-20.04', 'macos-latest', 'windows-latest', 'linux-arm64']
         experimental: [false]
         # exclude:
         # excludes python-version 3.7 on macOS-arm64 (Not available via brew)
@@ -28,12 +28,12 @@ jobs:
         git submodule update --init --recursive
         git fetch --prune --unshallow
     - name: Set up Python ${{ matrix.python-version }} (Github Hosted VMs)
-      if: matrix.os != 'linux-arm64' && matrix.os != 'macos-arm64'
+      if: matrix.os != 'linux-arm64'
       uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
     - name: Set up Python ${{ matrix.python-version }} (Self Hosted Vms)
-      if: matrix.os == 'linux-arm64' || matrix.os == 'macos-arm64'
+      if: matrix.os == 'linux-arm64'
       run: |
         python${{ matrix.python-version }} -m venv venv${{ matrix.python-version }}
         echo "${{github.workspace}}/venv${{matrix.python-version}}/bin/" >> $GITHUB_PATH
@@ -82,7 +82,7 @@ jobs:
         sw_vers
         rename 's/11_0/10_14/' *
         rename 's/12_0/10_15/' *
-        rename 's/universal2/x86_64/' *
+        rename 's/universal2/arm64/' *
         cd ..
     - name: Install (not Windows)
       if: matrix.os != 'windows-latest'
@@ -95,7 +95,7 @@ jobs:
         python tests/print_platform_info.py
         python -m pip install @(join-path "dist" (get-childitem -path dist -name *.whl))
     - name: Remove old quadprog folder (self-hosted)
-      if: matrix.os == 'linux-arm64' || matrix.os == 'macos-arm64'
+      if: matrix.os == 'linux-arm64'
       run: |
         cd tests
         python -m pip uninstall quadprog -y
