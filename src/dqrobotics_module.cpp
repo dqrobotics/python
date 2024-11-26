@@ -209,5 +209,13 @@ PYBIND11_MODULE(_dqrobotics, m) {
 
     //DQ_JsonReader
     init_DQ_JsonReader_py(json11_py);
+
+    /*****************************************************
+     *  CoppeliaSim Submodule
+     * **************************************************/
+    py::module coppeliasim_py = interfaces_py.def_submodule("_coppeliasim", "The CoppeliaSim submodule of DQ Robotics.");
+
+    //DQ_VrepInterface
+    init_DQ_CoppeliaSimInterfaceZMQ_py(coppeliasim_py);
 }
 

@@ -18,6 +18,7 @@ add_definitions(-DMAX_EXT_API_CONNECTIONS=255)
 add_definitions(-DDO_NOT_USE_SHARED_MEMORY)
 
 if(APPLE)
+    find_package(cppzmq)
     message("Building not supported on this platform.")
     include_directories(
         /usr/local/include/
@@ -149,4 +150,6 @@ pybind11_add_module(_dqrobotics
     interfaces/cpp-interface-coppeliasim-zmq/src/dqrobotics/interfaces/coppeliasim/DQ_CoppeliaSimInterfaceZMQ.cpp
     src/interfaces/coppeliasim/DQ_CoppeliaSimInterfaceZMQ_py.cpp
 )
-
+if(APPLE)
+    target_link_libraries(_dqrobotics PRIVATE cppzmq)
+endif()
