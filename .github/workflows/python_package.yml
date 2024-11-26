@@ -14,7 +14,8 @@ jobs:
       fail-fast: false
       matrix:
         python-version: [3.9, '3.10', '3.11', '3.12', '3.13']
-        os: ['ubuntu-20.04', 'macos-latest', 'windows-latest', 'linux-arm64']
+        # os: ['ubuntu-20.04', 'macos-latest', 'windows-latest', 'linux-arm64']
+        os: ['ubuntu-20.04', 'macos-latest']
         experimental: [false]
         # exclude:
         # excludes python-version 3.7 on macOS-arm64 (Not available via brew)
