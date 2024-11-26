@@ -41,7 +41,7 @@ jobs:
     - name: Install compilation dependencies [Ubuntu/C++]
       if: matrix.os == 'ubuntu-20.04'
       run: |
-        sudo apt install libeigen3-dev libzmq3-dev libboost-filesystem-dev, libboost-system-dev
+        sudo apt install libeigen3-dev libzmq3-dev libboost-all-dev
     - name: Install compilation dependencies [MacOS/C++]
       if: matrix.os == 'macos-latest'
       run: |
@@ -55,7 +55,7 @@ jobs:
         .\bootstrap-vcpkg.bat
         vcpkg integrate install
         echo "Installing dependencies..."
-        .\vcpkg install eigen3:x64-windows cppzmq
+        .\vcpkg install eigen3:x64-windows cppzmq boost
         echo "Adding symlink to vcpkg..."
         cmd /c mklink /d c:\Tools\vcpkg c:\vcpkg
         cd ~
