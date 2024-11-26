@@ -41,11 +41,11 @@ jobs:
     - name: Install compilation dependencies [Ubuntu/C++]
       if: matrix.os == 'ubuntu-20.04'
       run: |
-        sudo apt install libeigen3-dev libzmq3-dev libboost-filesystem1.74-dev, libboost-system1.74-dev
+        sudo apt install libeigen3-dev libzmq3-dev libboost-filesystem-dev, libboost-system-dev
     - name: Install compilation dependencies [MacOS/C++]
       if: matrix.os == 'macos-latest'
       run: |
-        brew install eigen cppzmq 
+        brew install eigen cppzmq boost
     - name: Install compilation dependencies [Windows/C++]
       if: matrix.os == 'windows-latest'
       run: |
