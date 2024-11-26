@@ -153,3 +153,6 @@ pybind11_add_module(_dqrobotics
 if(APPLE)
     target_link_libraries(_dqrobotics PRIVATE cppzmq)
 endif()
+if(UNIX AND NOT APPLE) 
+    target_link_libraries(_dqrobotics PRIVATE zmq)
+endif()
