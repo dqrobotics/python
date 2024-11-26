@@ -150,6 +150,6 @@ pybind11_add_module(_dqrobotics
     interfaces/cpp-interface-coppeliasim-zmq/submodules/zmqRemoteApi/clients/cpp/RemoteAPIClient.cpp
     interfaces/cpp-interface-coppeliasim-zmq/src/dqrobotics/interfaces/coppeliasim/internal/_zmq_wrapper.cpp
     interfaces/cpp-interface-coppeliasim-zmq/src/dqrobotics/interfaces/coppeliasim/DQ_CoppeliaSimInterfaceZMQ.cpp
-    interfaces/cpp-interface-coppeliasim-zmq/src/dqrobotics/interfaces/coppeliasim/DQ_CoppeliaSimInterfaceZMQExperimental.cpp
+    src/interfaces/coppeliasim/DQ_CoppeliaSimInterfaceZMQ_py.cpp
 )
 

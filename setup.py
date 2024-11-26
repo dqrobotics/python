@@ -111,6 +111,7 @@ setup(
               'dqrobotics.interfaces.vrep',
               'dqrobotics.interfaces.vrep.robots',
               'dqrobotics.interfaces.json11',
+              'dqrobotics.interfaces.coppeliasim',
               'dqrobotics.robot_control',
               'dqrobotics.solvers'],
     classifiers=[
