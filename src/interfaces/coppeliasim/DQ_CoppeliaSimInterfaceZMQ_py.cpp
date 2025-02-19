@@ -61,7 +61,7 @@ void init_DQ_CoppeliaSimInterfaceZMQ_py(py::module& m)
                            "Sets object translation.");
 
     dqcsinterfacezmq_py.def("get_object_rotation",
-                           (DQ (DQ_CoppeliaSimInterfaceZMQ::*) (const std::string&, const std::string&))&DQ_CoppeliaSimInterfaceZMQ::get_object_rotation,
+                           (DQ (DQ_CoppeliaSimInterfaceZMQ::*) (const std::string&))&DQ_CoppeliaSimInterfaceZMQ::get_object_rotation,
                            "Gets object rotation.");
 
     dqcsinterfacezmq_py.def("set_object_rotation",
