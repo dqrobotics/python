@@ -53,7 +53,7 @@ void init_DQ_CoppeliaSimInterfaceZMQ_py(py::module& m)
     dqcsinterfacezmq_py.def("wait_for_simulation_step_to_end", &DQ_CoppeliaSimInterfaceZMQ::wait_for_simulation_step_to_end, "Waits until the simulation step is finished.");
 
     dqcsinterfacezmq_py.def("get_object_translation",
-                           (DQ (DQ_CoppeliaSimInterfaceZMQ::*) (const std::string&, const std::string&))&DQ_CoppeliaSimInterfaceZMQ::get_object_translation,
+                           (DQ (DQ_CoppeliaSimInterfaceZMQ::*) (const std::string&))&DQ_CoppeliaSimInterfaceZMQ::get_object_translation,
                            "Gets object translation.");
 
     dqcsinterfacezmq_py.def("set_object_translation",
