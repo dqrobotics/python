@@ -47,6 +47,7 @@ void init_DQ_CoppeliaSimInterfaceZMQ_py(py::module& m)
     dqcsinterfacezmq_py.def("start_simulation",&DQ_CoppeliaSimInterfaceZMQ::start_simulation,"Start simulation");
     dqcsinterfacezmq_py.def("stop_simulation", &DQ_CoppeliaSimInterfaceZMQ::stop_simulation,"Stops simulation");
 
+    dqcsinterfacezmq_py.def("set_stepping_mode", (void (DQ_CoppeliaSimInterfaceZMQ::*) (const bool&))&DQ_CoppeliaSimInterfaceZMQ::set_stepping_mode, "enables or disables the stepping mode (formerly known as synchronous mode).");
     dqcsinterfacezmq_py.def("set_synchronous", (void (DQ_CoppeliaSimInterfaceZMQ::*) (const bool&))&DQ_CoppeliaSimInterfaceZMQ::set_synchronous, "Sets synchronous mode");
 
     dqcsinterfacezmq_py.def("trigger_next_simulation_step", &DQ_CoppeliaSimInterfaceZMQ::trigger_next_simulation_step, "Sends a synchronization trigger signal to the server.");
