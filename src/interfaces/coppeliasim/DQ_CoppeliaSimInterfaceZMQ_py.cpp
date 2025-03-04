@@ -43,7 +43,9 @@ void init_DQ_CoppeliaSimInterfaceZMQ_py(py::module& m)
             > dqcsinterfacezmq_py(m,"DQ_CoppeliaSimInterfaceZMQ");
     dqcsinterfacezmq_py.def(py::init<>());
 
-    dqcsinterfacezmq_py.def("connect",(bool (DQ_CoppeliaSimInterfaceZMQ::*) (const std::string&, const int&, const int&))&DQ_CoppeliaSimInterfaceZMQ::connect,"establishes a connection between the client (your code) and the host (the computer running the CoppeliaSim scene.");
+    dqcsinterfacezmq_py.def("connect",(bool (DQ_CoppeliaSimInterfaceZMQ::*) (const std::string&, const int&, const int&))&DQ_CoppeliaSimInterfaceZMQ::connect,
+                            py::arg("host") = "localhost", py::arg("port") = 23000, py::arg("TIMEOUT_IN_MILISECONDS") = 2000,
+                            "establishes a connection between the client (your code) and the host (the computer running the CoppeliaSim scene.");
     dqcsinterfacezmq_py.def("connect",(bool (DQ_CoppeliaSimInterfaceZMQ::*) (const std::string&, const int&, const int&, const int&))&DQ_CoppeliaSimInterfaceZMQ::connect,"Connects to CoppeliaSim with a given ip.");
 
     dqcsinterfacezmq_py.def("disconnect",    &DQ_CoppeliaSimInterfaceZMQ::disconnect,"Disconnects from CoppeliaSim.");
