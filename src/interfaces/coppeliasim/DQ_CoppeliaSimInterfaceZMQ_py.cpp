@@ -1,5 +1,5 @@
 /**
-(C) Copyright 2019-2024 DQ Robotics Developers
+(C) Copyright 2019-2025 DQ Robotics Developers
 
 This file is part of DQ Robotics.
 
@@ -38,6 +38,7 @@ void init_DQ_CoppeliaSimInterfaceZMQ_py(py::module& m)
             > dqcsinterfacezmq_py(m,"DQ_CoppeliaSimInterfaceZMQ");
     dqcsinterfacezmq_py.def(py::init<>());
 
+    dqcsinterfacezmq_py.def("connect",(bool (DQ_CoppeliaSimInterfaceZMQ::*) (const std::string&, const int&, const int&))&DQ_CoppeliaSimInterfaceZMQ::connect,"establishes a connection between the client (your code) and the host (the computer running the CoppeliaSim scene.");
     dqcsinterfacezmq_py.def("connect",(bool (DQ_CoppeliaSimInterfaceZMQ::*) (const std::string&, const int&, const int&, const int&))&DQ_CoppeliaSimInterfaceZMQ::connect,"Connects to CoppeliaSim with a given ip.");
 
     dqcsinterfacezmq_py.def("disconnect",    &DQ_CoppeliaSimInterfaceZMQ::disconnect,"Disconnects from CoppeliaSim.");
