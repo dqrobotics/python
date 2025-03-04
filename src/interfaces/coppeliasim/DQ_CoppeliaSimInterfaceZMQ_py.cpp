@@ -83,18 +83,6 @@ void init_DQ_CoppeliaSimInterfaceZMQ_py(py::module& m)
                            (void (DQ_CoppeliaSimInterfaceZMQ::*) (const std::string&, const DQ&, const std::string&))&DQ_CoppeliaSimInterfaceZMQ::set_object_pose,
                            "Sets object pose.");
 
-    dqcsinterfacezmq_py.def("set_joint_position",
-                           (void (DQ_CoppeliaSimInterfaceZMQ::*) (const std::string&, const double&))&::DQ_CoppeliaSimInterfaceZMQ::set_joint_positions,
-                           "Set joint position");
-
-    dqcsinterfacezmq_py.def("set_joint_target_position",
-                           (void (DQ_CoppeliaSimInterfaceZMQ::*) (const std::string&, const double&))&DQ_CoppeliaSimInterfaceZMQ::set_joint_target_positions,
-                           "Set joint target position");
-
-    dqcsinterfacezmq_py.def("get_joint_position",
-                           (double (DQ_CoppeliaSimInterfaceZMQ::*) (const std::string&))&::DQ_CoppeliaSimInterfaceZMQ::get_joint_positions,
-                           "Get joint position");
-
     dqcsinterfacezmq_py.def("get_object_handle",
                             (int (DQ_CoppeliaSimInterfaceZMQ::*) (const std::string&))&::DQ_CoppeliaSimInterfaceZMQ::get_object_handle,
                             "gets the object handle from CoppeliaSim.");
