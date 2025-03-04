@@ -64,7 +64,7 @@ void init_DQ_CoppeliaSimInterfaceZMQ_py(py::module& m)
                            "Gets object translation.");
 
     dqcsinterfacezmq_py.def("set_object_translation",
-                           (void (DQ_CoppeliaSimInterfaceZMQ::*) (const std::string&, const DQ&, const std::string&))&DQ_CoppeliaSimInterfaceZMQ::set_object_translation,
+                           (void (DQ_CoppeliaSimInterfaceZMQ::*) (const std::string&, const DQ&))&DQ_CoppeliaSimInterfaceZMQ::set_object_translation,
                            "Sets object translation.");
 
     dqcsinterfacezmq_py.def("get_object_rotation",
@@ -80,7 +80,7 @@ void init_DQ_CoppeliaSimInterfaceZMQ_py(py::module& m)
                            "Gets object pose.");
 
     dqcsinterfacezmq_py.def("set_object_pose",
-                           (void (DQ_CoppeliaSimInterfaceZMQ::*) (const std::string&, const DQ&, const std::string&))&DQ_CoppeliaSimInterfaceZMQ::set_object_pose,
+                           (void (DQ_CoppeliaSimInterfaceZMQ::*) (const std::string&, const DQ&))&DQ_CoppeliaSimInterfaceZMQ::set_object_pose,
                            "Sets object pose.");
 
     dqcsinterfacezmq_py.def("get_object_handle",
@@ -102,5 +102,24 @@ void init_DQ_CoppeliaSimInterfaceZMQ_py(py::module& m)
     dqcsinterfacezmq_py.def("get_joint_positions",
                            (VectorXd (DQ_CoppeliaSimInterfaceZMQ::*) (const std::vector<std::string>&))&DQ_CoppeliaSimInterfaceZMQ::get_joint_positions,
                            "Get joint positions");
+
+    dqcsinterfacezmq_py.def("get_joint_velocities",
+                            (VectorXd (DQ_CoppeliaSimInterfaceZMQ::*) (const std::vector<std::string>&))&DQ_CoppeliaSimInterfaceZMQ::get_joint_velocities,
+                            "gets the joint velocities in the CoppeliaSim scene.");
+
+    dqcsinterfacezmq_py.def("set_joint_target_velocities",
+                            (void (DQ_CoppeliaSimInterfaceZMQ::*) (const std::vector<std::string>&, const VectorXd&))&DQ_CoppeliaSimInterfaceZMQ::set_joint_target_velocities,
+                            "sets the joint target velocities in the CoppeliaSim scene. "
+                            "This method requires a dynamics enabled scene, and joints in dynamic mode with velocity control mode.");
+
+    dqcsinterfacezmq_py.def("get_joint_torques",
+                            (VectorXd (DQ_CoppeliaSimInterfaceZMQ::*) (const std::vector<std::string>&))&DQ_CoppeliaSimInterfaceZMQ::get_joint_torques,
+                            "gets the joint torques in the CoppeliaSim scene.");
+
+    dqcsinterfacezmq_py.def("set_joint_torques",
+                            (void (DQ_CoppeliaSimInterfaceZMQ::*) (const std::vector<std::string>&, const VectorXd&))&DQ_CoppeliaSimInterfaceZMQ::set_joint_torques,
+                            "sets the joint torques in the CoppeliaSim scene. "
+                            "This method requires a dynamics enabled scene, and joints in dynamic mode with force control mode.");
+
 
 }
