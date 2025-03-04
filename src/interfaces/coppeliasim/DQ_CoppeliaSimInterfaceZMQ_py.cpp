@@ -20,6 +20,11 @@ Contributors:
 1.  Murilo M. Marinho        (murilomarinho@ieee.org)
         - Initial implementation.
 
+2.  Juan Jose Quiroz Omana (juanjose.quirozomana@manchester.ac.uk)
+        - Added bindings for the following methods
+          set_stepping_mode(), get_object_handle(), get_object_handle()
+          get_joint_{velocities, torques}(), set_joint_target_velocities(),set_joint_torques()
+
 */
 
 #include "../../dqrobotics_module.h"
@@ -89,6 +94,14 @@ void init_DQ_CoppeliaSimInterfaceZMQ_py(py::module& m)
     dqcsinterfacezmq_py.def("get_joint_position",
                            (double (DQ_CoppeliaSimInterfaceZMQ::*) (const std::string&))&::DQ_CoppeliaSimInterfaceZMQ::get_joint_positions,
                            "Get joint position");
+
+    dqcsinterfacezmq_py.def("get_object_handle",
+                            (int (DQ_CoppeliaSimInterfaceZMQ::*) (const std::string&))&::DQ_CoppeliaSimInterfaceZMQ::get_object_handle,
+                            "gets the object handle from CoppeliaSim.");
+
+    dqcsinterfacezmq_py.def("get_object_handles",
+                            (VectorXd (DQ_CoppeliaSimInterfaceZMQ::*) (const std::vector<std::string>&))&DQ_CoppeliaSimInterfaceZMQ::get_object_handles,
+                            "returns a vector containing the object handles.");
 
     dqcsinterfacezmq_py.def("set_joint_positions",
                            (void (DQ_CoppeliaSimInterfaceZMQ::*) (const std::vector<std::string>&, const VectorXd&))&DQ_CoppeliaSimInterfaceZMQ::set_joint_positions,
