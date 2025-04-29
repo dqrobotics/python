@@ -13,12 +13,13 @@ jobs:
       fail-fast: false
       matrix:
         python-version: [3.9, '3.10', '3.11', '3.12', '3.13']
-        os: ['ubuntu-22.04', 'macos-latest', 'windows-latest', 'linux-arm64']
+        # os: ['ubuntu-22.04', 'macos-latest', 'windows-latest', 'linux-arm64']
+        os: ['ubuntu-22.04', 'macos-latest', 'linux-arm64']
         experimental: [false]
-        exclude:
-        # excludes python-version 3.13 on ubuntu-arm64 (Not available via deadsnakes)
-        - os: linux-arm64
-          python-version: '3.13'
+        # exclude:
+        # excludes python-versions not available in specific OSs. Usually needed when new versions are released.
+        # - os: linux-arm64
+        #   python-version: '3.13'
 
     steps:
     - uses: actions/checkout@v2
@@ -38,7 +39,7 @@ jobs:
         echo "${{github.workspace}}/venv${{matrix.python-version}}/bin/" >> $GITHUB_PATH
         sed -i'' -e 's/-j2/-j8/g' setup.py
     - name: Install compilation dependencies [Ubuntu/C++]
-      if: matrix.os == 'ubuntu-20.04'
+      if: matrix.os == 'ubuntu-22.04'
       run: |
         sudo apt install libeigen3-dev libzmq3-dev libboost-all-dev
     - name: Install compilation dependencies [MacOS/C++]
@@ -122,7 +123,7 @@ jobs:
         python DQ_Kinematics_static_jacobian_derivative_tests.py
         cd ..
     - name: Rename wheel (Ubuntu Only)
-      if: matrix.os == 'ubuntu-20.04'
+      if: matrix.os == 'ubuntu-22.04'
       run: |
         sudo apt install rename
         cd dist
