@@ -62,7 +62,8 @@ jobs:
     - name: Install compilation dependencies [Python]
       run: |
         python -m pip install --upgrade pip
-        pip install setuptools wheel setuptools-git-versioning>=2.0,<3
+        pip install setuptools wheel 
+        pip install setuptools-git-versioning>=2.0,<3
     - name: Compile
       run: |
         python setup.py bdist_wheel
