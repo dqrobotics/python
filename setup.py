@@ -9,10 +9,6 @@ from setuptools.command.build_ext import build_ext
 from distutils.version import LooseVersion
 
 
-# read the contents of your README file
-with open("README.md", "r") as fh:
-    long_description = fh.read()
-
 
 class CMakeExtension(Extension):
     def __init__(self, name, sourcedir=''):
@@ -70,8 +66,6 @@ class CMakeBuild(build_ext):
 
 
 setup(
-    author_email='murilomarinho@ieee.org',
-    url="https://github.com/dqrobotics/python",
     ext_modules=[CMakeExtension('dqrobotics._dqrobotics')],
     cmdclass=dict(build_ext=CMakeBuild),
     zip_safe=False,
@@ -89,11 +83,10 @@ setup(
               'dqrobotics.robot_control',
               'dqrobotics.solvers'],
     classifiers=[
-        "Programming Language :: Python :: 3.8",
-        "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
         "Programming Language :: Python :: 3.12",
+        "Programming Language :: Python :: 3.13",
         "Programming Language :: C++",
         "Development Status :: 5 - Production/Stable",
         "Operating System :: POSIX :: Linux",

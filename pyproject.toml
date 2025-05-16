@@ -9,19 +9,26 @@ requires = [
 build-backend = "setuptools.build_meta"
 
 [project]
+name = 'dqrobotics'
 authors = [
   {name = "Murilo M. Marinho", email = "murilomarinho@ieee.org"}
 ]
 maintainers = [
   {name = "Murilo M. Marinho", email = "murilomarinho@ieee.org"}
 ]
-name = 'dqrobotics'
 dynamic = ["version", "classifiers"]
 dependencies=[
     'numpy',
 ]
 description='dqrobotics Python'
 readme = "README.md"
+requires-python = ">= 3.9"
+
+[project.urls]
+Homepage = "https://dqrobotics.github.io"
+Documentation = "https://dqroboticsgithubio.readthedocs.io/en/latest/installation/python.html"
+Repository = "https://github.com/dqrobotics/python"
+Issues = "https://github.com/dqrobotics/python/issues"
 
 # https://pypi.org/project/setuptools-git-versioning/
 [tool.setuptools-git-versioning]
