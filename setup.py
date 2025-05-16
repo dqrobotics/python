@@ -9,17 +9,6 @@ from setuptools.command.build_ext import build_ext
 from distutils.version import LooseVersion
 
 
-# Automatic name branching
-def format_branch_name(name):
-    if name == "master":
-        # The master branch is considered an Alpha release
-        return "a"
-    elif name == "release":
-        return ""
-    else:
-        return name
-
-
 # read the contents of your README file
 with open("README.md", "r") as fh:
     long_description = fh.read()
@@ -81,25 +70,10 @@ class CMakeBuild(build_ext):
 
 
 setup(
-    name='dqrobotics',
-    version_config={
-        "template": "{tag}.{branch}{ccount}",
-        "dev_template": "{tag}.{branch}{ccount}",
-        "dirty_template": "{tag}.{branch}{ccount}",
-        "branch_formatter": format_branch_name,
-    },
-    setup_requires=['setuptools-git-versioning==1.7.3'],
-    author='Murilo Marques Marinho',
     author_email='murilomarinho@ieee.org',
-    description='DQRobotics Python',
-    long_description=long_description,
-    long_description_content_type='text/markdown',
     url="https://github.com/dqrobotics/python",
     ext_modules=[CMakeExtension('dqrobotics._dqrobotics')],
     cmdclass=dict(build_ext=CMakeBuild),
-    install_requires=[
-        'numpy',
-    ],
     zip_safe=False,
     packages=['dqrobotics',
               'dqrobotics.robots',

@@ -1,0 +1,31 @@
+[build-system]
+requires = [
+    "setuptools>=42",
+    "wheel",
+    "ninja",
+    "cmake>=3.12",
+    "setuptools-git-versioning>=2.0,<3"
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+authors = [
+  {name = "Murilo M. Marinho", email = "murilomarinho@ieee.org"}
+]
+maintainers = [
+  {name = "Murilo M. Marinho", email = "murilomarinho@ieee.org"}
+]
+name = 'dqrobotics'
+dynamic = ["version", "classifiers"]
+dependencies=[
+    'numpy',
+]
+description='dqrobotics Python'
+readme = "README.md"
+
+# https://pypi.org/project/setuptools-git-versioning/
+[tool.setuptools-git-versioning]
+enabled = true
+# https://stackoverflow.com/questions/73605607/how-to-use-setuptools-scm
+dev_template = "{tag}.a{ccount}"
+dirty_template = "{tag}.a{ccount}"

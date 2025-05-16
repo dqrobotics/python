@@ -21,6 +21,11 @@ if(APPLE)
         /opt/homebrew/include
         /opt/homebrew/include/eigen3
     )
+    add_compile_options(-Werror=return-type -Wall -Wextra -Wmissing-declarations -Wredundant-decls -Woverloaded-virtual)
+endif()
+
+if(UNIX AND NOT APPLE)
+    add_compile_options(-Werror=return-type -Wall -Wextra -Wmissing-declarations -Wredundant-decls -Woverloaded-virtual -fPIC)
 endif()
 
 if(WIN32)
