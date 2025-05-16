@@ -157,52 +157,6 @@ PYBIND11_MODULE(_dqrobotics, m) {
     py::module interfaces_py = m.def_submodule("_interfaces", "A submodule of dqrobotics");
 
     /*****************************************************
-     *  Vrep Submodule
-     * **************************************************/
-    py::module vrep_py = interfaces_py.def_submodule("_vrep", "A submodule of dqrobotics");
-    vrep_py.attr("VREP_OBJECTNAME_ABSOLUTE") = VREP_OBJECTNAME_ABSOLUTE;
-
-    //DQ_VrepInterface
-    init_DQ_VrepInterface_py(vrep_py);
-
-    //DQ_VrepRobot
-    init_DQ_VrepRobot_py(vrep_py);
-
-    //DQ_SerialVrepRobot
-    init_DQ_SerialVrepRobot_py(vrep_py);
-
-    /*****************************************************
-     *  Vrep Robots Submodule
-     * **************************************************/
-    py::module vreprobots_py = vrep_py.def_submodule("_robots", "A submodule of dqrobotics");
-
-    /*****************************************************
-     *  LBR4pVrepRobot
-     * **************************************************/
-    py::class_<LBR4pVrepRobot,std::shared_ptr<LBR4pVrepRobot>,DQ_SerialVrepRobot> lbr4pvreprobot_py(vreprobots_py,"LBR4pVrepRobot");
-    lbr4pvreprobot_py.def(py::init<const std::string&, DQ_VrepInterface*>());
-
-    lbr4pvreprobot_py.def("kinematics", &LBR4pVrepRobot::kinematics, "Get kinematics model.");
-
-    /*****************************************************
-     *  YouBotVrepRobot
-     * **************************************************/
-    py::class_<YouBotVrepRobot,std::shared_ptr<YouBotVrepRobot>,DQ_VrepRobot> youbotvreprobot_py(vreprobots_py,"YouBotVrepRobot");
-    youbotvreprobot_py.def(py::init<const std::string&, DQ_VrepInterface*>());
-
-    youbotvreprobot_py.def("send_q_to_vrep", &YouBotVrepRobot::send_q_to_vrep, "Send joint values to vrep.");
-    youbotvreprobot_py.def("get_q_from_vrep", &YouBotVrepRobot::get_q_from_vrep, "Get joint values from vrep.");
-    youbotvreprobot_py.def("kinematics", &YouBotVrepRobot::kinematics, "Get kinematics model.");
-
-    /*****************************************************
-     *  FrankaEmikaVrepRobot
-     * **************************************************/
-    py::class_<FrankaEmikaPandaVrepRobot,std::shared_ptr<FrankaEmikaPandaVrepRobot>,DQ_SerialVrepRobot> frankaemikavreprobot_py(vreprobots_py,"FrankaEmikaPandaVrepRobot");
-    frankaemikavreprobot_py.def(py::init<const std::string&, const std::shared_ptr<DQ_VrepInterface>&>());
-
-    frankaemikavreprobot_py.def("kinematics", &FrankaEmikaPandaVrepRobot::kinematics, "Get kinematics model.");
-
-    /*****************************************************
      *  Json11 submodule
      * **************************************************/
     py::module json11_py = interfaces_py.def_submodule("_json11", "A submodule of dqrobotics");
@@ -215,7 +169,7 @@ PYBIND11_MODULE(_dqrobotics, m) {
      * **************************************************/
     py::module coppeliasim_py = interfaces_py.def_submodule("_coppeliasim", "The CoppeliaSim submodule of DQ Robotics.");
 
-    //DQ_VrepInterface
+    //DQ_CoppeliaSimInterface
     init_DQ_CoppeliaSimInterfaceZMQ_py(coppeliasim_py);
 }
 

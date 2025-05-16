@@ -63,13 +63,6 @@ namespace py = pybind11;
 #include <dqrobotics/robots/KukaYoubotRobot.h>
 #include <dqrobotics/robots/FrankaEmikaPandaRobot.h>
 
-#include <dqrobotics/interfaces/vrep/DQ_VrepInterface.h>
-#include <dqrobotics/interfaces/vrep/DQ_VrepRobot.h>
-#include <dqrobotics/interfaces/vrep/DQ_SerialVrepRobot.h>
-#include <dqrobotics/interfaces/vrep/robots/LBR4pVrepRobot.h>
-#include <dqrobotics/interfaces/vrep/robots/YouBotVrepRobot.h>
-#include <dqrobotics/interfaces/vrep/robots/FrankaEmikaPandaVrepRobot.h>
-
 #include <dqrobotics/interfaces/coppeliasim/DQ_CoppeliaSimInterfaceZMQ.h>
 
 #include <dqrobotics/interfaces/json11/DQ_JsonReader.h>
@@ -108,11 +101,6 @@ void init_DQ_QuadraticProgrammingController_py(py::module& m);
 
 //dqrobotics/solvers
 void init_DQ_QuadraticProgrammingSolver_py(py::module& m);
-
-//dqrobotics/interfaces/vrep
-void init_DQ_VrepInterface_py(py::module& m);
-void init_DQ_VrepRobot_py(py::module& m);
-void init_DQ_SerialVrepRobot_py(py::module& m);
 
 //dqrobotics/interfaces/coppeliasim
 void init_DQ_CoppeliaSimInterfaceZMQ_py(py::module& m);
