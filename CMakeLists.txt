@@ -95,6 +95,7 @@ pybind11_add_module(_dqrobotics
     interfaces/cpp-interface-json11/dropbox/json11/json11.cpp
 
     #interfaces/copppeliasim-zmq
+    src/interfaces/coppeliasim/DQ_CoppeliaSimInterface_py.cpp
     src/interfaces/coppeliasim/DQ_CoppeliaSimInterfaceZMQ_py.cpp
 )
 
