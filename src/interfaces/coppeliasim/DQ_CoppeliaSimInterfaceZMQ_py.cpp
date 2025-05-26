@@ -39,7 +39,8 @@ void init_DQ_CoppeliaSimInterfaceZMQ_py(py::module& m)
      * **************************************************/
     py::class_<
             DQ_CoppeliaSimInterfaceZMQ,
-            std::shared_ptr<DQ_CoppeliaSimInterfaceZMQ>
+            std::shared_ptr<DQ_CoppeliaSimInterfaceZMQ>,
+            DQ_CoppeliaSimInterface
             > dqcsinterfacezmq_py(m,"DQ_CoppeliaSimInterfaceZMQ");
     dqcsinterfacezmq_py.def(py::init<>());
 
