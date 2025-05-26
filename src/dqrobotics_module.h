@@ -1,3 +1,4 @@
+#pragma once
 /**
 (C) Copyright 2019 DQ Robotics Developers
 
@@ -19,9 +20,6 @@ This file is part of DQ Robotics.
 Contributors:
 - Murilo M. Marinho (murilomarinho@ieee.org)
 */
-
-#ifndef DQ_ROBOTICS_PYTHON_HEADER_GUARD
-#define DQ_ROBOTICS_PYTHON_HEADER_GUARD
 
 #include <pybind11/pybind11.h>
 #include <pybind11/operators.h>
@@ -63,6 +61,7 @@ namespace py = pybind11;
 #include <dqrobotics/robots/KukaYoubotRobot.h>
 #include <dqrobotics/robots/FrankaEmikaPandaRobot.h>
 
+#include <dqrobotics/interfaces/coppeliasim/DQ_CoppeliaSimInterface.h>
 #include <dqrobotics/interfaces/coppeliasim/DQ_CoppeliaSimInterfaceZMQ.h>
 
 #include <dqrobotics/interfaces/json11/DQ_JsonReader.h>
@@ -103,9 +102,9 @@ void init_DQ_QuadraticProgrammingController_py(py::module& m);
 void init_DQ_QuadraticProgrammingSolver_py(py::module& m);
 
 //dqrobotics/interfaces/coppeliasim
+void init_DQ_CoppeliaSimInterface_py(py::module& m);
 void init_DQ_CoppeliaSimInterfaceZMQ_py(py::module& m);
 
 //dqrobotics/interfaces/json11
 void init_DQ_JsonReader_py(py::module& m);
 
-#endif

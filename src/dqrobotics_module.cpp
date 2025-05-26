@@ -170,6 +170,9 @@ PYBIND11_MODULE(_dqrobotics, m) {
     py::module coppeliasim_py = interfaces_py.def_submodule("_coppeliasim", "The CoppeliaSim submodule of DQ Robotics.");
 
     //DQ_CoppeliaSimInterface
+    init_DQ_CoppeliaSimInterface_py(coppeliasim_py);
+
+    //DQ_CoppeliaSimInterfaceZMQ
     init_DQ_CoppeliaSimInterfaceZMQ_py(coppeliasim_py);
 }
 
