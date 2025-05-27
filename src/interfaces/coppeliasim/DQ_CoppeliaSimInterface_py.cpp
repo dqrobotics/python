@@ -31,7 +31,7 @@ void init_DQ_CoppeliaSimInterface_py(py::module& m)
     py::class_<
             DQ_CoppeliaSimInterface,
             std::shared_ptr<DQ_CoppeliaSimInterface>
-            > c(m, "DQ_SerialManipulator");
+            > c(m, "DQ_CoppeliaSimInterface");
 
     ///Methods
     //Virtual
