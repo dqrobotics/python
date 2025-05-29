@@ -61,9 +61,6 @@ namespace py = pybind11;
 #include <dqrobotics/robots/KukaYoubotRobot.h>
 #include <dqrobotics/robots/FrankaEmikaPandaRobot.h>
 
-#include <dqrobotics/interfaces/coppeliasim/DQ_CoppeliaSimInterface.h>
-#include <dqrobotics/interfaces/coppeliasim/DQ_CoppeliaSimInterfaceZMQ.h>
-
 #include <dqrobotics/interfaces/json11/DQ_JsonReader.h>
 
 using namespace DQ_robotics;
