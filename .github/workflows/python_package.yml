@@ -13,8 +13,7 @@ jobs:
       fail-fast: false
       matrix:
         python-version: [3.9, '3.10', '3.11', '3.12', '3.13']
-        # os: ['ubuntu-22.04', 'macos-latest', 'windows-latest', 'linux-arm64']
-        os: ['ubuntu-22.04', 'macos-latest', 'linux-arm64']
+        os: ['ubuntu-22.04', 'macos-latest', 'windows-latest', 'linux-arm64']
         experimental: [false]
         # exclude:
         # excludes python-versions not available in specific OSs. Usually needed when new versions are released.
@@ -41,11 +40,11 @@ jobs:
     - name: Install compilation dependencies [Ubuntu/C++]
       if: matrix.os == 'ubuntu-22.04'
       run: |
-        sudo apt install libeigen3-dev libzmq3-dev libboost-all-dev
+        sudo apt install libeigen3-dev
     - name: Install compilation dependencies [MacOS/C++]
       if: matrix.os == 'macos-latest'
       run: |
-        brew install eigen cppzmq boost
+        brew install eigen
     - name: Install compilation dependencies [Windows/C++]
       if: matrix.os == 'windows-latest'
       run: |
@@ -55,7 +54,7 @@ jobs:
         .\bootstrap-vcpkg.bat
         vcpkg integrate install
         echo "Installing dependencies..."
-        .\vcpkg install eigen3:x64-windows cppzmq boost
+        .\vcpkg install eigen3:x64-windows 
         echo "Adding symlink to vcpkg..."
         cmd /c mklink /d c:\Tools\vcpkg c:\vcpkg
         cd ~

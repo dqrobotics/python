@@ -9,9 +9,6 @@ project(dqroboticspython)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-#COPPELIASIM INTERFACE
-add_definitions(-DSIM_REMOTEAPICLIENT_OBJECTS)
-
 if(APPLE)
     find_package(cppzmq)
     message("Building not supported on this platform.")
@@ -25,7 +22,7 @@ if(APPLE)
 endif()
 
 if(UNIX AND NOT APPLE)
-    add_compile_options(-Werror=return-type -Wall -Wextra -Wmissing-declarations -Wredundant-decls -Woverloaded-virtual -fPIC)
+    add_compile_options(-Werror=return-type -Wall -Wextra -Wmissing-declarations -Wredundant-decls -Woverloaded-virtual)
 endif()
 
 if(WIN32)
@@ -44,11 +41,6 @@ include_directories(
     interfaces/cpp-interface-json11/include/
     interfaces/cpp-interface-json11/dropbox/json11/
 
-    interfaces/cpp-interface-coppeliasim/include/
-
-    interfaces/cpp-interface-coppeliasim-zmq/include/
-    interfaces/cpp-interface-coppeliasim-zmq/submodules/zmqRemoteApi/clients/cpp/
-    interfaces/cpp-interface-coppeliasim-zmq/submodules/jsoncons/include/
 )
 
 add_subdirectory(pybind11)
@@ -94,21 +86,17 @@ pybind11_add_module(_dqrobotics
     src/interfaces/json11/DQ_JsonReader_py.cpp
     interfaces/cpp-interface-json11/dropbox/json11/json11.cpp
 
-    #interfaces/copppeliasim-zmq
-    src/interfaces/coppeliasim/DQ_CoppeliaSimInterface_py.cpp
-    src/interfaces/coppeliasim/DQ_CoppeliaSimInterfaceZMQ_py.cpp
 )
 
 # CMAKE was not passing BUILD_SHARED_LIBS nicely to the add_subdirectory.
 # https://thatonegamedev.com/cpp/cmake/how-to-manage-dependencies-with-cmake/
 set(BUILD_SHARED_LIBS FALSE CACHE BOOL "x" FORCE)
 add_subdirectory(cpp)
-add_subdirectory(interfaces/cpp-interface-coppeliasim-zmq)
 
 if(APPLE)
-    target_link_libraries(_dqrobotics PRIVATE dqrobotics dqrobotics-interface-coppeliasim-zmq cppzmq)
+    target_link_libraries(_dqrobotics PRIVATE dqrobotics)
 endif()
 
 if(UNIX AND NOT APPLE)
-    target_link_libraries(_dqrobotics PRIVATE dqrobotics dqrobotics-interface-coppeliasim-zmq zmq)
+    target_link_libraries(_dqrobotics PRIVATE dqrobotics)
 endif()
