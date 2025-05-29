@@ -9,8 +9,9 @@ project(dqroboticspython)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+add_compile_options(-Werror=return-type -Wall -Wextra -Wmissing-declarations -Wredundant-decls -Woverloaded-virtual -fPIC)
+
 if(APPLE)
-    find_package(cppzmq)
     message("Building not supported on this platform.")
     include_directories(
         /usr/local/include/
@@ -18,11 +19,6 @@ if(APPLE)
         /opt/homebrew/include
         /opt/homebrew/include/eigen3
     )
-    add_compile_options(-Werror=return-type -Wall -Wextra -Wmissing-declarations -Wredundant-decls -Woverloaded-virtual)
-endif()
-
-if(UNIX AND NOT APPLE)
-    add_compile_options(-Werror=return-type -Wall -Wextra -Wmissing-declarations -Wredundant-decls -Woverloaded-virtual)
 endif()
 
 if(WIN32)
@@ -93,10 +89,4 @@ pybind11_add_module(_dqrobotics
 set(BUILD_SHARED_LIBS FALSE CACHE BOOL "x" FORCE)
 add_subdirectory(cpp)
 
-if(APPLE)
-    target_link_libraries(_dqrobotics PRIVATE dqrobotics)
-endif()
-
-if(UNIX AND NOT APPLE)
-    target_link_libraries(_dqrobotics PRIVATE dqrobotics)
-endif()
+target_link_libraries(_dqrobotics PRIVATE dqrobotics)
