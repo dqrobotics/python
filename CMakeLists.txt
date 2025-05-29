@@ -9,36 +9,9 @@ project(dqroboticspython)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-if(UNIX)
-    add_compile_options(-Werror=return-type -Wall -Wextra -Wmissing-declarations -Wredundant-decls -Woverloaded-virtual -fPIC)
-endif()
-
-if(APPLE)
-    message("Building not supported on this platform.")
-    include_directories(
-        /usr/local/include/
-        /usr/local/include/eigen3
-        /opt/homebrew/include
-        /opt/homebrew/include/eigen3
-    )
-endif()
-
-if(WIN32)
-    message("Building not supported on this platform.")
-    ADD_DEFINITIONS(-D_USE_MATH_DEFINES)
-    FIND_PACKAGE(Eigen3 CONFIG REQUIRED)
-    INCLUDE_DIRECTORIES(${EIGEN3_INCLUDE_DIR})
-endif()
-
-
 include_directories(
-    /usr/include/eigen3/
-
-    cpp/include/
-
     interfaces/cpp-interface-json11/include/
     interfaces/cpp-interface-json11/dropbox/json11/
-
 )
 
 add_subdirectory(pybind11)
