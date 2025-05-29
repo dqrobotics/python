@@ -13,9 +13,3 @@
 	path = tests
 	url = https://github.com/dqrobotics/python-tests.git
 	branch = master
-[submodule "interfaces/cpp-interface-coppeliasim-zmq"]
-	path = interfaces/cpp-interface-coppeliasim-zmq
-	url = https://github.com/dqrobotics/cpp-interface-coppeliasim-zmq.git
-[submodule "interfaces/cpp-interface-coppeliasim"]
-	path = interfaces/cpp-interface-coppeliasim
-	url = https://github.com/dqrobotics/cpp-interface-coppeliasim.git
