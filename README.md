@@ -22,6 +22,8 @@ brew install python@3.XX
 
 ### Setting up the self-hosted CI environment for Ubuntu arm64
 
+_From [1198a5b](https://github.com/dqrobotics/python/commit/1198a5bf703d0e5acbed426761804b642eb7dc9c), a self-hosted machine for Ubuntu `arm64` is no longer needed. Tags such as `ubuntu-22.04-arm` enable the `arm64` version of Ubuntu_
+
 0. Make sure you have the basic compilation enviroment
 ```
 sudo apt update && sudo apt upgrade -y
