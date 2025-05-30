@@ -13,7 +13,7 @@ jobs:
       fail-fast: false
       matrix:
         python-version: ['3.10', '3.11', '3.12', '3.13']
-        os: ['ubuntu-22.04', 'macos-latest', 'windows-latest', 'linux-arm64']
+        os: ['ubuntu-22.04-arm', 'ubuntu-22.04', 'macos-latest', 'windows-latest']
         experimental: [false]
         # exclude:
         # excludes python-versions not available in specific OSs. Usually needed when new versions are released.
@@ -27,18 +27,11 @@ jobs:
         git submodule update --init --recursive
         git fetch --prune --unshallow
     - name: Set up Python ${{ matrix.python-version }} (Github Hosted VMs)
-      if: matrix.os != 'linux-arm64'
       uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
-    - name: Set up Python ${{ matrix.python-version }} (Self Hosted Vms)
-      if: matrix.os == 'linux-arm64'
-      run: |
-        python${{ matrix.python-version }} -m venv venv${{ matrix.python-version }}
-        echo "${{github.workspace}}/venv${{matrix.python-version}}/bin/" >> $GITHUB_PATH
-        sed -i'' -e 's/-j2/-j8/g' setup.py
     - name: Install compilation dependencies [Ubuntu/C++]
-      if: matrix.os == 'ubuntu-22.04'
+      if: startsWith (matrix.os, 'ubuntu-22.04')
       run: |
         sudo apt install libeigen3-dev
     - name: Install compilation dependencies [MacOS/C++]
@@ -93,13 +86,6 @@ jobs:
       run: |
         python tests/print_platform_info.py
         python -m pip install @(join-path "dist" (get-childitem -path dist -name *.whl))
-    - name: Remove old quadprog folder (self-hosted)
-      if: matrix.os == 'linux-arm64'
-      run: |
-        cd tests
-        python -m pip uninstall quadprog -y
-        rm -rf quadprog
-        cd ..
     - name: Install Test Pre-requisites (quadprog always manual)
       run: |
         cd tests
@@ -122,15 +108,9 @@ jobs:
         python DQ_Kinematics_static_jacobian_derivative_tests.py
         cd ..
     - name: Rename wheel (Ubuntu Only)
-      if: matrix.os == 'ubuntu-22.04'
+      if: startsWith (matrix.os, 'ubuntu-22.04')
       run: |
         sudo apt install rename
-        cd dist
-        rename 's/linux/manylinux1/' *
-        cd ..
-    - name: Rename wheel (Self Hosted [linux-arm64] Only)
-      if: matrix.os == 'linux-arm64'
-      run: |
         cd dist
         rename 's/linux/manylinux2014/' *
         cd ..
