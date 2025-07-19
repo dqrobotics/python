@@ -1,0 +1,1 @@
+Adding this file as a placeholder otherwise the package cannot build before the stubs are generated.
