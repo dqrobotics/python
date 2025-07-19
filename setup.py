@@ -81,7 +81,7 @@ setup(
               'dqrobotics.solvers',
               'dqrobotics-stubs'],
     package_data={
-        'dqrobotics-stubs': ["*.pyi"],
+        'dqrobotics-stubs': ["**/*.pyi"],
     },
     classifiers=[
         "Programming Language :: Python :: 3.10",
