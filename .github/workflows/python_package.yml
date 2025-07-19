@@ -58,7 +58,9 @@ jobs:
     - name: Generate Stubs
       run: |
         pip install pybind11-stubgen
+        pip install .
         pybind11-stubgen dqrobotics --output-dir .
+        pip uninstall dqrobotics -y
     - name: Compile
       run: |
         python setup.py bdist_wheel
