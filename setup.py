@@ -69,7 +69,7 @@ setup(
     ext_modules=[CMakeExtension('dqrobotics._dqrobotics')],
     cmdclass=dict(build_ext=CMakeBuild),
     zip_safe=False,
-    packages=find_namespace_packages(where='.'),
+    packages=find_namespace_packages(where='.', exclude=['*pybind11*', '*tests*']),
     package_data={
         'dqrobotics-stubs': ["**/*.pyi"],
     },
