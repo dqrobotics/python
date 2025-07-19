@@ -4,7 +4,7 @@ import sys
 import platform
 import subprocess
 
-from setuptools import setup, Extension
+from setuptools import setup, Extension, find_namespace_packages
 from setuptools.command.build_ext import build_ext
 from distutils.version import LooseVersion
 
@@ -69,17 +69,7 @@ setup(
     ext_modules=[CMakeExtension('dqrobotics._dqrobotics')],
     cmdclass=dict(build_ext=CMakeBuild),
     zip_safe=False,
-    packages=['dqrobotics',
-              'dqrobotics.robots',
-              'dqrobotics.robot_modeling',
-              'dqrobotics.utils',
-              'dqrobotics.utils.DQ_Math',
-              'dqrobotics.utils.DQ_LinearAlgebra',
-              'dqrobotics.interfaces',
-              'dqrobotics.interfaces.json11',
-              'dqrobotics.robot_control',
-              'dqrobotics.solvers',
-              'dqrobotics-stubs'],
+    packages=find_namespace_packages(where='.'),
     package_data={
         'dqrobotics-stubs': ["**/*.pyi"],
     },
