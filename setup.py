@@ -79,6 +79,9 @@ setup(
               'dqrobotics.interfaces.json11',
               'dqrobotics.robot_control',
               'dqrobotics.solvers'],
+    package_data={
+        'dqrobotics': ['py.typed'],
+    },
     classifiers=[
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",

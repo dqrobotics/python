@@ -43,35 +43,6 @@ PYBIND11_MODULE(_dqrobotics, m) {
     init_DQ_Math_py(utils_py);
 
     /*****************************************************
-     *  Robots Kinematic Models
-     * **************************************************/
-    py::module robots_py = m.def_submodule("_robots", "A submodule of dqrobotics");
-
-    //#include <dqrobotics/robots/Ax18ManipulatorRobot.h>
-    py::class_<Ax18ManipulatorRobot> ax18manipulatorrobot_py(robots_py, "Ax18ManipulatorRobot");
-    ax18manipulatorrobot_py.def_static("kinematics",&Ax18ManipulatorRobot::kinematics,"Returns the kinematics of the Ax18ManipulatorRobot");
-
-    //#include <dqrobotics/robots/BarrettWamArmRobot.h>
-    py::class_<BarrettWamArmRobot> barrettwamarmrobot_py(robots_py, "BarrettWamArmRobot");
-    barrettwamarmrobot_py.def_static("kinematics",&BarrettWamArmRobot::kinematics,"Returns the kinematics of the BarrettWamArmRobot");
-
-    //#include <dqrobotics/robots/ComauSmartSixRobot.h>
-    py::class_<ComauSmartSixRobot> comausmartsixrobot_py(robots_py, "ComauSmartSixRobot");
-    comausmartsixrobot_py.def_static("kinematics",&ComauSmartSixRobot::kinematics,"Returns the kinematics of the ComauSmartSixRobot");
-
-    //#include <dqrobotics/robots/KukaLw4Robot.h>
-    py::class_<KukaLw4Robot> kukalw4robot_py(robots_py, "KukaLw4Robot");
-    kukalw4robot_py.def_static("kinematics",&KukaLw4Robot::kinematics,"Returns the kinematics of the KukaLw4Robot");
-
-    //#include <dqrobotics/robots/KukaYoubotRobot.h>
-    py::class_<KukaYoubotRobot> kukayoubotrobot_py(robots_py, "KukaYoubotRobot");
-    kukayoubotrobot_py.def_static("kinematics",&KukaYoubotRobot::kinematics,"Returns the kinematics of the KukaYoubotRobot");
-
-    //#include <dqrobotics/robots/FrankaEmikaPandaRobot.h>
-    py::class_<FrankaEmikaPandaRobot> frankaemikapandarobot_py(robots_py, "FrankaEmikaPandaRobot");
-    frankaemikapandarobot_py.def_static("kinematics",&FrankaEmikaPandaRobot::kinematics,"Returns the kinematics of the FrankaEmikaPandaRobot");
-
-    /*****************************************************
      *  Robot Modeling <dqrobotics/robot_modeling/...>
      * **************************************************/
     py::module robot_modeling = m.def_submodule("_robot_modeling", "The robot_modeling submodule of dqrobotics");
@@ -108,6 +79,35 @@ PYBIND11_MODULE(_dqrobotics, m) {
 
     //DQ_SerialWholeBody
     init_DQ_SerialWholeBody_py(robot_modeling);
+
+/*****************************************************
+     *  Robots Kinematic Models
+     * **************************************************/
+    py::module robots_py = m.def_submodule("_robots", "A submodule of dqrobotics");
+
+    //#include <dqrobotics/robots/Ax18ManipulatorRobot.h>
+    py::class_<Ax18ManipulatorRobot> ax18manipulatorrobot_py(robots_py, "Ax18ManipulatorRobot");
+    ax18manipulatorrobot_py.def_static("kinematics",&Ax18ManipulatorRobot::kinematics,"Returns the kinematics of the Ax18ManipulatorRobot");
+
+    //#include <dqrobotics/robots/BarrettWamArmRobot.h>
+    py::class_<BarrettWamArmRobot> barrettwamarmrobot_py(robots_py, "BarrettWamArmRobot");
+    barrettwamarmrobot_py.def_static("kinematics",&BarrettWamArmRobot::kinematics,"Returns the kinematics of the BarrettWamArmRobot");
+
+    //#include <dqrobotics/robots/ComauSmartSixRobot.h>
+    py::class_<ComauSmartSixRobot> comausmartsixrobot_py(robots_py, "ComauSmartSixRobot");
+    comausmartsixrobot_py.def_static("kinematics",&ComauSmartSixRobot::kinematics,"Returns the kinematics of the ComauSmartSixRobot");
+
+    //#include <dqrobotics/robots/KukaLw4Robot.h>
+    py::class_<KukaLw4Robot> kukalw4robot_py(robots_py, "KukaLw4Robot");
+    kukalw4robot_py.def_static("kinematics",&KukaLw4Robot::kinematics,"Returns the kinematics of the KukaLw4Robot");
+
+    //#include <dqrobotics/robots/KukaYoubotRobot.h>
+    py::class_<KukaYoubotRobot> kukayoubotrobot_py(robots_py, "KukaYoubotRobot");
+    kukayoubotrobot_py.def_static("kinematics",&KukaYoubotRobot::kinematics,"Returns the kinematics of the KukaYoubotRobot");
+
+    //#include <dqrobotics/robots/FrankaEmikaPandaRobot.h>
+    py::class_<FrankaEmikaPandaRobot> frankaemikapandarobot_py(robots_py, "FrankaEmikaPandaRobot");
+    frankaemikapandarobot_py.def_static("kinematics",&FrankaEmikaPandaRobot::kinematics,"Returns the kinematics of the FrankaEmikaPandaRobot");
 
     /*****************************************************
      *  Solvers <dqrobotics/solvers/...>
