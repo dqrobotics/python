@@ -59,7 +59,7 @@ jobs:
       run: |
         pip install pybind11-stubgen
         pip install .
-        pybind11-stubgen dqrobotics --output-dir .
+        pybind11-stubgen dqrobotics --output-dir dqrobotics-stubs
         pip uninstall dqrobotics -y
     - name: Compile
       run: |
