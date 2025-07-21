@@ -63,6 +63,7 @@ jobs:
         pybind11-stubgen dqrobotics --output-dir stubs_temp
         python regenerate_stubs.py
         cp -r stubs_temp/dqrobotics/dqrobotics/ dqrobotics-stubs
+        rm -r stubs_temp 
         pip uninstall dqrobotics -y
     - name: Compile
       run: |
