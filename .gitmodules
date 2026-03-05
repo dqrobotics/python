@@ -1,6 +1,7 @@
 [submodule "pybind11"]
 	path = pybind11
 	url = https://github.com/pybind/pybind11
+        branch = v3.0
 [submodule "cpp"]
 	path = cpp
 	url =  https://github.com/dqrobotics/cpp
