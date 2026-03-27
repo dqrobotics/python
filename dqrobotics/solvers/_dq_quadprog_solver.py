@@ -1,5 +1,5 @@
 """
-# Copyright (c) 2019-2022 DQ Robotics Developers
+# Copyright (c) 2019-2026 DQ Robotics Developers
 #
 #    This file is part of DQ Robotics.
 #
@@ -62,9 +62,9 @@ class DQ_QuadprogSolver(DQ_QuadraticProgrammingSolver):
          :param beq: the m x 1 value for the inequality constraints.
          :return: the optimal x
         """
-        A_internal = A
-        b_internal = b
-        if Aeq is not None and beq is not None:
+        A_internal = A if A is not None else Aeq
+        b_internal = b if b is not None else beq
+        if A is not None and B is not None Aeq is not None and beq is not None:
             if Aeq.shape == (0, 0) or beq.shape == 0:
                 pass
             else:
@@ -72,6 +72,8 @@ class DQ_QuadprogSolver(DQ_QuadraticProgrammingSolver):
                 beq = beq.reshape(-1)
                 b_internal = np.concatenate([b.reshape(-1), beq + self.equality_constraints_tolerance,
                                              -beq + self.equality_constraints_tolerance])
+        else:
+            raise ValueError("A, b, Aeq, beq, cannot all be None.")
         if A_internal.shape == (0, 0) or b_internal.shape == 0:
             # Calls from DQRobotics CPP will trigger this condition
             A_internal = np.zeros((1, H.shape[0]))
