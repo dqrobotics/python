@@ -64,7 +64,7 @@ class DQ_QuadprogSolver(DQ_QuadraticProgrammingSolver):
         """
         A_internal = A if A is not None else Aeq
         b_internal = b if b is not None else beq
-        if A is not None and B is not None Aeq is not None and beq is not None:
+        if A is not None and B is not None and Aeq is not None and beq is not None:
             if Aeq.shape == (0, 0) or beq.shape == 0:
                 pass
             else:
