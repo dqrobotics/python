@@ -62,20 +62,35 @@ class DQ_QuadprogSolver(DQ_QuadraticProgrammingSolver):
          :param beq: the m x 1 value for the inequality constraints.
          :return: the optimal x
         """
-        A_internal = A if A is not None else Aeq
-        b_internal = b if b is not None else beq
-        if A is not None and b is not None and Aeq is not None and beq is not None:
+        if A is None and b is None and Aeq is None and beq is None:
+            raise ValueError("A, b, Aeq, beq, cannot all be None.")
+        if (A is None and b is not None) or (b is None and A is not None):
+            raise ValueError(f"A={A} and b={b} must both be None or both not None.")
+        if (Aeq is None and beq is not None) or (beq is None and Aeq is not None):
+            raise ValueError(f"Aeq={Aeq} and beq={beq} must both be None or both not None.")
+        
+        # Turn equality into a bounded inequality
+        if Aeq is not None: # beq is None already checked by the ValueError
             if Aeq.shape == (0, 0) or beq.shape == 0:
                 pass
             else:
-                A_internal = np.vstack([A, Aeq, -Aeq])
+                Aeq = np.vstack([Aeq, -Aeq])
                 beq = beq.reshape(-1)
-                b_internal = np.concatenate([b.reshape(-1), beq + self.equality_constraints_tolerance,
-                                             -beq + self.equality_constraints_tolerance])
-        else:
-            raise ValueError("A, b, Aeq, beq, cannot all be None.")
+                beq = np.concatenate([beq + self.equality_constraints_tolerance, -beq + self.equality_constraints_tolerance])
+
+        # Use (A,b), (Aeq,beq), or both.
+        if Aeq is None:
+            A_internal = A
+            b_internal = b
+        if A is None:
+            A_internal = Aeq
+            b_internal = beq
+        if Aeq is not None and A is not None:
+            A_internal = np.vstack([A, Aeq])
+            b_internal = np.concatenate([b.reshape(-1), beq])
+
+        # Calls from DQRobotics CPP will trigger this condition
         if A_internal.shape == (0, 0) or b_internal.shape == 0:
-            # Calls from DQRobotics CPP will trigger this condition
             A_internal = np.zeros((1, H.shape[0]))
             b_internal = np.zeros(1)
 
