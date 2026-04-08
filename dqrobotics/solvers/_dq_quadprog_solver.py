@@ -19,7 +19,7 @@
 # ################################################################
 #
 #   Contributors:
-#   - Murilo M. Marinho, email: murilo@g.u-tokyo.ac.jp
+#   - Murilo M. Marinho, email: murilomarinho@ieee.org
 #
 # ################################################################
 """
@@ -70,6 +70,8 @@ class DQ_QuadprogSolver(DQ_QuadraticProgrammingSolver):
             raise ValueError(f"Aeq={Aeq} and beq={beq} must both be None or both not None.")
         
         # Turn equality into a bounded inequality
+        ## Aeq.x <= beq + delta
+        ## Aeq.x >= beq - delta ==> -Aeq.x <= -beq + delta
         if Aeq is not None: # beq is None already checked by the ValueError
             if Aeq.shape == (0, 0) or beq.shape == 0:
                 pass
