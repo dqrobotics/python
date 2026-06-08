@@ -65,15 +65,13 @@ class DQ_QuadprogSolver(DQ_QuadraticProgrammingSolver):
         # Calls from dqrobotics-cpp will trigger these conditions if empty matrices/vectors are arguments.
         if A.shape == (0, 0):
             A = None
-        if b.shape == 0:
+        if b.shape == (0,):
             b = None
         if Aeq.shape == (0, 0):
             Aeq = None
-        if beq.shape == 0:
+        if beq.shape == (0,):
             beq = None
-        
-        if A is None and b is None and Aeq is None and beq is None:
-            raise ValueError("A, b, Aeq, beq, cannot all be None.")
+
         if (A is None and b is not None) or (b is None and A is not None):
             raise ValueError(f"A={A} and b={b} must both be None or both not None.")
         if (Aeq is None and beq is not None) or (beq is None and Aeq is not None):
@@ -97,6 +95,11 @@ class DQ_QuadprogSolver(DQ_QuadraticProgrammingSolver):
         if Aeq is not None and A is not None:
             A_internal = np.vstack([A, Aeq])
             b_internal = np.concatenate([b.reshape(-1), beq])
+
+        # Solve for the unconstrained case. quadprog does not accept None, so we add dummy constraints.
+        if A is None and b is None and Aeq is None and beq is None:
+            A_internal = np.zeros((1, H.shape[0]))
+            b_internal = np.zeros(1)
 
         (x, f, xu, iterations, lagrangian, iact) = quadprog.solve_qp(G=H,
                                                                      a=-f,
