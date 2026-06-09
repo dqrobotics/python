@@ -62,14 +62,15 @@ class DQ_QuadprogSolver(DQ_QuadraticProgrammingSolver):
          :param beq: the m x 1 value for the inequality constraints.
          :return: the optimal x
         """
-        # Calls from dqrobotics-cpp will trigger these conditions if empty matrices/vectors are arguments.
-        if A.shape == (0, 0):
+        # Calls from dqrobotics-cpp will trigger these zero-dimension conditions if empty matrices/vectors are arguments.
+        # Python might still send them as None so we have to check both and make it uniformly None before proceeding.
+        if A is not None and A.shape == (0, 0):
             A = None
-        if b.shape == (0,):
+        if b is not None and b.shape == (0,):
             b = None
-        if Aeq.shape == (0, 0):
+        if Aeq is not None and Aeq.shape == (0, 0):
             Aeq = None
-        if beq.shape == (0,):
+        if beq is not None and beq.shape == (0,):
             beq = None
 
         if (A is None and b is not None) or (b is None and A is not None):
@@ -96,7 +97,7 @@ class DQ_QuadprogSolver(DQ_QuadraticProgrammingSolver):
             A_internal = np.vstack([A, Aeq])
             b_internal = np.concatenate([b.reshape(-1), beq])
 
-        # Solve for the unconstrained case. quadprog does not accept None, so we add dummy constraints.
+        # Solve for the unconstrained case. quadprog does not accept None, so we add a dummy constraint.
         if A is None and b is None and Aeq is None and beq is None:
             A_internal = np.zeros((1, H.shape[0]))
             b_internal = np.zeros(1)
