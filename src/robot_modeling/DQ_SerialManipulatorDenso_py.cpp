@@ -22,30 +22,66 @@ Contributors:
 
 #include "../dqrobotics_module.h"
 
+/**
+ * @brief Binds `DQ_SerialManipulatorDenso`, the concrete serial manipulator
+ * that uses the DENSO kinematic convention, to the Python module @p m.
+ */
 void init_DQ_SerialManipulatorDenso_py(py::module& m)
 {
-    /***************************************************
-    *  DQ SerialManipulatorDenso
-    * **************************************************/
     py::class_<
             DQ_SerialManipulatorDenso,
             std::shared_ptr<DQ_SerialManipulatorDenso>,
-            DQ_SerialManipulator> dqserialmanipulatordh_py(m, "DQ_SerialManipulatorDenso");
-    dqserialmanipulatordh_py.def(py::init<MatrixXd>());
+            DQ_SerialManipulator> dqserialmanipulatordh_py(
+                m,
+                "DQ_SerialManipulatorDenso",
+                "Concrete serial manipulator that uses the DENSO kinematic convention. The constructor expects a 6 x n matrix whose rows store the convention parameters a, b, d, alpha, beta, and gamma for each link.");
+    dqserialmanipulatordh_py.def(
+        py::init<MatrixXd>(),
+        py::arg("denso_matrix"),
+        "Constructs a serial manipulator from a DENSO-parameter matrix.");
 
-    ///Methods
-    //Concrete
-    dqserialmanipulatordh_py.def("get_as",      &DQ_SerialManipulatorDenso::get_as,     "Retrieves the vector of as.");
-    dqserialmanipulatordh_py.def("get_bs",      &DQ_SerialManipulatorDenso::get_bs,     "Retrieves the vector of bs.");
-    dqserialmanipulatordh_py.def("get_ds",      &DQ_SerialManipulatorDenso::get_ds,     "Retrieves the vector of ds.");
+    dqserialmanipulatordh_py.def(
+        "get_as",
+        &DQ_SerialManipulatorDenso::get_as,
+        "Returns the a row of the stored DENSO matrix.");
+    dqserialmanipulatordh_py.def(
+        "get_bs",
+        &DQ_SerialManipulatorDenso::get_bs,
+        "Returns the b row of the stored DENSO matrix.");
+    dqserialmanipulatordh_py.def(
+        "get_ds",
+        &DQ_SerialManipulatorDenso::get_ds,
+        "Returns the d row of the stored DENSO matrix.");
+    dqserialmanipulatordh_py.def(
+        "get_alphas",
+        &DQ_SerialManipulatorDenso::get_alphas,
+        "Returns the alpha row of the stored DENSO matrix.");
+    dqserialmanipulatordh_py.def(
+        "get_betas",
+        &DQ_SerialManipulatorDenso::get_betas,
+        "Returns the beta row of the stored DENSO matrix.");
+    dqserialmanipulatordh_py.def(
+        "get_thetas",
+        &DQ_SerialManipulatorDenso::get_gammas,
+        "Returns the gamma row of the stored DENSO matrix.");
 
-    dqserialmanipulatordh_py.def("get_alphas",  &DQ_SerialManipulatorDenso::get_alphas, "Retrieves the vector of alphas.");
-    dqserialmanipulatordh_py.def("get_betas",   &DQ_SerialManipulatorDenso::get_betas,  "Retrieves the vector of betas.");
-    dqserialmanipulatordh_py.def("get_thetas",  &DQ_SerialManipulatorDenso::get_gammas, "Retrieves the vector of gammas.");
-
-    //Overrides from DQ_SerialManipulator
-    dqserialmanipulatordh_py.def("raw_pose_jacobian",  (MatrixXd (DQ_SerialManipulatorDenso::*)(const VectorXd&, const int&) const)&DQ_SerialManipulatorDenso::raw_pose_jacobian, "Retrieves the raw pose Jacobian.");
-    dqserialmanipulatordh_py.def("raw_fkm",            (DQ (DQ_SerialManipulatorDenso::*)(const VectorXd&, const int&) const)&DQ_SerialManipulatorDenso::raw_fkm,                 "Retrieves the raw FKM.");
-    dqserialmanipulatordh_py.def("raw_pose_jacobian_derivative",(MatrixXd (DQ_SerialManipulatorDenso::*)(const VectorXd&, const VectorXd&, const int&) const)
-                                                                &DQ_SerialManipulatorDenso::raw_pose_jacobian_derivative, "Retrieves the raw pose Jacobian derivative.");
+    dqserialmanipulatordh_py.def(
+        "raw_pose_jacobian",
+        (MatrixXd (DQ_SerialManipulatorDenso::*)(const VectorXd&, const int&) const)&DQ_SerialManipulatorDenso::raw_pose_jacobian,
+        py::arg("q_vec"),
+        py::arg("to_ith_link"),
+        "Computes the raw pose Jacobian under the DENSO convention up to the requested link.");
+    dqserialmanipulatordh_py.def(
+        "raw_fkm",
+        (DQ (DQ_SerialManipulatorDenso::*)(const VectorXd&, const int&) const)&DQ_SerialManipulatorDenso::raw_fkm,
+        py::arg("q_vec"),
+        py::arg("to_ith_link"),
+        "Computes the raw forward kinematics under the DENSO convention up to the requested link.");
+    dqserialmanipulatordh_py.def(
+        "raw_pose_jacobian_derivative",
+        (MatrixXd (DQ_SerialManipulatorDenso::*)(const VectorXd&, const VectorXd&, const int&) const)&DQ_SerialManipulatorDenso::raw_pose_jacobian_derivative,
+        py::arg("q"),
+        py::arg("q_dot"),
+        py::arg("to_ith_link"),
+        "Computes the time derivative of the raw pose Jacobian under the DENSO convention up to the requested link.");
 }

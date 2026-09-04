@@ -28,29 +28,80 @@ public:
     using DQ_KinematicController::_get_robot;
 };
 
+/**
+ * @brief Binds `DQ_KinematicController`, an abstract class that defines an
+ * interface to implement kinematic controllers for robots described by
+ * DQ_Kinematics, to the Python module @p m.
+ */
 void init_DQ_KinematicController_py(py::module& m)
 {
     /*****************************************************
      *  DQ KinematicController
      * **************************************************/
-    py::class_<DQ_KinematicController> kc_py(m,"DQ_KinematicController");
-    kc_py.def("get_control_objective"       ,&DQ_KinematicController::get_control_objective,"Gets the control objective");
-    kc_py.def("get_jacobian"                ,&DQ_KinematicController::get_jacobian,"Gets the Jacobian");
-    kc_py.def("get_last_error_signal"       ,&DQ_KinematicController::get_last_error_signal, "Gets the last error signal");
-    kc_py.def("get_task_variable"           ,&DQ_KinematicController::get_task_variable, "Gets the task variable");
-    kc_py.def("is_set"                      ,&DQ_KinematicController::is_set,"Checks if the controller's objective has been set");
-    kc_py.def("system_reached_stable_region",&DQ_KinematicController::system_reached_stable_region,"Checks if the controller has stabilized");
-    kc_py.def("set_control_objective"       ,&DQ_KinematicController::set_control_objective,"Sets the control objective");
-    kc_py.def("set_gain"                    ,&DQ_KinematicController::set_gain,"Sets the controller gain");
-    kc_py.def("get_gain"                    ,&DQ_KinematicController::get_gain,"Gets the controller gain");
-    kc_py.def("set_stability_threshold"     ,&DQ_KinematicController::set_stability_threshold,"Sets the stability threshold");
-    kc_py.def("set_damping"                 ,&DQ_KinematicController::set_damping, "Sets the damping.");
-    kc_py.def("get_damping"                 ,&DQ_KinematicController::get_damping, "Gets the damping.");
-    kc_py.def("set_primitive_to_effector"   ,&DQ_KinematicController::set_primitive_to_effector, "Sets the effector primitive");
-    kc_py.def("set_target_primitive"        ,&DQ_KinematicController::set_target_primitive, "Sets the target primitive");
-    kc_py.def("set_stability_counter_max"   ,&DQ_KinematicController::set_stability_counter_max, "Sets the maximum of the stability counter");
-    kc_py.def("reset_stability_counter"     ,&DQ_KinematicController::reset_stability_counter, "Resets the stability counter");
-    kc_py.def("_get_robot",&DQ_KinematicControllerPub::_get_robot , "Gets the robot");
+    py::class_<DQ_KinematicController> kc_py(
+        m,
+        "DQ_KinematicController",
+        "Abstract class that defines an interface to implement kinematic controllers for robots described by DQ_Kinematics.");
+    kc_py.def("get_control_objective",
+              &DQ_KinematicController::get_control_objective,
+              "Returns the current control objective.");
+    kc_py.def("get_jacobian",
+              &DQ_KinematicController::get_jacobian,
+              py::arg("q"),
+              "Returns the task Jacobian associated with the current control objective.");
+    kc_py.def("get_last_error_signal",
+              &DQ_KinematicController::get_last_error_signal,
+              "Returns the last task-space error signal computed by the controller.");
+    kc_py.def("get_task_variable",
+              &DQ_KinematicController::get_task_variable,
+              py::arg("q"),
+              "Returns the current task variable associated with the control objective.");
+    kc_py.def("is_set",
+              &DQ_KinematicController::is_set,
+              "Verifies whether a control objective has been selected.");
+    kc_py.def("system_reached_stable_region",
+              &DQ_KinematicController::system_reached_stable_region,
+              "Indicates whether the closed-loop system has reached a stable region.");
+    kc_py.def("set_control_objective",
+              &DQ_KinematicController::set_control_objective,
+              py::arg("control_objective"),
+              "Sets the control objective and resizes the internally stored error vector to match the selected task variable.");
+    kc_py.def("set_gain",
+              &DQ_KinematicController::set_gain,
+              py::arg("gain"),
+              "Sets the controller gain.");
+    kc_py.def("get_gain",
+              &DQ_KinematicController::get_gain,
+              "Returns the controller gain.");
+    kc_py.def("set_stability_threshold",
+              &DQ_KinematicController::set_stability_threshold,
+              py::arg("threshold"),
+              "Sets the threshold used to detect convergence to a stable region.");
+    kc_py.def("set_damping",
+              &DQ_KinematicController::set_damping,
+              py::arg("damping"),
+              "Sets the isotropic damping used by singularity-robust controllers.");
+    kc_py.def("get_damping",
+              &DQ_KinematicController::get_damping,
+              "Returns the isotropic damping coefficient.");
+    kc_py.def("set_primitive_to_effector",
+              &DQ_KinematicController::set_primitive_to_effector,
+              py::arg("primitive"),
+              "Attaches a primitive to the end-effector for primitive-based objectives.");
+    kc_py.def("set_target_primitive",
+              &DQ_KinematicController::set_target_primitive,
+              py::arg("primitive"),
+              "Sets the target primitive for primitive-based convergence tasks.");
+    kc_py.def("set_stability_counter_max",
+              &DQ_KinematicController::set_stability_counter_max,
+              py::arg("max"),
+              "Sets the number of consecutive stable iterations required to declare convergence.");
+    kc_py.def("reset_stability_counter",
+              &DQ_KinematicController::reset_stability_counter,
+              "Resets the stability counter and clears the stable-region flag.");
+    kc_py.def("_get_robot",
+              &DQ_KinematicControllerPub::_get_robot,
+              "Returns the stored shared pointer to the associated robot model.");
 
 
 }

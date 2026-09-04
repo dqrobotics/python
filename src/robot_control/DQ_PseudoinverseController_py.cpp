@@ -22,15 +22,34 @@ Contributors:
 
 #include "../dqrobotics_module.h"
 
+/**
+ * @brief Binds `DQ_PseudoinverseController`, which implements a kinematic
+ * control law based on the Jacobian pseudoinverse and an Euclidean task-space
+ * error, to the Python module @p m.
+ */
 void init_DQ_PseudoinverseController_py(py::module& m)
 {
     /*****************************************************
      *  DQ TaskSpacePseudoInverseController
      * **************************************************/
-    py::class_<DQ_PseudoinverseController, DQ_KinematicController> dqpseudoinversecontroller_py(m,"DQ_PseudoinverseController");
+    py::class_<DQ_PseudoinverseController, DQ_KinematicController> dqpseudoinversecontroller_py(
+        m,
+        "DQ_PseudoinverseController",
+        "Implements a kinematic control law based on the Jacobian pseudoinverse and an Euclidean task-space error.");
     dqpseudoinversecontroller_py.def(py::init<
                                      const std::shared_ptr<DQ_Kinematics>&
-                                     >());
-    dqpseudoinversecontroller_py.def("compute_setpoint_control_signal",&DQ_PseudoinverseController::compute_setpoint_control_signal,"Computes the setpoint control signal.");
-    dqpseudoinversecontroller_py.def("compute_tracking_control_signal",&DQ_PseudoinverseController::compute_tracking_control_signal,"Computes the tracking control signal.");
+                                     >(),
+                                     py::arg("robot"),
+                                     "Constructs a controller from a shared robot pointer.");
+    dqpseudoinversecontroller_py.def("compute_setpoint_control_signal",
+                                     &DQ_PseudoinverseController::compute_setpoint_control_signal,
+                                     py::arg("q"),
+                                     py::arg("task_reference"),
+                                     "Computes the reference joint velocities that drive the task-space error to zero.");
+    dqpseudoinversecontroller_py.def("compute_tracking_control_signal",
+                                     &DQ_PseudoinverseController::compute_tracking_control_signal,
+                                     py::arg("q"),
+                                     py::arg("task_reference"),
+                                     py::arg("feed_forward"),
+                                     "Computes the reference joint velocities for a time-varying task-space reference.");
 }

@@ -22,29 +22,63 @@ Contributors:
 
 #include "../dqrobotics_module.h"
 
+/**
+ * @brief Binds `DQ_SerialManipulatorDH`, the concrete serial manipulator based
+ * on the standard Denavit-Hartenberg convention, to the Python module @p m.
+ */
 void init_DQ_SerialManipulatorDH_py(py::module& m)
 {
-    /***************************************************
-    *  DQ SerialManipulatorDH
-    * **************************************************/
     py::class_<
             DQ_SerialManipulatorDH,
             std::shared_ptr<DQ_SerialManipulatorDH>,
             DQ_SerialManipulator
-            > dqserialmanipulatordh_py(m, "DQ_SerialManipulatorDH");
-    dqserialmanipulatordh_py.def(py::init<MatrixXd>());
+            > dqserialmanipulatordh_py(
+                m,
+                "DQ_SerialManipulatorDH",
+                "Concrete serial manipulator based on the standard Denavit-Hartenberg convention. The constructor expects a 5 x n matrix whose rows store theta, d, a, alpha, and the joint type of each link.");
+    dqserialmanipulatordh_py.def(
+        py::init<MatrixXd>(),
+        py::arg("dh_matrix"),
+        "Constructs a serial manipulator from a standard DH matrix.");
 
-    ///Methods
-    //Concrete
-    dqserialmanipulatordh_py.def("get_thetas",  &DQ_SerialManipulatorDH::get_thetas, "Retrieves the vector of thetas.");
-    dqserialmanipulatordh_py.def("get_ds",      &DQ_SerialManipulatorDH::get_ds,     "Retrieves the vector of ds.");
-    dqserialmanipulatordh_py.def("get_as",      &DQ_SerialManipulatorDH::get_as,     "Retrieves the vector of as.");
-    dqserialmanipulatordh_py.def("get_alphas",  &DQ_SerialManipulatorDH::get_alphas, "Retrieves the vector of alphas.");
-    dqserialmanipulatordh_py.def("get_types",   &DQ_SerialManipulatorDH::get_types,  "Retrieves the vector of types.");
+    dqserialmanipulatordh_py.def(
+        "get_thetas",
+        &DQ_SerialManipulatorDH::get_thetas,
+        "Returns the theta row of the stored DH matrix.");
+    dqserialmanipulatordh_py.def(
+        "get_ds",
+        &DQ_SerialManipulatorDH::get_ds,
+        "Returns the d row of the stored DH matrix.");
+    dqserialmanipulatordh_py.def(
+        "get_as",
+        &DQ_SerialManipulatorDH::get_as,
+        "Returns the a row of the stored DH matrix.");
+    dqserialmanipulatordh_py.def(
+        "get_alphas",
+        &DQ_SerialManipulatorDH::get_alphas,
+        "Returns the alpha row of the stored DH matrix.");
+    dqserialmanipulatordh_py.def(
+        "get_types",
+        &DQ_SerialManipulatorDH::get_types,
+        "Returns the joint-type row of the stored DH matrix as encoded joint types.");
 
-    //Overrides from DQ_SerialManipulator
-    dqserialmanipulatordh_py.def("raw_pose_jacobian",  (MatrixXd (DQ_SerialManipulatorDH::*)(const VectorXd&, const int&) const)&DQ_SerialManipulatorDH::raw_pose_jacobian, "Retrieves the raw pose Jacobian.");
-    dqserialmanipulatordh_py.def("raw_fkm",            (DQ (DQ_SerialManipulatorDH::*)(const VectorXd&, const int&) const)&DQ_SerialManipulatorDH::raw_fkm,                 "Retrieves the raw FKM.");
-    dqserialmanipulatordh_py.def("raw_pose_jacobian_derivative",(MatrixXd (DQ_SerialManipulatorDH::*)(const VectorXd&, const VectorXd&, const int&) const)
-                                                                &DQ_SerialManipulatorDH::raw_pose_jacobian_derivative, "Retrieves the raw pose Jacobian derivative.");
+    dqserialmanipulatordh_py.def(
+        "raw_pose_jacobian",
+        (MatrixXd (DQ_SerialManipulatorDH::*)(const VectorXd&, const int&) const)&DQ_SerialManipulatorDH::raw_pose_jacobian,
+        py::arg("q_vec"),
+        py::arg("to_ith_link"),
+        "Computes the raw pose Jacobian under the standard DH convention up to the requested link.");
+    dqserialmanipulatordh_py.def(
+        "raw_fkm",
+        (DQ (DQ_SerialManipulatorDH::*)(const VectorXd&, const int&) const)&DQ_SerialManipulatorDH::raw_fkm,
+        py::arg("q_vec"),
+        py::arg("to_ith_link"),
+        "Computes the raw forward kinematics under the standard DH convention up to the requested link.");
+    dqserialmanipulatordh_py.def(
+        "raw_pose_jacobian_derivative",
+        (MatrixXd (DQ_SerialManipulatorDH::*)(const VectorXd&, const VectorXd&, const int&) const)&DQ_SerialManipulatorDH::raw_pose_jacobian_derivative,
+        py::arg("q"),
+        py::arg("q_dot"),
+        py::arg("to_ith_link"),
+        "Computes the time derivative of the raw pose Jacobian under the standard DH convention up to the requested link.");
 }

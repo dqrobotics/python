@@ -22,15 +22,31 @@ Contributors:
 
 #include "../dqrobotics_module.h"
 
+/**
+ * @brief Binds `DQ_Math`, which provides scalar and vector angle-conversion
+ * utilities, to the Python module @p m.
+ */
 void init_DQ_Math_py(py::module& m)
 {
     /*****************************************************
      *  DQ_Math
      * **************************************************/
     //#include<dqrobotics/utils/DQ_Math.h>
-    py::module math_py = m.def_submodule("_DQ_Math","A submodule of utils");
-    math_py.def("deg2rad", static_cast<double (*) (const double&)>(&DQ_robotics::deg2rad), "Converts from degrees to radians.");
-    math_py.def("deg2rad", static_cast<VectorXd (*) (const VectorXd&)>(&DQ_robotics::deg2rad), "Converts from degrees to radians.");
-    math_py.def("rad2deg", static_cast<double (*) (const double&)>(&DQ_robotics::rad2deg), "Converts from degrees to radians.");
-    math_py.def("rad2deg", static_cast<VectorXd (*) (const VectorXd&)>(&DQ_robotics::rad2deg), "Converts from degrees to radians.");
+    py::module math_py = m.def_submodule("_DQ_Math","Angle-conversion utilities.");
+    math_py.def("deg2rad",
+                static_cast<double (*) (const double&)>(&DQ_robotics::deg2rad),
+                py::arg("a"),
+                "Converts an angle from degrees to radians.");
+    math_py.def("deg2rad",
+                static_cast<VectorXd (*) (const VectorXd&)>(&DQ_robotics::deg2rad),
+                py::arg("v"),
+                "Converts each component of a vector from degrees to radians.");
+    math_py.def("rad2deg",
+                static_cast<double (*) (const double&)>(&DQ_robotics::rad2deg),
+                py::arg("a"),
+                "Converts an angle from radians to degrees.");
+    math_py.def("rad2deg",
+                static_cast<VectorXd (*) (const VectorXd&)>(&DQ_robotics::rad2deg),
+                py::arg("v"),
+                "Converts each component of a vector from radians to degrees.");
 }
