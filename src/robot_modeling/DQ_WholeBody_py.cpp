@@ -22,26 +22,82 @@ Contributors:
 
 #include "../dqrobotics_module.h"
 
+/**
+ * @brief Binds `DQ_WholeBody`, the robot model composed of multiple kinematic
+ * chains connected in series and treated as subchains, to the Python module
+ * @p m.
+ */
 void init_DQ_WholeBody_py(py::module& m)
 {
-    /*****************************************************
-     *  DQ WholeBody
-     * **************************************************/
     py::class_<
             DQ_WholeBody,
             std::shared_ptr<DQ_WholeBody>,
             DQ_Kinematics
-            > dqwholebody_py(m,"DQ_WholeBody");
-    dqwholebody_py.def(py::init<std::shared_ptr<DQ_Kinematics>>());
-    dqwholebody_py.def("add",&DQ_WholeBody::add,"Adds a DQ_Kinematics pointer to the kinematic chain.");
-    dqwholebody_py.def("fkm",(DQ (DQ_WholeBody::*)(const VectorXd&) const)&DQ_WholeBody::fkm,"Gets the fkm.");
-    dqwholebody_py.def("fkm",(DQ (DQ_WholeBody::*)(const VectorXd&,const int&) const)&DQ_WholeBody::fkm,"Gets the fkm.");
-    dqwholebody_py.def("get_dim_configuration_space",&DQ_WholeBody::get_dim_configuration_space,"Gets the dimention of the configuration space");
-    dqwholebody_py.def("get_chain",&DQ_WholeBody::get_chain, "Returns the DQ_Kinematics at a given index of the chain");
-    dqwholebody_py.def("get_chain_as_serial_manipulator_dh",&DQ_WholeBody::get_chain_as_serial_manipulator_dh, "Returns the DQ_SerialManipulatorDH at a given index of the chain");
-    dqwholebody_py.def("get_chain_as_holonomic_base",&DQ_WholeBody::get_chain_as_holonomic_base, "Returns the DQ_HolonomicBase at a given index of the chain");
-    dqwholebody_py.def("pose_jacobian",(MatrixXd (DQ_WholeBody::*)(const VectorXd&, const int&) const)&DQ_WholeBody::pose_jacobian,"Returns the pose Jacobian");
-    dqwholebody_py.def("pose_jacobian",(MatrixXd (DQ_WholeBody::*)(const VectorXd&) const)&DQ_WholeBody::pose_jacobian,"Returns the pose Jacobian");
-    dqwholebody_py.def("pose_jacobian_derivative",(MatrixXd (DQ_WholeBody::*)(const VectorXd&, const VectorXd&, const int&) const)&DQ_WholeBody::pose_jacobian_derivative,"Returns the pose Jacobian derivative");
-    dqwholebody_py.def("pose_jacobian_derivative",(MatrixXd (DQ_WholeBody::*)(const VectorXd&, const VectorXd&) const)&DQ_WholeBody::pose_jacobian_derivative,"Returns the pose Jacobian derivative");
+            > dqwholebody_py(
+                m,
+                "DQ_WholeBody",
+                "Robot model composed of multiple kinematic chains connected in series. DQ_WholeBody concatenates several DQ_Kinematics objects and treats each one as a whole subchain.");
+    dqwholebody_py.def(
+        py::init<std::shared_ptr<DQ_Kinematics>>(),
+        py::arg("robot"),
+        "Constructs a whole-body model from its first chain.");
+    dqwholebody_py.def(
+        "add",
+        &DQ_WholeBody::add,
+        py::arg("robot"),
+        "Appends a new chain to the end of the whole-body model.");
+    dqwholebody_py.def(
+        "fkm",
+        (DQ (DQ_WholeBody::*)(const VectorXd&) const)&DQ_WholeBody::fkm,
+        py::arg("q"),
+        "Computes the forward kinematics of the complete whole-body model, including the reference frame.");
+    dqwholebody_py.def(
+        "fkm",
+        (DQ (DQ_WholeBody::*)(const VectorXd&,const int&) const)&DQ_WholeBody::fkm,
+        py::arg("q"),
+        py::arg("to_chain"),
+        "Computes the forward kinematics up to a given chain, stopping the computation at the requested subchain and including the reference frame.");
+    dqwholebody_py.def(
+        "get_dim_configuration_space",
+        &DQ_WholeBody::get_dim_configuration_space,
+        "Returns the dimension of the configuration space of the whole-body model.");
+    dqwholebody_py.def(
+        "get_chain",
+        &DQ_WholeBody::get_chain,
+        py::arg("to_ith_chain"),
+        "Returns a raw pointer to one of the stored chains.");
+    dqwholebody_py.def(
+        "get_chain_as_serial_manipulator_dh",
+        &DQ_WholeBody::get_chain_as_serial_manipulator_dh,
+        py::arg("to_ith_chain"),
+        "Returns a copy of the selected chain as a DQ_SerialManipulatorDH.");
+    dqwholebody_py.def(
+        "get_chain_as_holonomic_base",
+        &DQ_WholeBody::get_chain_as_holonomic_base,
+        py::arg("to_ith_chain"),
+        "Returns a copy of the selected chain as a DQ_HolonomicBase.");
+    dqwholebody_py.def(
+        "pose_jacobian",
+        (MatrixXd (DQ_WholeBody::*)(const VectorXd&, const int&) const)&DQ_WholeBody::pose_jacobian,
+        py::arg("q"),
+        py::arg("to_ith_chain"),
+        "Computes the pose Jacobian up to a given chain.");
+    dqwholebody_py.def(
+        "pose_jacobian",
+        (MatrixXd (DQ_WholeBody::*)(const VectorXd&) const)&DQ_WholeBody::pose_jacobian,
+        py::arg("q"),
+        "Computes the pose Jacobian of the complete whole-body model.");
+    dqwholebody_py.def(
+        "pose_jacobian_derivative",
+        (MatrixXd (DQ_WholeBody::*)(const VectorXd&, const VectorXd&, const int&) const)&DQ_WholeBody::pose_jacobian_derivative,
+        py::arg("q"),
+        py::arg("q_dot"),
+        py::arg("to_ith_link"),
+        "Computes the time derivative of the pose Jacobian. This method is currently not implemented and always throws.");
+    dqwholebody_py.def(
+        "pose_jacobian_derivative",
+        (MatrixXd (DQ_WholeBody::*)(const VectorXd&, const VectorXd&) const)&DQ_WholeBody::pose_jacobian_derivative,
+        py::arg("q"),
+        py::arg("q_dot"),
+        "Computes the time derivative of the pose Jacobian of the complete whole-body model. This method is currently not implemented and always throws.");
 }

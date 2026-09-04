@@ -22,12 +22,19 @@ Contributors:
 
 #include "../dqrobotics_module.h"
 
+/**
+ * @brief Binds `DQ_LinearAlgebra`, which provides linear-algebra utilities such
+ * as matrix pseudoinversion, to the Python module @p m.
+ */
 void init_DQ_LinearAlgebra_py(py::module& m)
 {
     /*****************************************************
      *  DQ_LinearAlgebra
      * **************************************************/
     //#include<dqrobotics/utils/DQ_LinearAlgebra.h>
-    py::module linearalgebra_py = m.def_submodule("_DQ_LinearAlgebra","A submodule of utils");
-    linearalgebra_py.def("pinv", (MatrixXd (*) (const MatrixXd&))&DQ_robotics::pinv, "Retrieves the pseudo-inverse of the input matrix");
+    py::module linearalgebra_py = m.def_submodule("_DQ_LinearAlgebra","Linear-algebra utilities.");
+    linearalgebra_py.def("pinv",
+                         (MatrixXd (*) (const MatrixXd&))&DQ_robotics::pinv,
+                         py::arg("matrix"),
+                         "Computes the Moore-Penrose pseudoinverse of the input matrix.");
 }

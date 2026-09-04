@@ -22,6 +22,10 @@ Contributors:
 
 #include "dqrobotics_module.h"
 
+/**
+ * @brief Defines the `_dqrobotics` Python extension module and registers all
+ * of its classes, functions, enumerations, and submodules.
+ */
 PYBIND11_MODULE(_dqrobotics, m) {
 
     //DQ Class
@@ -31,7 +35,7 @@ PYBIND11_MODULE(_dqrobotics, m) {
      *  Utils
      * **************************************************/
     //dqrobotics/utils/
-    py::module utils_py = m.def_submodule("_utils","A submodule of dqrobotics");
+    py::module utils_py = m.def_submodule("_utils","Linear-algebra, geometric, and mathematical utilities used throughout dqrobotics.");
 
     //DQ_LinearAlgebra
     init_DQ_LinearAlgebra_py(utils_py);
@@ -45,7 +49,7 @@ PYBIND11_MODULE(_dqrobotics, m) {
     /*****************************************************
      *  Robot Modeling <dqrobotics/robot_modeling/...>
      * **************************************************/
-    py::module robot_modeling = m.def_submodule("_robot_modeling", "The robot_modeling submodule of dqrobotics");
+    py::module robot_modeling = m.def_submodule("_robot_modeling", "Kinematic models of serial, mobile, cooperative dual-arm, and whole-body robots.");
 
     //DQ_Kinematics
     init_DQ_Kinematics_py(robot_modeling);
@@ -83,36 +87,42 @@ PYBIND11_MODULE(_dqrobotics, m) {
 /*****************************************************
      *  Robots Kinematic Models
      * **************************************************/
-    py::module robots_py = m.def_submodule("_robots", "A submodule of dqrobotics");
+    py::module robots_py = m.def_submodule("_robots", "Ready-to-use kinematic models of well-known commercial robot manipulators.");
 
     //#include <dqrobotics/robots/Ax18ManipulatorRobot.h>
-    py::class_<Ax18ManipulatorRobot> ax18manipulatorrobot_py(robots_py, "Ax18ManipulatorRobot");
-    ax18manipulatorrobot_py.def_static("kinematics",&Ax18ManipulatorRobot::kinematics,"Returns the kinematics of the Ax18ManipulatorRobot");
+    py::class_<Ax18ManipulatorRobot> ax18manipulatorrobot_py(robots_py, "Ax18ManipulatorRobot",
+                                                              "Provides the kinematic model of the AX-18 manipulator arm.");
+    ax18manipulatorrobot_py.def_static("kinematics",&Ax18ManipulatorRobot::kinematics,"Returns the kinematic model of the AX-18 manipulator arm.");
 
     //#include <dqrobotics/robots/BarrettWamArmRobot.h>
-    py::class_<BarrettWamArmRobot> barrettwamarmrobot_py(robots_py, "BarrettWamArmRobot");
-    barrettwamarmrobot_py.def_static("kinematics",&BarrettWamArmRobot::kinematics,"Returns the kinematics of the BarrettWamArmRobot");
+    py::class_<BarrettWamArmRobot> barrettwamarmrobot_py(robots_py, "BarrettWamArmRobot",
+                                                          "Provides the kinematic model of the Barrett WAM arm robot manipulator.");
+    barrettwamarmrobot_py.def_static("kinematics",&BarrettWamArmRobot::kinematics,"Returns the kinematic model of the Barrett WAM arm robot manipulator.");
 
     //#include <dqrobotics/robots/ComauSmartSixRobot.h>
-    py::class_<ComauSmartSixRobot> comausmartsixrobot_py(robots_py, "ComauSmartSixRobot");
-    comausmartsixrobot_py.def_static("kinematics",&ComauSmartSixRobot::kinematics,"Returns the kinematics of the ComauSmartSixRobot");
+    py::class_<ComauSmartSixRobot> comausmartsixrobot_py(robots_py, "ComauSmartSixRobot",
+                                                          "Provides the kinematic model of the COMAU SmartSiX robot manipulator.");
+    comausmartsixrobot_py.def_static("kinematics",&ComauSmartSixRobot::kinematics,"Returns the kinematic model of the COMAU SmartSiX robot manipulator.");
 
     //#include <dqrobotics/robots/KukaLw4Robot.h>
-    py::class_<KukaLw4Robot> kukalw4robot_py(robots_py, "KukaLw4Robot");
-    kukalw4robot_py.def_static("kinematics",&KukaLw4Robot::kinematics,"Returns the kinematics of the KukaLw4Robot");
+    py::class_<KukaLw4Robot> kukalw4robot_py(robots_py, "KukaLw4Robot",
+                                              "Provides the kinematic model of the KUKA LWR4 robot manipulator.");
+    kukalw4robot_py.def_static("kinematics",&KukaLw4Robot::kinematics,"Returns the kinematic model of the KUKA LWR4 robot manipulator.");
 
     //#include <dqrobotics/robots/KukaYoubotRobot.h>
-    py::class_<KukaYoubotRobot> kukayoubotrobot_py(robots_py, "KukaYoubotRobot");
-    kukayoubotrobot_py.def_static("kinematics",&KukaYoubotRobot::kinematics,"Returns the kinematics of the KukaYoubotRobot");
+    py::class_<KukaYoubotRobot> kukayoubotrobot_py(robots_py, "KukaYoubotRobot",
+                                                    "Provides the whole-body kinematic model of the KUKA youBot mobile manipulator.");
+    kukayoubotrobot_py.def_static("kinematics",&KukaYoubotRobot::kinematics,"Returns the whole-body kinematic model of the KUKA youBot mobile manipulator.");
 
     //#include <dqrobotics/robots/FrankaEmikaPandaRobot.h>
-    py::class_<FrankaEmikaPandaRobot> frankaemikapandarobot_py(robots_py, "FrankaEmikaPandaRobot");
-    frankaemikapandarobot_py.def_static("kinematics",&FrankaEmikaPandaRobot::kinematics,"Returns the kinematics of the FrankaEmikaPandaRobot");
+    py::class_<FrankaEmikaPandaRobot> frankaemikapandarobot_py(robots_py, "FrankaEmikaPandaRobot",
+                                                                "Provides the kinematic model of the Franka Emika Panda robot manipulator.");
+    frankaemikapandarobot_py.def_static("kinematics",&FrankaEmikaPandaRobot::kinematics,"Returns the kinematic model of the Franka Emika Panda robot, as calibrated by the manufacturer.");
 
     /*****************************************************
      *  Solvers <dqrobotics/solvers/...>
      * **************************************************/
-    py::module solvers = m.def_submodule("_solvers", "The solvers submodule of dqrobotics");
+    py::module solvers = m.def_submodule("_solvers", "Quadratic-programming solver interfaces used by the QP-based kinematic controllers.");
 
     //DQ_QuadraticProgrammingSolver
     init_DQ_QuadraticProgrammingSolver_py(solvers);
@@ -120,17 +130,18 @@ PYBIND11_MODULE(_dqrobotics, m) {
     /*****************************************************
      *  Robot Control <dqrobotics/robot_control/...>
      * **************************************************/
-    py::module robot_control = m.def_submodule("_robot_control", "The robot_control submodule of dqrobotics");
+    py::module robot_control = m.def_submodule("_robot_control", "Kinematic controllers that drive a robot's task-space error to zero.");
 
-    py::enum_<ControlObjective>(robot_control, "ControlObjective")
-            .value("Line",           ControlObjective::Line)
-            .value("None",           ControlObjective::None)
-            .value("Pose",           ControlObjective::Pose)
-            .value("Plane",          ControlObjective::Plane)
-            .value("Distance",       ControlObjective::Distance)
-            .value("DistanceToPlane",ControlObjective::DistanceToPlane)
-            .value("Rotation",       ControlObjective::Rotation)
-            .value("Translation",    ControlObjective::Translation)
+    py::enum_<ControlObjective>(robot_control, "ControlObjective",
+                                 "Enumerates the task-space objectives supported by DQ_KinematicController.")
+            .value("Line",           ControlObjective::Line,           "Control a line primitive attached to the end-effector.")
+            .value("None",           ControlObjective::None,           "No control objective has been selected yet.")
+            .value("Pose",           ControlObjective::Pose,           "Control the full end-effector pose.")
+            .value("Plane",          ControlObjective::Plane,          "Control a plane primitive attached to the end-effector.")
+            .value("Distance",       ControlObjective::Distance,       "Control the squared distance between the end-effector translation and the origin.")
+            .value("DistanceToPlane",ControlObjective::DistanceToPlane,"Control the signed distance from the end-effector point to a target plane.")
+            .value("Rotation",       ControlObjective::Rotation,       "Control only the end-effector orientation.")
+            .value("Translation",    ControlObjective::Translation,    "Control only the end-effector translation.")
             .export_values();
 
     //DQ_KinematicController
@@ -154,12 +165,12 @@ PYBIND11_MODULE(_dqrobotics, m) {
     /*****************************************************
      *  Interfaces Submodule
      * **************************************************/
-    py::module interfaces_py = m.def_submodule("_interfaces", "A submodule of dqrobotics");
+    py::module interfaces_py = m.def_submodule("_interfaces", "Interfaces to third-party simulators and data formats.");
 
     /*****************************************************
      *  Json11 submodule
      * **************************************************/
-    py::module json11_py = interfaces_py.def_submodule("_json11", "A submodule of dqrobotics");
+    py::module json11_py = interfaces_py.def_submodule("_json11", "Reads dqrobotics objects (DQ, robot models) serialized as JSON using the json11 library.");
 
     //DQ_JsonReader
     init_DQ_JsonReader_py(json11_py);

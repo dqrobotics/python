@@ -22,16 +22,35 @@ Contributors:
 
 #include "../dqrobotics_module.h"
 
+/**
+ * @brief Binds `DQ_ClassicQPController`, which implements the classic
+ * quadratic-programming kinematic controller based on task-space variables, to
+ * the Python module @p m.
+ */
 void init_DQ_ClassicQPController_py(py::module& m)
 {
     /*****************************************************
      *  DQ ClassicQPController
      * **************************************************/
-    py::class_<DQ_ClassicQPController, DQ_QuadraticProgrammingController> dq_classicqpcontroller_py(m,"DQ_ClassicQPController");
+    py::class_<DQ_ClassicQPController, DQ_QuadraticProgrammingController> dq_classicqpcontroller_py(
+        m,
+        "DQ_ClassicQPController",
+        "Implements the classic quadratic-programming kinematic controller based on task-space variables.");
     dq_classicqpcontroller_py.def(py::init<
                                   const std::shared_ptr<DQ_Kinematics>&,
                                   const std::shared_ptr<DQ_QuadraticProgrammingSolver>&
-                                  >());
-    dq_classicqpcontroller_py.def("compute_objective_function_symmetric_matrix", &DQ_ClassicQPController::compute_objective_function_symmetric_matrix, "Compute symmetric matrix.");
-    dq_classicqpcontroller_py.def("compute_objective_function_linear_component", &DQ_ClassicQPController::compute_objective_function_linear_component, "Compute the objective function.");
+                                  >(),
+                                  py::arg("robot"),
+                                  py::arg("solver"),
+                                  "Constructs a classic QP controller from shared pointers.");
+    dq_classicqpcontroller_py.def("compute_objective_function_symmetric_matrix",
+                                  &DQ_ClassicQPController::compute_objective_function_symmetric_matrix,
+                                  py::arg("J"),
+                                  py::arg("task_error"),
+                                  "Computes the symmetric matrix H used in the quadratic objective.");
+    dq_classicqpcontroller_py.def("compute_objective_function_linear_component",
+                                  &DQ_ClassicQPController::compute_objective_function_linear_component,
+                                  py::arg("J"),
+                                  py::arg("task_error"),
+                                  "Computes the linear vector f used in the quadratic objective.");
 }

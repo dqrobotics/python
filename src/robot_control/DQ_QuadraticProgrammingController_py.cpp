@@ -62,18 +62,46 @@ public:
 };
 
 
+/**
+ * @brief Binds `DQ_QuadraticProgrammingController`, an abstract class that
+ * defines task-space kinematic controllers based on quadratic programming, to
+ * the Python module @p m.
+ */
 void init_DQ_QuadraticProgrammingController_py(py::module& m)
 {
     /*****************************************************
      *  DQ TaskspaceQuadraticProgrammingController
      * **************************************************/
-    py::class_<DQ_QuadraticProgrammingController, DQ_KinematicConstrainedController, DQ_QuadraticProgrammingControllerPy> qpcpy(m,"DQ_QuadraticProgrammingController");
+    py::class_<DQ_QuadraticProgrammingController, DQ_KinematicConstrainedController, DQ_QuadraticProgrammingControllerPy> qpcpy(
+        m,
+        "DQ_QuadraticProgrammingController",
+        "Abstract class that defines task-space kinematic controllers based on quadratic programming.");
     qpcpy.def(py::init<
               const std::shared_ptr<DQ_Kinematics>&,
               const std::shared_ptr<DQ_QuadraticProgrammingSolver>&
-              >());
-    qpcpy.def("compute_objective_function_symmetric_matrix", &DQ_QuadraticProgrammingController::compute_objective_function_symmetric_matrix, "Compute symmetric matrix.");
-    qpcpy.def("compute_objective_function_linear_component", &DQ_QuadraticProgrammingController::compute_objective_function_linear_component, "Compute the objective function.");
-    qpcpy.def("compute_setpoint_control_signal", &DQ_QuadraticProgrammingController::compute_setpoint_control_signal, "Compute the setpoint control signal.");
-    qpcpy.def("compute_tracking_control_signal", &DQ_QuadraticProgrammingController::compute_tracking_control_signal, "Compute the tracking control signal.");
+              >(),
+              py::arg("robot"),
+              py::arg("solver"),
+              "Constructs a controller from shared pointers.");
+    qpcpy.def("compute_objective_function_symmetric_matrix",
+              &DQ_QuadraticProgrammingController::compute_objective_function_symmetric_matrix,
+              py::arg("J"),
+              py::arg("task_error"),
+              "Computes the symmetric matrix H of the quadratic objective.");
+    qpcpy.def("compute_objective_function_linear_component",
+              &DQ_QuadraticProgrammingController::compute_objective_function_linear_component,
+              py::arg("J"),
+              py::arg("task_error"),
+              "Computes the linear vector f of the quadratic objective.");
+    qpcpy.def("compute_setpoint_control_signal",
+              &DQ_QuadraticProgrammingController::compute_setpoint_control_signal,
+              py::arg("q"),
+              py::arg("task_reference"),
+              "Computes the reference joint velocities for a setpoint task.");
+    qpcpy.def("compute_tracking_control_signal",
+              &DQ_QuadraticProgrammingController::compute_tracking_control_signal,
+              py::arg("q"),
+              py::arg("task_reference"),
+              py::arg("feed_forward"),
+              "Computes the reference joint velocities for a tracking task with feedforward.");
 }

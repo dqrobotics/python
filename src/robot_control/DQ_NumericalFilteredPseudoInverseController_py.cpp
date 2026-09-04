@@ -56,6 +56,11 @@ public:
 };
 
 
+/**
+ * @brief Binds `DQ_NumericalFilteredPseudoinverseController`, which
+ * implements a singularity-robust pseudoinverse controller with numerical
+ * filtered damping, to the Python module @p m.
+ */
 void init_DQ_NumericalFilteredPseudoInverseController_py(py::module& m)
 {
     /*****************************************************
@@ -65,17 +70,47 @@ void init_DQ_NumericalFilteredPseudoInverseController_py(py::module& m)
             DQ_NumericalFilteredPseudoinverseController,
             DQ_NumericalFilteredPseudoinverseControllerPy,
             DQ_PseudoinverseController
-            > nfpic(m,"DQ_NumericalFilteredPseudoinverseController");
+            > nfpic(
+                m,
+                "DQ_NumericalFilteredPseudoinverseController",
+                "Implements a singularity-robust pseudoinverse controller with numerical filtered damping.");
     nfpic.def(py::init<
               const std::shared_ptr<DQ_Kinematics>&
-              >());
-    nfpic.def("compute_setpoint_control_signal",&DQ_NumericalFilteredPseudoinverseController::compute_setpoint_control_signal,"Computes the setpoint control signal.");
-    nfpic.def("compute_tracking_control_signal",&DQ_NumericalFilteredPseudoinverseController::compute_tracking_control_signal,"Computes the tracking control signal.");
-    nfpic.def("set_maximum_numerical_filtered_damping",&DQ_NumericalFilteredPseudoinverseController::set_maximum_numerical_filtered_damping,"Sets the maximum numerical filtered damping.");
-    nfpic.def("set_singular_region_size",&DQ_NumericalFilteredPseudoinverseController::set_singular_region_size,"Sets the singular region size.");
-    nfpic.def("get_maximum_numerical_filtered_damping",&DQ_NumericalFilteredPseudoinverseController::get_maximum_numerical_filtered_damping,"Gets the maximum numerical filtered damping.");
-    nfpic.def("get_singular_region_size",&DQ_NumericalFilteredPseudoinverseController::get_singular_region_size,"Gets the singular region size.");
-    nfpic.def("get_last_filtered_damping",&DQ_NumericalFilteredPseudoinverseController::get_last_filtered_damping,"Gets the last filtered damping.");
-    nfpic.def("get_last_jacobian_rank",&DQ_NumericalFilteredPseudoinverseController::get_last_jacobian_rank,"Gets the last Jacobian rank.");
-    nfpic.def("get_last_jacobian_svd",&DQ_NumericalFilteredPseudoinverseController::get_last_jacobian_svd,"Gets the last Jacobian svd.");
+              >(),
+              py::arg("robot"),
+              "Constructs a controller from a shared robot pointer.");
+    nfpic.def("compute_setpoint_control_signal",
+              &DQ_NumericalFilteredPseudoinverseController::compute_setpoint_control_signal,
+              py::arg("q"),
+              py::arg("task_reference"),
+              "Computes the reference joint velocities for a setpoint task using numerical filtered damping.");
+    nfpic.def("compute_tracking_control_signal",
+              &DQ_NumericalFilteredPseudoinverseController::compute_tracking_control_signal,
+              py::arg("q"),
+              py::arg("task_reference"),
+              py::arg("feed_forward"),
+              "Computes the reference joint velocities for a tracking task using numerical filtered damping.");
+    nfpic.def("set_maximum_numerical_filtered_damping",
+              &DQ_NumericalFilteredPseudoinverseController::set_maximum_numerical_filtered_damping,
+              py::arg("numerical_filtered_damping"),
+              "Sets the maximum numerical filtered damping.");
+    nfpic.def("set_singular_region_size",
+              &DQ_NumericalFilteredPseudoinverseController::set_singular_region_size,
+              py::arg("singular_region_size"),
+              "Sets the size of the singular region.");
+    nfpic.def("get_maximum_numerical_filtered_damping",
+              &DQ_NumericalFilteredPseudoinverseController::get_maximum_numerical_filtered_damping,
+              "Returns the maximum numerical filtered damping.");
+    nfpic.def("get_singular_region_size",
+              &DQ_NumericalFilteredPseudoinverseController::get_singular_region_size,
+              "Returns the size of the singular region.");
+    nfpic.def("get_last_filtered_damping",
+              &DQ_NumericalFilteredPseudoinverseController::get_last_filtered_damping,
+              "Returns the filtered damping matrix computed in the last control step.");
+    nfpic.def("get_last_jacobian_rank",
+              &DQ_NumericalFilteredPseudoinverseController::get_last_jacobian_rank,
+              "Returns the rank of the last processed Jacobian.");
+    nfpic.def("get_last_jacobian_svd",
+              &DQ_NumericalFilteredPseudoinverseController::get_last_jacobian_svd,
+              "Returns the singular value decomposition of the last processed Jacobian.");
 }

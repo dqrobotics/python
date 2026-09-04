@@ -42,6 +42,11 @@ public:
     }
 };
 
+/**
+ * @brief Binds `DQ_QuadraticProgrammingSolver`, an abstract interface to
+ * quadratic-programming solvers used by DQ Robotics controllers, to the
+ * Python module @p m.
+ */
 void init_DQ_QuadraticProgrammingSolver_py(py::module& m)
 {
     /*****************************************************
@@ -51,7 +56,19 @@ void init_DQ_QuadraticProgrammingSolver_py(py::module& m)
             DQ_QuadraticProgrammingSolver,
             std::shared_ptr<DQ_QuadraticProgrammingSolver>,
             DQ_QuadraticProgrammingSolverPy
-            > dqquadraticprogrammingsolver_py(m,"DQ_QuadraticProgrammingSolver");
-    dqquadraticprogrammingsolver_py.def(py::init<>());
-    dqquadraticprogrammingsolver_py.def("solve_quadratic_program", &DQ_QuadraticProgrammingSolver::solve_quadratic_program, "Solves a quadratic program");
+            > dqquadraticprogrammingsolver_py(
+                m,
+                "DQ_QuadraticProgrammingSolver",
+                "Abstract interface to quadratic-programming solvers used by DQ Robotics controllers.");
+    dqquadraticprogrammingsolver_py.def(py::init<>(),
+                                        "Default constructor for solver interfaces.");
+    dqquadraticprogrammingsolver_py.def("solve_quadratic_program",
+                                        &DQ_QuadraticProgrammingSolver::solve_quadratic_program,
+                                        py::arg("H"),
+                                        py::arg("f"),
+                                        py::arg("A"),
+                                        py::arg("b"),
+                                        py::arg("Aeq"),
+                                        py::arg("beq"),
+                                        "Solves a quadratic program.");
 }

@@ -22,6 +22,10 @@ Contributors:
 
 #include "../../dqrobotics_module.h"
 
+/**
+ * @brief Binds `DQ_VrepRobot`, a base robot wrapper that exposes
+ * configuration-space exchanges with CoppeliaSim, to the Python module @p m.
+ */
 void init_DQ_VrepRobot_py(py::module& m)
 {
     /*****************************************************
@@ -30,12 +34,25 @@ void init_DQ_VrepRobot_py(py::module& m)
     py::class_<
             DQ_VrepRobot,
             std::shared_ptr<DQ_VrepRobot>
-            > dqvreprobot_py(m,"DQ_VrepRobot");
+            > dqvreprobot_py(
+                    m,
+                    "DQ_VrepRobot",
+                    "Base robot wrapper for reading and writing configuration-space values in CoppeliaSim.");
 
-    dqvreprobot_py.def("set_configuration_space_positions", &DQ_VrepRobot::set_configuration_space_positions, "Sets the configuration space positions in CoppeliaSim.");
-    dqvreprobot_py.def("get_configuration_space_positions", &DQ_VrepRobot::get_configuration_space_positions, "Gets the configuration space positions in CoppeliaSim.");
+    dqvreprobot_py.def("set_configuration_space_positions",
+                       &DQ_VrepRobot::set_configuration_space_positions,
+                       py::arg("q"),
+                       "Sets the robot configuration-space positions in CoppeliaSim.");
+    dqvreprobot_py.def("get_configuration_space_positions",
+                       &DQ_VrepRobot::get_configuration_space_positions,
+                       "Gets the robot configuration-space positions from CoppeliaSim.");
 
     //Deprecated
-    dqvreprobot_py.def("send_q_to_vrep", &DQ_VrepRobot::send_q_to_vrep, "Get joint values from vrep.");
-    dqvreprobot_py.def("get_q_from_vrep", &DQ_VrepRobot::get_q_from_vrep, "Send joint values to vrep.");
+    dqvreprobot_py.def("send_q_to_vrep",
+                       &DQ_VrepRobot::send_q_to_vrep,
+                       py::arg("q"),
+                       "Deprecated alias for setting the robot configuration-space positions in CoppeliaSim.");
+    dqvreprobot_py.def("get_q_from_vrep",
+                       &DQ_VrepRobot::get_q_from_vrep,
+                       "Deprecated alias for getting the robot configuration-space positions from CoppeliaSim.");
 }

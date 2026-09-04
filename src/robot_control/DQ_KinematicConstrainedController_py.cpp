@@ -22,13 +22,29 @@ Contributors:
 
 #include "../dqrobotics_module.h"
 
+/**
+ * @brief Binds `DQ_KinematicConstrainedController`, an abstract superclass
+ * used to define concrete kinematic controllers with algebraic constraints,
+ * to the Python module @p m.
+ */
 void init_DQ_KinematicConstrainedController_py(py::module& m)
 {
     /*****************************************************
      *  DQ KinematicConstrainedController
      * **************************************************/
-    py::class_<DQ_KinematicConstrainedController, DQ_KinematicController> dqkinematicconstrainedcontroller_py(m,"DQ_KinematicConstrainedController");
-    dqkinematicconstrainedcontroller_py.def("set_equality_constraint", &DQ_KinematicConstrainedController::set_equality_constraint,  "Sets equality constraints.");
-    dqkinematicconstrainedcontroller_py.def("set_inequality_constraint", &DQ_KinematicConstrainedController::set_inequality_constraint,  "Sets inequality constraints.");
+    py::class_<DQ_KinematicConstrainedController, DQ_KinematicController> dqkinematicconstrainedcontroller_py(
+        m,
+        "DQ_KinematicConstrainedController",
+        "Abstract superclass used to define concrete kinematic controllers with algebraic constraints.");
+    dqkinematicconstrainedcontroller_py.def("set_equality_constraint",
+                                            &DQ_KinematicConstrainedController::set_equality_constraint,
+                                            py::arg("B"),
+                                            py::arg("b"),
+                                            "Sets the equality constraint passed to constrained control laws.");
+    dqkinematicconstrainedcontroller_py.def("set_inequality_constraint",
+                                            &DQ_KinematicConstrainedController::set_inequality_constraint,
+                                            py::arg("B"),
+                                            py::arg("b"),
+                                            "Sets the inequality constraint passed to constrained control laws.");
 
 }

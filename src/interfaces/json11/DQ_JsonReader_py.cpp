@@ -22,12 +22,28 @@ Contributors:
 
 #include "../../dqrobotics_module.h"
 
+/**
+ * @brief Binds `DQ_JsonReader`, which reads supported robot-description JSON
+ * files and constructs serial manipulator objects from them, to the Python
+ * module @p m.
+ */
 void init_DQ_JsonReader_py(py::module& m)
 {
-    py::class_<DQ_JsonReader> jsonreader_py(m,"DQ_JsonReader");
-    jsonreader_py.def(py::init<>());
+    py::class_<DQ_JsonReader> jsonreader_py(
+            m,
+            "DQ_JsonReader",
+            "Reads supported robot-description JSON files and constructs serial manipulator objects from them.");
+    jsonreader_py.def(py::init<>(), "Constructs a JSON reader instance.");
 
-    jsonreader_py.def_static("get_serial_manipulator_dh_from_json",&DQ_JsonReader::get_from_json<DQ_SerialManipulatorDH>,"Gets a DQ_KinematicsDH instance from a .json file");
-    jsonreader_py.def_static("get_serial_manipulator_denso_from_json",&DQ_JsonReader::get_from_json<DQ_SerialManipulatorDenso>,"Gets a DQ_KinematicsDenso instance from a .json file");
+    jsonreader_py.def_static(
+            "get_serial_manipulator_dh_from_json",
+            &DQ_JsonReader::get_from_json<DQ_SerialManipulatorDH>,
+            py::arg("file"),
+            "Reads a JSON file describing a DQ_SerialManipulatorDH, converts angle fields according to the file's angle mode, initializes the common serial-manipulator properties, and returns the resulting model.");
+    jsonreader_py.def_static(
+            "get_serial_manipulator_denso_from_json",
+            &DQ_JsonReader::get_from_json<DQ_SerialManipulatorDenso>,
+            py::arg("file"),
+            "Reads a JSON file describing a DQ_SerialManipulatorDenso, converts angle fields according to the file's angle mode, initializes the common serial-manipulator properties, and returns the resulting model.");
     //This might be relevant in the future https://github.com/pybind/pybind11/issues/199
 }
