@@ -107,9 +107,9 @@ void init_DQ_py(py::module& m)
     dq.def(py::self + double(), "Returns the addition between this dual quaternion and a scalar.");
     dq.def(double()  - py::self, "Returns the subtraction between a scalar and this dual quaternion.");
     dq.def(py::self - double(), "Returns the subtraction between this dual quaternion and a scalar.");
-    dq.def(double()  == py::self, "Returns true if a scalar and this dual quaternion are equal, up to a numerical threshold.");
+    // No `double() == py::self` or `double() != py::self`: they would bind a second, unreachable `__eq__`/`__ne__`,
+    // since Python already evaluates `scalar == dq` as the reflected `dq == scalar`.
     dq.def(py::self == double(), "Returns true if this dual quaternion and a scalar are equal, up to a numerical threshold.");
-    dq.def(double()  != py::self, "Returns true if a scalar and this dual quaternion are different, up to a numerical threshold.");
     dq.def(py::self != double(), "Returns true if this dual quaternion and a scalar are different, up to a numerical threshold.");
 
     ///Namespace Functions

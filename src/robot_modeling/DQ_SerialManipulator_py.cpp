@@ -90,16 +90,35 @@ void init_DQ_SerialManipulator_py(py::module& m)
         py::arg("q_vec"),
         "Computes the raw forward kinematics up to the last link and returns the pose before applying the reference frame and the end effector.");
     dqserialmanipulator_py.def(
+        "raw_fkm",
+        (DQ (DQ_SerialManipulator::*)(const VectorXd&, const int&) const)&DQ_SerialManipulator::raw_fkm,
+        py::arg("q_vec"),
+        py::arg("to_ith_link"),
+        "Computes the raw forward kinematics up to the requested link and returns the pose before applying the reference frame and the end effector.");
+    dqserialmanipulator_py.def(
         "raw_pose_jacobian",
         (MatrixXd (DQ_SerialManipulator::*)(const VectorXd&) const)&DQ_SerialManipulator::raw_pose_jacobian,
         py::arg("q_vec"),
         "Computes the raw pose Jacobian up to the last link, without reference-frame or end-effector transformations.");
+    dqserialmanipulator_py.def(
+        "raw_pose_jacobian",
+        (MatrixXd (DQ_SerialManipulator::*)(const VectorXd&, const int&) const)&DQ_SerialManipulator::raw_pose_jacobian,
+        py::arg("q_vec"),
+        py::arg("to_ith_link"),
+        "Computes the raw pose Jacobian up to the requested link, without reference-frame or end-effector transformations.");
     dqserialmanipulator_py.def(
         "raw_pose_jacobian_derivative",
         (MatrixXd (DQ_SerialManipulator::*)(const VectorXd&, const VectorXd&) const)&DQ_SerialManipulator::raw_pose_jacobian_derivative,
         py::arg("q"),
         py::arg("q_dot"),
         "Computes the time derivative of the raw pose Jacobian up to the last link.");
+    dqserialmanipulator_py.def(
+        "raw_pose_jacobian_derivative",
+        (MatrixXd (DQ_SerialManipulator::*)(const VectorXd&, const VectorXd&, const int&) const)&DQ_SerialManipulator::raw_pose_jacobian_derivative,
+        py::arg("q"),
+        py::arg("q_dot"),
+        py::arg("to_ith_link"),
+        "Computes the time derivative of the raw pose Jacobian up to the requested link.");
 
     dqserialmanipulator_py.def(
         "fkm",

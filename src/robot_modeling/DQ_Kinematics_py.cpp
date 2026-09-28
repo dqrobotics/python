@@ -50,7 +50,7 @@ void init_DQ_Kinematics_py(py::module& m)
     dqkinematics_py.def(
         "set_reference_frame",
         &DQ_Kinematics::set_reference_frame,
-        py::arg("get_reference_frame"),
+        py::arg("reference_frame"),
         "Sets the reference frame used by the forward kinematics and Jacobian methods.");
     dqkinematics_py.def(
         "get_base_frame",
@@ -59,7 +59,7 @@ void init_DQ_Kinematics_py(py::module& m)
     dqkinematics_py.def(
         "set_base_frame",
         &DQ_Kinematics::set_base_frame,
-        py::arg("get_base_frame"),
+        py::arg("base_frame"),
         "Sets the physical base frame of the robot in the workspace.");
 
     dqkinematics_py.def_static(

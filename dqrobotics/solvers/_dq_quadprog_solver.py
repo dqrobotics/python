@@ -23,31 +23,41 @@
 #
 # ################################################################
 """
+from __future__ import annotations
+from typing import Optional
 from dqrobotics._dqrobotics._solvers import DQ_QuadraticProgrammingSolver
 import numpy as np
+from numpy.typing import NDArray
 import quadprog
 
 class DQ_QuadprogSolver(DQ_QuadraticProgrammingSolver):
-    def __init__(self):
+    def __init__(self) -> None:
         DQ_QuadraticProgrammingSolver.__init__(self)
-        self.equality_constraints_tolerance = 0  # default of np.finfo(np.float64).eps is already included in the solver
+        self.equality_constraints_tolerance: float = 0  # default of np.finfo(np.float64).eps is already included in the solver
         pass
 
-    def set_equality_constraints_tolerance(self, tolerance):
+    def set_equality_constraints_tolerance(self, tolerance: float) -> None:
         """
         Set allowed tolerance for the equality constraints
         :param tolerance: Tolerance allowed for equality constraints
         """
         self.equality_constraints_tolerance = tolerance
 
-    def get_equality_constraints_tolerance(self):
+    def get_equality_constraints_tolerance(self) -> float:
         """
         Get allowed tolerance for the equality constraints
         :return: Current tolerance
         """
         return self.equality_constraints_tolerance
 
-    def solve_quadratic_program(self, H, f, A, b, Aeq, beq):
+    # Narrower than the base class's ArrayLike: this implementation requires numpy arrays.
+    def solve_quadratic_program(self,  # type: ignore[override]
+                                H: NDArray[np.float64],
+                                f: NDArray[np.float64],
+                                A: Optional[NDArray[np.float64]],
+                                b: Optional[NDArray[np.float64]],
+                                Aeq: Optional[NDArray[np.float64]],
+                                beq: Optional[NDArray[np.float64]]) -> NDArray[np.float64]:
         """
          Solves the following quadratic program
             min(x)  0.5*x'Hx + f'x
@@ -81,24 +91,29 @@ class DQ_QuadprogSolver(DQ_QuadraticProgrammingSolver):
         # Turn equality into a bounded inequality
         ## Aeq.x <= beq + delta
         ## Aeq.x >= beq - delta ==> -Aeq.x <= -beq + delta
-        if Aeq is not None: # beq is None already checked by the ValueError
+        if Aeq is not None:
+            assert beq is not None  # Already checked by the ValueError
             Aeq = np.vstack([Aeq, -Aeq])
             beq = beq.reshape(-1)
             beq = np.concatenate([beq + self.equality_constraints_tolerance, -beq + self.equality_constraints_tolerance])
 
-        # Use (A,b), (Aeq,beq), or both.
-        if Aeq is None:
-            A_internal = A
-            b_internal = b
-        if A is None:
-            A_internal = Aeq
-            b_internal = beq
-        if Aeq is not None and A is not None:
+        # Use (A,b), (Aeq,beq), or both. The asserts were already checked by the ValueError.
+        A_internal: NDArray[np.float64]
+        b_internal: NDArray[np.float64]
+        if A is not None and Aeq is not None:
+            assert b is not None and beq is not None
             A_internal = np.vstack([A, Aeq])
             b_internal = np.concatenate([b.reshape(-1), beq])
-
-        # Solve for the unconstrained case. quadprog does not accept None, so we add a dummy constraint.
-        if A is None and b is None and Aeq is None and beq is None:
+        elif A is not None:
+            assert b is not None
+            A_internal = A
+            b_internal = b
+        elif Aeq is not None:
+            assert beq is not None
+            A_internal = Aeq
+            b_internal = beq
+        else:
+            # Solve for the unconstrained case. quadprog does not accept None, so we add a dummy constraint.
             A_internal = np.zeros((1, H.shape[0]))
             b_internal = np.zeros(1)
 

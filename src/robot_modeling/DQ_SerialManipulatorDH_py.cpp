@@ -64,16 +64,32 @@ void init_DQ_SerialManipulatorDH_py(py::module& m)
 
     dqserialmanipulatordh_py.def(
         "raw_pose_jacobian",
+        (MatrixXd (DQ_SerialManipulatorDH::*)(const VectorXd&) const)&DQ_SerialManipulatorDH::raw_pose_jacobian,
+        py::arg("q_vec"),
+        "Computes the raw pose Jacobian up to the last link.");
+    dqserialmanipulatordh_py.def(
+        "raw_pose_jacobian",
         (MatrixXd (DQ_SerialManipulatorDH::*)(const VectorXd&, const int&) const)&DQ_SerialManipulatorDH::raw_pose_jacobian,
         py::arg("q_vec"),
         py::arg("to_ith_link"),
         "Computes the raw pose Jacobian under the standard DH convention up to the requested link.");
     dqserialmanipulatordh_py.def(
         "raw_fkm",
+        (DQ (DQ_SerialManipulatorDH::*)(const VectorXd&) const)&DQ_SerialManipulatorDH::raw_fkm,
+        py::arg("q_vec"),
+        "Computes the raw forward kinematics up to the last link.");
+    dqserialmanipulatordh_py.def(
+        "raw_fkm",
         (DQ (DQ_SerialManipulatorDH::*)(const VectorXd&, const int&) const)&DQ_SerialManipulatorDH::raw_fkm,
         py::arg("q_vec"),
         py::arg("to_ith_link"),
         "Computes the raw forward kinematics under the standard DH convention up to the requested link.");
+    dqserialmanipulatordh_py.def(
+        "raw_pose_jacobian_derivative",
+        (MatrixXd (DQ_SerialManipulatorDH::*)(const VectorXd&, const VectorXd&) const)&DQ_SerialManipulatorDH::raw_pose_jacobian_derivative,
+        py::arg("q"),
+        py::arg("q_dot"),
+        "Computes the time derivative of the raw pose Jacobian up to the last link.");
     dqserialmanipulatordh_py.def(
         "raw_pose_jacobian_derivative",
         (MatrixXd (DQ_SerialManipulatorDH::*)(const VectorXd&, const VectorXd&, const int&) const)&DQ_SerialManipulatorDH::raw_pose_jacobian_derivative,

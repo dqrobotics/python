@@ -11,13 +11,13 @@ from distutils.version import LooseVersion
 
 
 class CMakeExtension(Extension):
-    def __init__(self, name, sourcedir=''):
+    def __init__(self, name: str, sourcedir: str = '') -> None:
         Extension.__init__(self, name, sources=[])
         self.sourcedir = os.path.abspath(sourcedir)
 
 
 class CMakeBuild(build_ext):
-    def run(self):
+    def run(self) -> None:
         try:
             out = subprocess.check_output(['cmake', '--version'])
         except OSError:
@@ -32,7 +32,7 @@ class CMakeBuild(build_ext):
         for ext in self.extensions:
             self.build_extension(ext)
 
-    def build_extension(self, ext):
+    def build_extension(self, ext: CMakeExtension) -> None:
         extdir = os.path.abspath(os.path.dirname(self.get_ext_fullpath(ext.name)))
         cmake_args = ['-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=' + extdir,
                       '-DPYTHON_EXECUTABLE=' + sys.executable]
@@ -71,7 +71,7 @@ setup(
     zip_safe=False,
     packages=find_namespace_packages(where='.', exclude=['*pybind11*', '*tests*']),
     package_data={
-        'dqrobotics-stubs': ["**/*.pyi"],
+        'dqrobotics': ["py.typed", "_dqrobotics/**/*.pyi"],
     },
     classifiers=[
         "Programming Language :: Python :: 3.10",

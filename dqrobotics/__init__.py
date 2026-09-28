@@ -23,5 +23,5 @@
 #
 # ################################################################
 """
-from dqrobotics._dqrobotics import *
+from ._dqrobotics import *
 
