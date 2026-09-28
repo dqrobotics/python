@@ -36,3 +36,9 @@ enabled = true
 # https://stackoverflow.com/questions/73605607/how-to-use-setuptools-scm
 dev_template = "{tag}.a{ccount}"
 dirty_template = "{tag}.a{ccount}"
+
+[tool.mypy]
+# The optional solver backends of dqrobotics.solvers ship no type information.
+[[tool.mypy.overrides]]
+module = ["quadprog", "cplex"]
+ignore_missing_imports = true

@@ -60,15 +60,15 @@ void init_DQ_DifferentialDriveRobot_py(py::module& m)
         "Computes the full constrained pose Jacobian.");
     dqdifferentialdriverobot_py.def(
         "pose_jacobian_derivative",
+        (MatrixXd (DQ_DifferentialDriveRobot::*)(const VectorXd&, const VectorXd&) const)&DQ_DifferentialDriveRobot::pose_jacobian_derivative,
+        py::arg("q"),
+        py::arg("q_dot"),
+        "Computes the full time derivative of the constrained pose Jacobian.");
+    dqdifferentialdriverobot_py.def(
+        "pose_jacobian_derivative",
         (MatrixXd (DQ_DifferentialDriveRobot::*)(const VectorXd&, const VectorXd&, const int&) const)&DQ_DifferentialDriveRobot::pose_jacobian_derivative,
         py::arg("q"),
         py::arg("q_dot"),
         py::arg("to_link"),
         "Computes the time derivative of the constrained pose Jacobian up to the requested column.");
-    dqdifferentialdriverobot_py.def(
-        "pose_jacobian_derivative",
-        (MatrixXd (DQ_DifferentialDriveRobot::*)(const VectorXd&, const VectorXd&) const)&DQ_DifferentialDriveRobot::pose_jacobian_derivative,
-        py::arg("q"),
-        py::arg("q_dot"),
-        "Computes the full time derivative of the constrained pose Jacobian.");
 }

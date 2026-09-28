@@ -98,10 +98,6 @@ void init_DQ_QuadraticProgrammingController_py(py::module& m);
 //dqrobotics/solvers
 void init_DQ_QuadraticProgrammingSolver_py(py::module& m);
 
-//dqrobotics/interfaces/coppeliasim
-void init_DQ_CoppeliaSimInterface_py(py::module& m);
-void init_DQ_CoppeliaSimInterfaceZMQ_py(py::module& m);
-
 //dqrobotics/interfaces/json11
 void init_DQ_JsonReader_py(py::module& m);
 

@@ -23,21 +23,30 @@
 #
 # ################################################################
 """
+from __future__ import annotations
 from dqrobotics._dqrobotics._solvers import DQ_QuadraticProgrammingSolver
 import numpy as np
+from numpy.typing import NDArray
 import cplex
 
 # https://github.com/dqrobotics/python/issues/24
 class DQ_CPLEXSolver(DQ_QuadraticProgrammingSolver):
-    def __init__(self):
+    def __init__(self) -> None:
         DQ_QuadraticProgrammingSolver.__init__(self)
         # Make and set a solver instance
-        self.P = cplex.Cplex()
+        self.P: cplex.Cplex = cplex.Cplex()
         self.P.objective.set_sense(self.P.objective.sense.minimize)
         self.P.set_problem_type(self.P.problem_type.QP)
         self.P.set_results_stream(results_file=None)
 
-    def solve_quadratic_program(self, H, f, A, b, Aeq, beq):
+    # Narrower than the base class's ArrayLike: this implementation requires numpy arrays.
+    def solve_quadratic_program(self,  # type: ignore[override]
+                                H: NDArray[np.float64],
+                                f: NDArray[np.float64],
+                                A: NDArray[np.float64],
+                                b: NDArray[np.float64],
+                                Aeq: NDArray[np.float64],
+                                beq: NDArray[np.float64]) -> NDArray[np.float64]:
         problem_size = H.shape[0]
         inequality_constraint_size = b.shape[0]
         equality_constraint_size = beq.shape[0]

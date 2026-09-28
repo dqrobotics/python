@@ -23,4 +23,4 @@
 #
 # ################################################################
 """
-from dqrobotics._dqrobotics._interfaces import *
+from .._dqrobotics._interfaces import *

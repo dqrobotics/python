@@ -23,14 +23,14 @@
 #
 # ################################################################
 """
-from dqrobotics._dqrobotics._solvers import *
+from .._dqrobotics._solvers import *
 
 try:
-    from dqrobotics.solvers._dq_quadprog_solver import DQ_QuadprogSolver
+    from dqrobotics.solvers._dq_quadprog_solver import DQ_QuadprogSolver as DQ_QuadprogSolver
 except:
     pass
 
 try:
-    from dqrobotics.solvers._dq_cplex_solver import DQ_CPLEXSolver
+    from dqrobotics.solvers._dq_cplex_solver import DQ_CPLEXSolver as DQ_CPLEXSolver
 except:
     pass

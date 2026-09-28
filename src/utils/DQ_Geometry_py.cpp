@@ -97,14 +97,4 @@ void init_DQ_Geometry_py(py::module& m)
                            py::arg("line_point_2"),
                            py::arg("threshold") = DQ_threshold,
                            "Checks whether a line and two endpoints define a valid line segment within the given threshold.");
-    //Overload with the default threshold
-    geometry_py.def_static("is_line_segment",
-                           [](const DQ& line, const DQ& line_point_1, const DQ& line_point_2)
-    {
-        return DQ_Geometry::is_line_segment(line,line_point_1,line_point_2);
-    },
-    py::arg("line"),
-    py::arg("line_point_1"),
-    py::arg("line_point_2"),
-    "Checks whether a line and two endpoints define a valid line segment using the library default threshold.");
 }
